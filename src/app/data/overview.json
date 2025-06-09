@@ -1,0 +1,36 @@
+{
+	"d1": [
+		{
+			"title": "Account",
+			"des": "$250K",
+			"up": "2.3%"
+		},
+		{
+			"title": "Equity",
+			"des": "$256K"
+		},
+		{
+			"title": "Daily PnL",
+			"des": "+1.2K",
+			"up": "2.5%"
+		},
+		{
+			"title": "Strategy Used",
+			"des": "VWAP Pull Back long"
+		}
+	],
+	"d2": [
+		{
+			"title": "Net ROI",
+			"up": "+14%"
+		},
+		{
+			"title": "Active Trades",
+			"down": "3"
+		},
+		{
+			"title": "Today's Volume",
+			"up": "1.2 Contracts"
+		}
+	]
+}
