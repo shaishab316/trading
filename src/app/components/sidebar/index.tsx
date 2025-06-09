@@ -23,44 +23,49 @@ export default function Sidebar() {
 						open ? "px-10" : "px-4 justify-center"
 					} py-4 sticky top-0 z-10 text-white flex`}
 				>
-					{open ? (
-						<GoSidebarExpand
-							className="cursor-pointer"
-							onClick={() => setOpen(false)}
-							title="Collapse sidebar"
-						/>
-					) : (
-						<GoSidebarCollapse
-							className="cursor-pointer"
-							onClick={() => setOpen(true)}
-							title="Expand sidebar"
-						/>
-					)}
+					<button>
+						{open ? (
+							<GoSidebarExpand
+								onClick={() => setOpen(false)}
+								title="Collapse sidebar"
+							/>
+						) : (
+							<GoSidebarCollapse
+								onClick={() => setOpen(true)}
+								title="Expand sidebar"
+							/>
+						)}
+					</button>
 				</div>
 				<div className="flex flex-col">
 					{navLinks.map(([name, href, Icon]) => (
 						<NavLink
 							to={href}
 							className={({ isActive }) =>
-								`flex items-center gap-2 ${
+								`${
 									isActive ? "text-[#B57E10] border-r-4" : "text-white"
 								} hover:bg-white/20 hover:backdrop-blur-md ${
 									open ? "px-10" : "px-4 justify-center"
 								} py-4 min-w-full flex`
 							}
+							title={name}
 						>
-							<Icon />
-							{open && <span>{name}</span>}
+							<button className="flex items-center gap-2">
+								<Icon />
+								{open && <span>{name}</span>}
+							</button>
 						</NavLink>
 					))}
 				</div>
 			</div>
 			<div className="px-10 py-4 space-y-6 text-white">
-				<TbLogout2 className="cursor-pointer" />
-				<div className="flex gap-2 items-center bg-white/20 hover:bg-white/30 rounded-2xl p-1 text-lg cursor-pointer">
+				<button title="Logout">
+					<TbLogout2 />
+				</button>
+				<button className="flex gap-2 items-center bg-white/20 hover:bg-white/30 rounded-2xl p-1 pr-2 text-lg">
 					<RiVoiceAiFill className="text-[#B57E10] bg-black rounded-full w-6 h-6" />
 					{open && <span>Call Wealthy</span>}
-				</div>
+				</button>
 			</div>
 		</div>
 	);
