@@ -1,9 +1,15 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
+import { Provider as StoreProvider } from "react-redux";
+import { RouterProvider } from "react-router-dom";
+import { appRouter } from "./routes";
+import { appStore } from "./redux/store";
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById("√")!).render(
 	<StrictMode>
-		<h1 className="text-3xl font-bold underline">Hello world!</h1>
+		<StoreProvider store={appStore}>
+			<RouterProvider router={appRouter} />
+		</StoreProvider>
 	</StrictMode>
 );
