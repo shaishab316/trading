@@ -10,7 +10,7 @@ import { SiRedux } from "react-icons/si";
 import { VscHistory } from "react-icons/vsc";
 
 export const navLinks: [name: string, href: string, icon: IconType][] = [
-	["Dashboard", "/", RxDashboard],
+	["Dashboard", "/dashboard", RxDashboard],
 	["Controls", "/controls", IoTrendingUp],
 	["Research", "/research", MdOutlineFindInPage],
 	["Execution", "/execution", SiRedux],
