@@ -9,6 +9,7 @@ import { useState } from "react";
 
 export default function Dashboard() {
 	const [extMode, setExtMode] = useState(false);
+	const [vwap, setVwap] = useState(false);
 
 	return (
 		<div className="p-[40px]">
@@ -83,12 +84,31 @@ export default function Dashboard() {
 						<div
 							className={`w-5 h-5 absolute top-0 rounded-full ${
 								extMode
-									? "right-0 bg-gradient-to-b form-[#F9DF7B] to-[#B57E10]"
+									? "right-0 bg-gradient-to-b from-[#F9DF7B] to-[#B57E10]"
 									: "left-0 bg-gray-400"
 							}`}
 						></div>
 					</div>
 				</button>
+			</div>
+
+			<div className="py-6 grid grid-cols-2 gap-2">
+				<div className="flex items-center gap-2">
+					<img src="/logo2.png" alt="logo" />
+					VWAP GLIDE
+					<button
+						className="bg-[#0f616d] rounded-full w-10 h-5 relative"
+						onClick={() => setVwap(!vwap)}
+					>
+						<div
+							className={`w-5 h-5 absolute top-0 rounded-full ${
+								vwap
+									? "right-0 bg-gradient-to-b from-[#F9DF7B] to-[#B57E10]"
+									: "left-0 bg-gray-400"
+							}`}
+						></div>
+					</button>
+				</div>
 			</div>
 		</div>
 	);
