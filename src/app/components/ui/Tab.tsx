@@ -16,7 +16,7 @@ export default function Tab({ data, onChange = () => { } }: {
                 data.map((d, i) => (
                     <button key={i} onClick={() => {
                         onChange(d.value); setActive(d.value);
-                    }} className={`${active === d.value ? "bg-gradient-to-b from-[#CDDB8E] via-[#dab24a] to-[#CDDB8E] rounded-full text-black" : ""} text-sm px-4 py-2`}>{d.children}</button>
+                    }} className={`${active === d.value ? "bg-gradient-to-b from-[#CDDB8E] via-[#dab24a] to-[#CDDB8E] rounded-full text-black" : ""} text-sm px-4 py-1`}>{d.children}</button>
                 ))
             }
         </div>

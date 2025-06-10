@@ -10,6 +10,8 @@ import { BsGraphUpArrow } from "react-icons/bs";
 import { BiBarChartAlt2 } from "react-icons/bi";
 import Tab from "../components/ui/Tab";
 
+const { d1, d2, d3 } = overview;
+
 export default function Dashboard() {
 	const [extMode, setExtMode] = useState(false);
 	const [vwap, setVwap] = useState(false);
@@ -30,7 +32,7 @@ export default function Dashboard() {
 			</div>
 
 			<div className="grid grid-cols-4 gap-4 my-4">
-				{overview["d1"].map((item, idx) => (
+				{d1.map((item, idx) => (
 					<div
 						key={idx}
 						className="flex justify-between items-center gap-2 border border-gray-700 relative rounded-md py-2 px-6"
@@ -51,7 +53,7 @@ export default function Dashboard() {
 
 			<div className="border border-gray-600 p-2 rounded-md flex justify-between items-center">
 				<div className="flex flex-wrap gap-4">
-					{overview["d2"].map((item, idx) => (
+					{d2.map((item, idx) => (
 						<div
 							key={idx}
 							className="flex justify-between items-center gap-2 border border-gray-700 relative rounded-md p-2"
@@ -97,7 +99,7 @@ export default function Dashboard() {
 			<div className="py-6 grid grid-cols-2 gap-2">
 				<div className="space-y-6">
 					<div className="flex items-center gap-2">
-						<img src="/logo2.png" alt="logo" />
+						<img src="/tem/logo2.png" alt="logo" />
 						VWAP GLIDE
 						<button
 							className="bg-[#0f616d] rounded-full w-10 h-5 relative"
@@ -129,6 +131,24 @@ export default function Dashboard() {
 								} onChange={console.log} />
 							</div>
 						</div>
+						<div className="my-4 flex gap-4 flex-wrap items-center">
+							<span className="text-2xl">{d3.volume.value}</span>
+							{d3.volume.up && (
+								<div className="flex gap-2 items-center text-gray-400">
+									{d3.volume.up}
+									<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
+								</div>
+							)}
+							Volume
+							{d3.volume.down && (
+								<div className="flex gap-2 items-center text-gray-400">
+									{d3.volume.down}
+									<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
+								</div>
+							)}
+						</div>
+						<img src="/tem/bar.png" className="w-full" alt="bar" />
+						{/* Delete this img */}
 					</div>
 				</div>
 			</div>

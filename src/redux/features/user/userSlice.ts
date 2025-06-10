@@ -11,7 +11,7 @@ const demoUser: TUser = {
 	id: 1,
 	name: "John Doe",
 	email: "UaR6U@example.com",
-	avatar: "/profile-pic.png",
+	avatar: "/tem/profile-pic.png",
 };
 
 const userSlice = createSlice({

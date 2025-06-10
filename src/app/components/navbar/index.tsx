@@ -32,7 +32,7 @@ export default function Navbar() {
 				{user && (
 					<button title={user.name}>
 						<img
-							src="/profile-pic.png"
+							src="/tem/profile-pic.png"
 							alt="profile"
 							className="w-8 aspect-square rounded-full"
 						/>
