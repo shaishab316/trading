@@ -86,7 +86,7 @@ export default function Dashboard() {
 				</div>
 			</div>
 
-			<div className="py-6 grid grid-cols-2 gap-2">
+			<div className="py-6 grid grid-cols-2 gap-6">
 				<div className="flex flex-col gap-6">
 					<div className="space-y-6">
 						<div className="flex items-center gap-2">

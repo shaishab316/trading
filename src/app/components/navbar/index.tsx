@@ -11,7 +11,7 @@ export default function Navbar() {
 	const user = useAppSelector((state) => state.user.user);
 
 	return (
-		<div className="flex items-center justify-between gap-4 py-4 px-[40px] text-white bg-[#0A0A0A33]">
+		<div className="sticky top-0 z-10 backdrop-blur-md flex items-center justify-between gap-4 py-4 px-[40px] text-white bg-[#0A0A0A]/20">
 			<h1 className="capitalize">{path}</h1>
 			<div className="text-2xl flex items-center gap-4">
 				{!user && (
