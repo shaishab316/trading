@@ -1,5 +1,5 @@
 # Trading App
-
+https://www.figma.com/design/wB9qoLl8YuUcBYsRUPOQlg/Untitled?node-id=0-1&p=f&t=hZcKziXB0mswluDj-0
 This is a trading app built with React and Vite.
 
 ## Features
