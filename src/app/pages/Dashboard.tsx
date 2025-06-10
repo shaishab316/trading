@@ -135,7 +135,7 @@ export default function Dashboard() {
 
 					<div className="space-y-6">
 						<div className="flex items-center gap-2">
-							<img src="/tem/logo2.png" alt="logo" />
+							<img src="/tem/logo2.png" alt="logo" className="saturate-0" />
 							SESSION PROFILE
 							<Switch onToggle={console.log} />
 						</div>
@@ -171,7 +171,7 @@ export default function Dashboard() {
 				<div className="flex flex-col gap-6">
 					<div className="space-y-6">
 						<div className="flex items-center gap-2">
-							<img src="/tem/logo2.png" alt="logo" />
+							<img src="/tem/logo2.png" alt="logo" className="hue-rotate-60" />
 							FLOWPRINT PRO
 							<Switch onToggle={console.log} />
 						</div>
@@ -205,7 +205,7 @@ export default function Dashboard() {
 
 					<div className="space-y-6">
 						<div className="flex items-center gap-2">
-							<img src="/tem/logo2.png" alt="logo" />
+							<img src="/tem/logo2.png" alt="logo" className="hue-rotate-[110deg]" />
 							SMARTZONE
 							<Switch onToggle={console.log} />
 						</div>
