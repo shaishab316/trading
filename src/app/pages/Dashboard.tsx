@@ -6,6 +6,9 @@ import { ImPower } from "react-icons/im";
 import { DiBitbucket } from "react-icons/di";
 import { CiGlobe } from "react-icons/ci";
 import { useState } from "react";
+import { BsGraphUpArrow } from "react-icons/bs";
+import { BiBarChartAlt2 } from "react-icons/bi";
+import Tab from "../components/ui/Tab";
 
 export default function Dashboard() {
 	const [extMode, setExtMode] = useState(false);
@@ -82,32 +85,51 @@ export default function Dashboard() {
 					<span className="ml-1 mr-3">Extension Mode</span>
 					<div className="bg-gray-300 rounded-full w-10 h-5 relative">
 						<div
-							className={`w-5 h-5 absolute top-0 rounded-full ${
-								extMode
-									? "right-0 bg-gradient-to-b from-[#F9DF7B] to-[#B57E10]"
-									: "left-0 bg-gray-400"
-							}`}
+							className={`w-5 h-5 absolute top-0 rounded-full ${extMode
+								? "right-0 bg-gradient-to-b from-[#F9DF7B] to-[#B57E10]"
+								: "left-0 bg-gray-400"
+								}`}
 						></div>
 					</div>
 				</button>
 			</div>
 
 			<div className="py-6 grid grid-cols-2 gap-2">
-				<div className="flex items-center gap-2">
-					<img src="/logo2.png" alt="logo" />
-					VWAP GLIDE
-					<button
-						className="bg-[#0f616d] rounded-full w-10 h-5 relative"
-						onClick={() => setVwap(!vwap)}
-					>
-						<div
-							className={`w-5 h-5 absolute top-0 rounded-full ${
-								vwap
+				<div className="space-y-6">
+					<div className="flex items-center gap-2">
+						<img src="/logo2.png" alt="logo" />
+						VWAP GLIDE
+						<button
+							className="bg-[#0f616d] rounded-full w-10 h-5 relative"
+							onClick={() => setVwap(!vwap)}
+						>
+							<div
+								className={`w-5 h-5 absolute top-0 rounded-full ${vwap
 									? "right-0 bg-gradient-to-b from-[#F9DF7B] to-[#B57E10]"
 									: "left-0 bg-gray-400"
-							}`}
-						></div>
-					</button>
+									}`}
+							></div>
+						</button>
+					</div>
+					<div className="p-6 border border-gray-500 rounded-md">
+						<div className="flex items-center justify-between">
+							<div>UB</div>
+							<div className="flex flex-wrap gap-3">
+								<Tab data={[
+									{
+										children: <BiBarChartAlt2 />,
+										value: "graph"
+									}, {
+										children: <BsGraphUpArrow />,
+										value: 'bar'
+									}
+								]} onChange={console.log} />
+								<Tab data={
+									["15m", "1h", "4h", "all"].map(v => ({ children: v, value: v }))
+								} onChange={console.log} />
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
