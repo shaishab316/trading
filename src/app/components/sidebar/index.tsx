@@ -11,11 +11,11 @@ import { logout } from "../../../redux/features/user/userSlice";
 export default function Sidebar() {
 	const dispatch = useAppDispatch();
 
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 	const user = useAppSelector((state) => state.user.user);
 
 	return (
-		<div className="w-fit flex flex-col relative h-screen overflow-y-auto pb-4 bg-[#0A0A0A33] text-2xl">
+		<div className="w-fit min-w-[70px] flex flex-col relative h-screen overflow-y-auto pb-4 bg-[#0A0A0A33] text-2xl">
 			<img
 				src="/logo.png"
 				alt="logo"
@@ -29,7 +29,7 @@ export default function Sidebar() {
 						open ? "px-10" : "px-4 justify-center"
 					} py-4 sticky top-0 z-10 text-white flex`}
 				>
-					<button>
+					<button className="hidden lg:inline-block">
 						{open ? (
 							<GoSidebarExpand
 								onClick={() => setOpen(false)}
@@ -49,7 +49,7 @@ export default function Sidebar() {
 							to={href}
 							className={({ isActive }) =>
 								`${
-									isActive ? "text-[#B57E10] border-r-4" : "text-white"
+									isActive ? "text-[#B57E10] border-r-2 lg:border-r-4" : "text-white"
 								} hover:bg-white/20 hover:backdrop-blur-md ${
 									open ? "px-10" : "px-4 justify-center"
 								} py-4 min-w-full flex`
@@ -65,7 +65,7 @@ export default function Sidebar() {
 					))}
 				</div>
 			</div>
-			<div className="px-10 py-4 space-y-6 text-white">
+			<div className="mx-auto lg:mx-0 lg:px-10 py-4 space-y-6 text-white">
 				{user && (
 					<button onClick={() => dispatch(logout())} title="Logout">
 						<TbLogout2 />
