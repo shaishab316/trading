@@ -5,16 +5,14 @@ import { RiBarChart2Fill } from "react-icons/ri";
 import { ImPower } from "react-icons/im";
 import { DiBitbucket } from "react-icons/di";
 import { CiGlobe } from "react-icons/ci";
-import { useState } from "react";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { BiBarChartAlt2 } from "react-icons/bi";
 import Tab from "../components/ui/Tab";
+import Switch from "../components/ui/Switch";
 
 const { d1, d2, d3 } = overview;
 
 export default function Dashboard() {
-	const [extMode, setExtMode] = useState(false);
-	const [vwap, setVwap] = useState(false);
 
 	return (
 		<div className="p-[40px]">
@@ -79,76 +77,175 @@ export default function Dashboard() {
 						</div>
 					))}
 				</div>
-				<button
-					onClick={() => setExtMode(!extMode)}
+				<div
 					className="bg-[#00FFFF] border border-blue-600 py-2 px-4 text-black rounded-md flex items-center"
 				>
 					<CiGlobe className="text-2xl" />
 					<span className="ml-1 mr-3">Extension Mode</span>
-					<div className="bg-gray-300 rounded-full w-10 h-5 relative">
-						<div
-							className={`w-5 h-5 absolute top-0 rounded-full ${extMode
-								? "right-0 bg-gradient-to-b from-[#F9DF7B] to-[#B57E10]"
-								: "left-0 bg-gray-400"
-								}`}
-						></div>
-					</div>
-				</button>
+					<Switch onToggle={console.log} className="bg-gray-300" />
+				</div>
 			</div>
 
 			<div className="py-6 grid grid-cols-2 gap-2">
-				<div className="space-y-6">
-					<div className="flex items-center gap-2">
-						<img src="/tem/logo2.png" alt="logo" />
-						VWAP GLIDE
-						<button
-							className="bg-[#0f616d] rounded-full w-10 h-5 relative"
-							onClick={() => setVwap(!vwap)}
-						>
-							<div
-								className={`w-5 h-5 absolute top-0 rounded-full ${vwap
-									? "right-0 bg-gradient-to-b from-[#F9DF7B] to-[#B57E10]"
-									: "left-0 bg-gray-400"
-									}`}
-							></div>
-						</button>
+				<div className="flex flex-col gap-6">
+					<div className="space-y-6">
+						<div className="flex items-center gap-2">
+							<img src="/tem/logo2.png" alt="logo" />
+							VWAP GLIDE
+							<Switch onToggle={console.log} />
+						</div>
+						<div className="p-6 border border-gray-500 rounded-md">
+							<div className="flex items-center justify-between">
+								<div>UB</div>
+								<div className="flex flex-wrap gap-3">
+									<Tab data={[
+										{
+											children: <BiBarChartAlt2 />,
+											value: "graph"
+										}, {
+											children: <BsGraphUpArrow />,
+											value: 'bar'
+										}
+									]} onChange={console.log} />
+									<Tab data={
+										["15m", "1h", "4h", "all"].map(v => ({ children: v, value: v }))
+									} onChange={console.log} />
+								</div>
+							</div>
+							<div className="my-4 flex gap-4 flex-wrap items-center">
+								<span className="text-2xl">{d3.volume.value}</span>
+								{d3.volume.up && (
+									<div className="flex gap-2 items-center text-gray-400">
+										{d3.volume.up}
+										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
+									</div>
+								)}
+								Volume
+								{d3.volume.down && (
+									<div className="flex gap-2 items-center text-gray-400">
+										{d3.volume.down}
+										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
+									</div>
+								)}
+							</div>
+							<img src="/tem/bar.png" className="w-full" alt="bar" />
+							{/* Delete this img */}
+						</div>
 					</div>
-					<div className="p-6 border border-gray-500 rounded-md">
-						<div className="flex items-center justify-between">
-							<div>UB</div>
-							<div className="flex flex-wrap gap-3">
-								<Tab data={[
-									{
-										children: <BiBarChartAlt2 />,
-										value: "graph"
-									}, {
-										children: <BsGraphUpArrow />,
-										value: 'bar'
-									}
-								]} onChange={console.log} />
-								<Tab data={
-									["15m", "1h", "4h", "all"].map(v => ({ children: v, value: v }))
-								} onChange={console.log} />
+
+					<div className="space-y-6">
+						<div className="flex items-center gap-2">
+							<img src="/tem/logo2.png" alt="logo" />
+							SESSION PROFILE
+							<Switch onToggle={console.log} />
+						</div>
+						<div className="p-6 border border-gray-500 rounded-md">
+							<div className="flex items-center justify-between">
+								<div>CL</div>
+								<div className="flex flex-wrap gap-3">
+									<Tab data={
+										["15m", "1h", "4h", "all"].map(v => ({ children: v, value: v }))
+									} onChange={console.log} />
+								</div>
+							</div>
+							<div className="mt-4 flex gap-4 flex-wrap items-center">
+								<span className="text-2xl">{d3.macd.value}</span>
+								{d3.macd.up && (
+									<div className="flex gap-2 items-center text-gray-400">
+										{d3.macd.up}
+										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
+									</div>
+								)}
+								MACD
+								{d3.macd.down && (
+									<div className="flex gap-2 items-center text-gray-400">
+										{d3.macd.down}
+										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
+									</div>
+								)}
 							</div>
 						</div>
-						<div className="my-4 flex gap-4 flex-wrap items-center">
-							<span className="text-2xl">{d3.volume.value}</span>
-							{d3.volume.up && (
-								<div className="flex gap-2 items-center text-gray-400">
-									{d3.volume.up}
-									<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
-								</div>
-							)}
-							Volume
-							{d3.volume.down && (
-								<div className="flex gap-2 items-center text-gray-400">
-									{d3.volume.down}
-									<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
-								</div>
-							)}
+					</div>
+				</div>
+
+				<div className="flex flex-col gap-6">
+					<div className="space-y-6">
+						<div className="flex items-center gap-2">
+							<img src="/tem/logo2.png" alt="logo" />
+							FLOWPRINT PRO
+							<Switch onToggle={console.log} />
 						</div>
-						<img src="/tem/bar.png" className="w-full" alt="bar" />
-						{/* Delete this img */}
+						<div className="p-6 border border-gray-500 rounded-md">
+							<div className="flex items-center justify-between">
+								<div>ES</div>
+								<div className="flex flex-wrap gap-3">
+									<Tab data={
+										["15m", "1h", "4h", "all"].map(v => ({ children: v, value: v }))
+									} onChange={console.log} />
+								</div>
+							</div>
+							<div className="mt-4 flex gap-4 flex-wrap items-center">
+								<span className="text-2xl">{d3.macd.value}</span>
+								{d3.macd.up && (
+									<div className="flex gap-2 items-center text-gray-400">
+										{d3.macd.up}
+										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
+									</div>
+								)}
+								MACD
+								{d3.macd.down && (
+									<div className="flex gap-2 items-center text-gray-400">
+										{d3.macd.down}
+										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
+									</div>
+								)}
+							</div>
+						</div>
+					</div>
+
+					<div className="space-y-6">
+						<div className="flex items-center gap-2">
+							<img src="/tem/logo2.png" alt="logo" />
+							VWAP GLIDE
+							<Switch onToggle={console.log} />
+						</div>
+						<div className="p-6 border border-gray-500 rounded-md">
+							<div className="flex items-center justify-between">
+								<div>UB</div>
+								<div className="flex flex-wrap gap-3">
+									<Tab data={[
+										{
+											children: <BiBarChartAlt2 />,
+											value: "graph"
+										}, {
+											children: <BsGraphUpArrow />,
+											value: 'bar'
+										}
+									]} onChange={console.log} />
+									<Tab data={
+										["15m", "1h", "4h", "all"].map(v => ({ children: v, value: v }))
+									} onChange={console.log} />
+								</div>
+							</div>
+							<div className="my-4 flex gap-4 flex-wrap items-center">
+								<span className="text-2xl">{d3.volume.value}</span>
+								{d3.volume.up && (
+									<div className="flex gap-2 items-center text-gray-400">
+										{d3.volume.up}
+										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
+									</div>
+								)}
+								Volume
+								{d3.volume.down && (
+									<div className="flex gap-2 items-center text-gray-400">
+										{d3.volume.down}
+										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
+									</div>
+								)}
+							</div>
+							<img src="/tem/bar.png" className="w-full" alt="bar" />
+							{/* Delete this img */}
+						</div>
 					</div>
 				</div>
 			</div>
