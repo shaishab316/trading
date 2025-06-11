@@ -106,6 +106,9 @@ export default function Controls() {
 									}))}
 									onChange={console.log}
 								/>
+								<ToggleButton onToggle={console.log}>
+									<BsPinAngle />
+								</ToggleButton>
 							</div>
 						</div>
 						<div className="mt-4 flex gap-4 flex-wrap items-center">
@@ -133,6 +136,9 @@ export default function Controls() {
 									}))}
 									onChange={console.log}
 								/>
+								<ToggleButton onToggle={console.log}>
+									<BsPinAngle />
+								</ToggleButton>
 							</div>
 						</div>
 						<div className="mt-4 flex gap-4 flex-wrap items-center">
@@ -177,6 +183,9 @@ export default function Controls() {
 									}))}
 									onChange={console.log}
 								/>
+								<ToggleButton onToggle={console.log}>
+									<BsPinAngle />
+								</ToggleButton>
 							</div>
 						</div>
 						<div className="my-4 flex gap-4 flex-wrap items-center">
