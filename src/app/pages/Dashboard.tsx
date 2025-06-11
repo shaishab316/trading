@@ -1,6 +1,6 @@
 import { IoArrowBackOutline, IoReload } from "react-icons/io5";
 import Button from "../components/ui/Button";
-import overview from "../../app/data/overview.json";
+import dashboard from "../../app/data/dashboard.json";
 import { RiBarChart2Fill } from "react-icons/ri";
 import { ImPower } from "react-icons/im";
 import { DiBitbucket } from "react-icons/di";
@@ -10,10 +10,9 @@ import { BiBarChartAlt2 } from "react-icons/bi";
 import Tab from "../components/ui/Tab";
 import Switch from "../components/ui/Switch";
 
-const { d1, d2, d3 } = overview;
+const { d1, d2, d3 } = dashboard;
 
 export default function Dashboard() {
-
 	return (
 		<div className=" p-[10px] md:p-[20px] lg:p-[40px]">
 			<div className="flex flex-wrap gap-4 items-center">
@@ -77,9 +76,7 @@ export default function Dashboard() {
 						</div>
 					))}
 				</div>
-				<div
-					className="bg-[#00FFFF] border border-blue-600 py-2 px-4 text-black rounded-md flex items-center"
-				>
+				<div className="bg-[#00FFFF] border border-blue-600 py-2 px-4 text-black rounded-md flex items-center">
 					<CiGlobe className="text-2xl" />
 					<span className="ml-1 mr-3 whitespace-nowrap">Extension Mode</span>
 					<Switch onToggle={console.log} className="bg-gray-300" />
@@ -96,20 +93,28 @@ export default function Dashboard() {
 						</div>
 						<div className="p-6 border border-gray-500 rounded-md">
 							<div className="flex flex-wrap gap-2 items-center justify-between">
-								<div>UB</div>
+								<div>{d3.volume.coin}</div>
 								<div className="flex flex-wrap gap-3">
-									<Tab data={[
-										{
-											children: <BiBarChartAlt2 />,
-											value: "graph"
-										}, {
-											children: <BsGraphUpArrow />,
-											value: 'bar'
-										}
-									]} onChange={console.log} />
-									<Tab data={
-										["15m", "1h", "4h", "all"].map(v => ({ children: v, value: v }))
-									} onChange={console.log} />
+									<Tab
+										data={[
+											{
+												children: <BiBarChartAlt2 />,
+												value: "graph",
+											},
+											{
+												children: <BsGraphUpArrow />,
+												value: "bar",
+											},
+										]}
+										onChange={console.log}
+									/>
+									<Tab
+										data={["15m", "1h", "4h", "all"].map((v) => ({
+											children: v,
+											value: v,
+										}))}
+										onChange={console.log}
+									/>
 								</div>
 							</div>
 							<div className="my-4 flex gap-4 flex-wrap items-center">
@@ -141,11 +146,15 @@ export default function Dashboard() {
 						</div>
 						<div className="p-6 border border-gray-500 rounded-md">
 							<div className="flex flex-wrap gap-2 items-center justify-between">
-								<div>CL</div>
+								<div>{d3.macd.coin}</div>
 								<div className="flex flex-wrap gap-3">
-									<Tab data={
-										["15m", "1h", "4h", "all"].map(v => ({ children: v, value: v }))
-									} onChange={console.log} />
+									<Tab
+										data={["15m", "1h", "4h", "all"].map((v) => ({
+											children: v,
+											value: v,
+										}))}
+										onChange={console.log}
+									/>
 								</div>
 							</div>
 							<div className="mt-4 flex gap-4 flex-wrap items-center">
@@ -177,11 +186,15 @@ export default function Dashboard() {
 						</div>
 						<div className="p-6 border border-gray-500 rounded-md">
 							<div className="flex flex-wrap gap-2 items-center justify-between">
-								<div>ES</div>
+								<div>{d3.rsi.coin}</div>
 								<div className="flex flex-wrap gap-3">
-									<Tab data={
-										["15m", "1h", "4h", "all"].map(v => ({ children: v, value: v }))
-									} onChange={console.log} />
+									<Tab
+										data={["15m", "1h", "4h", "all"].map((v) => ({
+											children: v,
+											value: v,
+										}))}
+										onChange={console.log}
+									/>
 								</div>
 							</div>
 							<div className="mt-4 flex gap-4 flex-wrap items-center">
@@ -205,26 +218,38 @@ export default function Dashboard() {
 
 					<div className="space-y-6">
 						<div className="flex items-center gap-2">
-							<img src="/tem/logo2.png" alt="logo" className="hue-rotate-[110deg]" />
+							<img
+								src="/tem/logo2.png"
+								alt="logo"
+								className="hue-rotate-[110deg]"
+							/>
 							SMARTZONE
 							<Switch onToggle={console.log} />
 						</div>
 						<div className="p-6 border border-gray-500 rounded-md">
 							<div className="flex flex-wrap gap-2 items-center justify-between">
-								<div>NQ</div>
+								<div>{d3.atr.coin}</div>
 								<div className="flex flex-wrap gap-3">
-									<Tab data={[
-										{
-											children: <BiBarChartAlt2 />,
-											value: "graph"
-										}, {
-											children: <BsGraphUpArrow />,
-											value: 'bar'
-										}
-									]} onChange={console.log} />
-									<Tab data={
-										["15m", "1h", "4h", "all"].map(v => ({ children: v, value: v }))
-									} onChange={console.log} />
+									<Tab
+										data={[
+											{
+												children: <BiBarChartAlt2 />,
+												value: "graph",
+											},
+											{
+												children: <BsGraphUpArrow />,
+												value: "bar",
+											},
+										]}
+										onChange={console.log}
+									/>
+									<Tab
+										data={["15m", "1h", "4h", "all"].map((v) => ({
+											children: v,
+											value: v,
+										}))}
+										onChange={console.log}
+									/>
 								</div>
 							</div>
 							<div className="my-4 flex gap-4 flex-wrap items-center">
