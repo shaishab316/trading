@@ -45,12 +45,14 @@ export default function Controls() {
 				))}
 			</div>
 
-			<Button
+			<ToggleButton
 				className="py-[3px] px-8 border-[#dab24a]"
 				style={{ color: "#dab24a" }}
+				init={false}
+				onToggle={console.log}
 			>
 				<MdElectricBolt className="inline-block mr-2" /> Turbo Execute
-			</Button>
+			</ToggleButton>
 
 			<div className="py-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
 				<div className="flex flex-col gap-6">

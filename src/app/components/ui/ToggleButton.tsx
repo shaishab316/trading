@@ -25,8 +25,8 @@ export default function ToggleButton({
 			onClick={() => setActive(!active)}
 			className={`text-white flex items-center text-base border ${
 				active
-					? "border-[#176F79] bg-[radial-gradient(circle,_transparent,_#176F79)] hover:bg-[radial-gradient(circle,_#176F79,_transparent)]"
-					: "border-[#dab24a] bg-[radial-gradient(circle,_transparent,_#dab24a)] hover:bg-[radial-gradient(circle,_#dab24a,_transparent)]"
+					? "border-[#dab24a] bg-[radial-gradient(circle,_transparent,_#dab24a99)] hover:bg-[radial-gradient(circle,_#dab24a99,_transparent)]"
+					: "border-[#176F79] bg-[radial-gradient(circle,_transparent,_#176F7999)] hover:bg-[radial-gradient(circle,_#176F7999,_transparent)]"
 			} py-1 px-3 rounded-lg ${className}`}
 			{...props}
 		>
