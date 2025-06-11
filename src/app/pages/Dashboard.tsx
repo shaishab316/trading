@@ -1,5 +1,3 @@
-import { IoArrowBackOutline, IoReload } from "react-icons/io5";
-import Button from "../components/ui/Button";
 import dashboard from "../../app/data/dashboard.json";
 import { RiBarChart2Fill } from "react-icons/ri";
 import { ImPower } from "react-icons/im";
@@ -9,25 +7,15 @@ import { BsGraphUpArrow } from "react-icons/bs";
 import { BiBarChartAlt2 } from "react-icons/bi";
 import Tab from "../components/ui/Tab";
 import Switch from "../components/ui/Switch";
+import { useEffect } from "react";
 
 const { d1, d2, d3 } = dashboard;
 
 export default function Dashboard() {
-	return (
-		<div className=" p-[10px] md:p-[20px] lg:p-[40px]">
-			<div className="flex flex-wrap gap-4 items-center">
-				<Button className="py-[5px]">
-					<IoArrowBackOutline className="inline-block mr-2" /> Back
-				</Button>
-				<Button className="py-[5px]">
-					<IoReload className="inline-block mr-2" /> Refresh
-				</Button>
-				<span className="ml-3">
-					<div className="inline-block w-[1em] aspect-square rounded-full bg-green-500 translate-y-0.5"></div>{" "}
-					Real Time Data
-				</span>
-			</div>
+	useEffect(() => console.log("reloaded"), []);
 
+	return (
+		<div className="">
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-4">
 				{d1.map((item, idx) => (
 					<div
