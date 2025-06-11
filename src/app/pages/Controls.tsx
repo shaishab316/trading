@@ -5,6 +5,7 @@ import { BiBarChartAlt2 } from "react-icons/bi";
 import Tab from "../components/ui/Tab";
 import { BsGraphUpArrow, BsPinAngle } from "react-icons/bs";
 import ToggleButton from "../components/ui/ToggleButton";
+import { MdElectricBolt } from "react-icons/md";
 
 const { d1, d2 } = controls;
 
@@ -43,6 +44,13 @@ export default function Controls() {
 					</div>
 				))}
 			</div>
+
+			<Button
+				className="py-[3px] px-8 border-[#dab24a]"
+				style={{ color: "#dab24a" }}
+			>
+				<MdElectricBolt className="inline-block mr-2" /> Turbo Execute
+			</Button>
 
 			<div className="py-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
 				<div className="flex flex-col gap-6">
