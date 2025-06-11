@@ -14,7 +14,7 @@ export default function Controls() {
 				{d1.map((item, idx) => (
 					<div
 						key={idx}
-						className="flex justify-between items-center gap-2 border border-gray-700 relative rounded-md py-2 px-6"
+						className="flex justify-between items-center gap-2 border border-gray-700 relative rounded-md py-2 px-6 backdrop-blur-md bg-black/20"
 					>
 						<div className="flex flex-col">
 							<p>{item.title}</p>
@@ -41,7 +41,7 @@ export default function Controls() {
 
 			<div className="py-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
 				<div className="flex flex-col gap-6">
-					<div className="p-6 border border-gray-500 rounded-md">
+					<div className="p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
 						<div className="flex flex-wrap gap-2 items-center justify-between">
 							<div>{d2.bid_ask_heat.coin}</div>
 							<div className="flex flex-wrap gap-3">
@@ -90,7 +90,7 @@ export default function Controls() {
 						{/* Delete this img */}
 					</div>
 
-					<div className="p-6 border border-gray-500 rounded-md">
+					<div className="p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
 						<div className="flex flex-wrap gap-2 items-center justify-between">
 							<div>{d2.yield_curve.coin}</div>
 							<div className="flex flex-wrap gap-3">
@@ -120,7 +120,7 @@ export default function Controls() {
 				</div>
 
 				<div className="flex flex-col gap-6">
-					<div className="p-6 border border-gray-500 rounded-md">
+					<div className="p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
 						<div className="flex flex-wrap gap-2 items-center justify-between">
 							<div>{d2.liquidity.coin}</div>
 							<div className="flex flex-wrap gap-3">
@@ -154,7 +154,7 @@ export default function Controls() {
 						</div>
 					</div>
 
-					<div className="p-6 border border-gray-500 rounded-md">
+					<div className="p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
 						<div className="flex flex-wrap gap-2 items-center justify-between">
 							<div>{d2.vwap.coin}</div>
 							<div className="flex flex-wrap gap-3">

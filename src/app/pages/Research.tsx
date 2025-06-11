@@ -24,8 +24,8 @@ export default function Controls() {
 				))}
 			</div>
 
-			<div className="border border-gray-600 p-2 rounded-lg backdrop-blur-md bg-black/20">
-				<div className="flex items-center gap-2 border border-gray-700 rounded-lg w-fit py-2 px-4">
+			<div className="flex w-full border border-gray-600 p-2 rounded-lg backdrop-blur-md bg-black/20">
+				<div className="flex items-center gap-2 border border-gray-700 rounded-lg py-2 px-4 bg-black">
 					<IoSearchSharp className="text-green-500 text-2xl" />
 					<input
 						placeholder="Asset"

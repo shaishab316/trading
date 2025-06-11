@@ -20,7 +20,7 @@ export default function Dashboard() {
 				{d1.map((item, idx) => (
 					<div
 						key={idx}
-						className="flex justify-between items-center gap-2 border border-gray-700 relative rounded-md py-2 px-6"
+						className="flex justify-between items-center gap-2 border border-gray-700 relative rounded-md py-2 px-6 backdrop-blur-md bg-black/20"
 					>
 						<div className="flex flex-col">
 							<p>{item.title}</p>
@@ -36,12 +36,12 @@ export default function Dashboard() {
 				))}
 			</div>
 
-			<div className="border border-gray-600 p-2 rounded-md flex flex-wrap gap-4 justify-between items-center">
+			<div className="border border-gray-600 p-2 rounded-md flex flex-wrap gap-4 justify-between items-center backdrop-blur-md bg-black/20">
 				<div className="flex flex-wrap gap-4">
 					{d2.map((item, idx) => (
 						<div
 							key={idx}
-							className="flex justify-between items-center gap-2 border border-gray-700 relative rounded-md p-2"
+							className="flex justify-between items-center gap-2 border border-gray-700 relative rounded-md p-2 bg-black"
 						>
 							<div className="text-green-500 text-2xl">
 								{[<RiBarChart2Fill />, <ImPower />, <DiBitbucket />][idx]}
@@ -79,7 +79,7 @@ export default function Dashboard() {
 							VWAP GLIDE
 							<Switch onToggle={console.log} />
 						</div>
-						<div className="p-6 border border-gray-500 rounded-md">
+						<div className="p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
 							<div className="flex flex-wrap gap-2 items-center justify-between">
 								<div>{d3.volume.coin}</div>
 								<div className="flex flex-wrap gap-3">
@@ -132,7 +132,7 @@ export default function Dashboard() {
 							SESSION PROFILE
 							<Switch onToggle={console.log} />
 						</div>
-						<div className="p-6 border border-gray-500 rounded-md">
+						<div className="p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
 							<div className="flex flex-wrap gap-2 items-center justify-between">
 								<div>{d3.macd.coin}</div>
 								<div className="flex flex-wrap gap-3">
@@ -172,7 +172,7 @@ export default function Dashboard() {
 							FLOWPRINT PRO
 							<Switch onToggle={console.log} />
 						</div>
-						<div className="p-6 border border-gray-500 rounded-md">
+						<div className="p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
 							<div className="flex flex-wrap gap-2 items-center justify-between">
 								<div>{d3.rsi.coin}</div>
 								<div className="flex flex-wrap gap-3">
@@ -214,7 +214,7 @@ export default function Dashboard() {
 							SMARTZONE
 							<Switch onToggle={console.log} />
 						</div>
-						<div className="p-6 border border-gray-500 rounded-md">
+						<div className="p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
 							<div className="flex flex-wrap gap-2 items-center justify-between">
 								<div>{d3.atr.coin}</div>
 								<div className="flex flex-wrap gap-3">
