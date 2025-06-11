@@ -3,14 +3,16 @@ import { useState, type ReactNode } from "react";
 export default function Tab({
 	data,
 	onChange = () => {},
+	init = data[0].value,
 }: {
 	data: {
 		children: ReactNode;
 		value: string;
 	}[];
 	onChange: (value: string) => void;
+	init?: string;
 }) {
-	const [active, setActive] = useState(data[0].value);
+	const [active, setActive] = useState(init);
 
 	return (
 		<div className="border border-[#176F79] bg-[radial-gradient(circle,_transparent,_#176F7999)] py-1 px-3 rounded-lg flex flex-wrap">

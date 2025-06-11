@@ -1,17 +1,12 @@
 {
 	"d1": [
 		{
-			"title": "Session",
-			"des": "UBM2024"
+			"title": "Total trades",
+			"des": "127"
 		},
 		{
-			"title": "Latency",
-			"des": "12ms",
-			"up": "2.3%"
-		},
-		{
-			"title": "CPU",
-			"des": "18%"
+			"title": "Macro Score",
+			"des": "7.8 / 10"
 		}
 	],
 	"d2": {
@@ -35,6 +30,21 @@
 		"vwap": {
 			"value": "16280",
 			"up": "2.3%",
+			"coin": "NQ "
+		},
+		"correlation_matrix": {
+			"value": "0.89",
+			"up": "",
+			"coin": "NQ / ES"
+		},
+		"volume_surge": {
+			"value": "72%",
+			"up": "",
+			"coin": "ES"
+		},
+		"bullish_bias": {
+			"value": "72%",
+			"up": "",
 			"coin": "NQ"
 		}
 	}
