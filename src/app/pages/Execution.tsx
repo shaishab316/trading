@@ -3,14 +3,14 @@ import { BiBarChartAlt2 } from "react-icons/bi";
 import Tab from "../components/ui/Tab";
 import { BsGraphUpArrow, BsPinAngle } from "react-icons/bs";
 import ToggleButton from "../components/ui/ToggleButton";
-import { IoSearchSharp, IoSettingsOutline } from "react-icons/io5";
+import { IoSettingsOutline } from "react-icons/io5";
 import Switch from "../components/ui/Switch";
 import CopyButton from "../components/ui/CopyButton";
 import { FaClipboardList, FaLock } from "react-icons/fa";
-import { CiGlobe } from "react-icons/ci";
 import { MdOutlinePriceChange } from "react-icons/md";
 import { SlSizeActual } from "react-icons/sl";
 import { IoMdWarning } from "react-icons/io";
+import Tab2 from "../components/ui/Tab2";
 
 const { d1, d2 } = execution;
 
@@ -100,40 +100,46 @@ export default function Execution() {
 			</div>
 
 			<div className="py-6 flex flex-col gap-6">
-				<div className="flex gap-6">
+				<div className="grid grid-cols-2 gap-6">
 					<div className="p-6 grow border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
-						<div className="flex flex-wrap gap-2 items-center justify-between">
-							<div>{d2.volume_surge.coin} Volume Surge</div>
-							<div className="flex flex-wrap gap-3">
-								<Tab
-									data={["15m", "1h", "4h", "all"].map((v) => ({
-										children: v,
-										value: v,
-									}))}
-									onChange={console.log}
-								/>
-								<ToggleButton onToggle={console.log}>
-									<BsPinAngle />
-								</ToggleButton>
-							</div>
+						<div className="flex flex-wrap items-center justify-between">
+							<Tab2
+								data={["Buy", "Sell"].map((v) => ({
+									children: v,
+									value: v,
+								}))}
+								onChange={console.log}
+							/>
+
+							<Tab
+								data={["Limit", "OCO"].map((v) => ({
+									children: v,
+									value: v,
+								}))}
+								init="OCO"
+								onChange={console.log}
+							/>
 						</div>
-						<div className="my-4 flex gap-4 flex-wrap items-center">
-							<span className="text-2xl">{d2.volume_surge.value}</span>
-							{d2.volume_surge.up !== null && (
-								<div className="flex gap-2 items-center text-gray-400">
-									{d2.volume_surge.up}
-									<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
-								</div>
-							)}
-						</div>
-						<img src="/tem/bar.png" className="w-full" alt="bar" />
-						{/* Delete this img */}
 					</div>
 
 					<div className="p-6 grow border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
 						<div className="flex flex-wrap gap-2 items-center justify-between">
-							<div>{d2.bullish_bias.coin} Sentiment</div>
+							<div>CL</div>
 							<div className="flex flex-wrap gap-3">
+								<Tab
+									data={[
+										{
+											children: <BiBarChartAlt2 />,
+											value: "graph",
+										},
+										{
+											children: <BsGraphUpArrow />,
+											value: "bar",
+										},
+									]}
+									init="bar"
+									onChange={console.log}
+								/>
 								<Tab
 									data={["15m", "1h", "4h", "all"].map((v) => ({
 										children: v,
@@ -141,20 +147,19 @@ export default function Execution() {
 									}))}
 									onChange={console.log}
 								/>
-								<ToggleButton onToggle={console.log}>
-									<BsPinAngle />
-								</ToggleButton>
 							</div>
 						</div>
 						<div className="my-4 flex gap-4 flex-wrap items-center">
-							<span className="text-2xl">{d2.bullish_bias.value}</span>
-							{d2.bullish_bias.up !== null && (
-								<div className="flex gap-2 items-center text-gray-400">
-									{d2.bullish_bias.up}
-									<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
-								</div>
-							)}
-							Bullish Bias
+							<span className="text-2xl">79.95</span>
+							<div className="flex gap-2 items-center text-gray-400">
+								2.3%
+								<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
+							</div>
+							Key Support
+							<div className="flex gap-2 items-center">
+								79.50%
+								<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
+							</div>
 						</div>
 						<img src="/tem/bar.png" className="w-full" alt="bar" />
 						{/* Delete this img */}
