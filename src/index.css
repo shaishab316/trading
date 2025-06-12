@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@layer utilities {
+	hide-range::-webkit-slider-thumb {
+		@apply hidden;
+	}
+	hide-range::-moz-range-thumb {
+		display: none;
+	}
+}
+
 a,
 button {
 	@apply cursor-pointer;

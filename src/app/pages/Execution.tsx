@@ -11,6 +11,7 @@ import { MdOutlinePriceChange } from "react-icons/md";
 import { SlSizeActual } from "react-icons/sl";
 import { IoMdWarning } from "react-icons/io";
 import Tab2 from "../components/ui/Tab2";
+import BreakpointSlider from "../components/ui/BreakpointSlider";
 
 const { d1, d2 } = execution;
 
@@ -187,6 +188,7 @@ export default function Execution() {
 							<span className="self-end">
 								Max <span className="text-[#2ecc71]">12.12</span>
 							</span>
+							<BreakpointSlider step={7} onChange={console.log} />
 						</div>
 					</div>
 
