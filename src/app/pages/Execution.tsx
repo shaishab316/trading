@@ -6,7 +6,11 @@ import ToggleButton from "../components/ui/ToggleButton";
 import { IoSearchSharp, IoSettingsOutline } from "react-icons/io5";
 import Switch from "../components/ui/Switch";
 import CopyButton from "../components/ui/CopyButton";
-import { FaLock } from "react-icons/fa";
+import { FaClipboardList, FaLock } from "react-icons/fa";
+import { CiGlobe } from "react-icons/ci";
+import { MdOutlinePriceChange } from "react-icons/md";
+import { SlSizeActual } from "react-icons/sl";
+import { IoMdWarning } from "react-icons/io";
 
 const { d1, d2 } = execution;
 
@@ -52,24 +56,46 @@ export default function Execution() {
 				</div>
 			</div>
 
-			<div className="flex w-full border border-gray-600 p-2 rounded-lg backdrop-blur-md bg-black/20">
-				<div className="flex items-center gap-2 border border-gray-700 rounded-lg py-2 px-4 bg-black">
-					<IoSearchSharp className="text-green-500 text-2xl" />
-					<input
-						placeholder="Asset"
-						type="text"
-						className="focus:outline-none focus:border-0"
-					/>
-					<select
-						onChange={(e) => console.log(e.target.value)}
-						className="pr-2 focus:outline-none focus:border-0"
-					>
-						{["NQ", "UB", "ZB"].map((coin) => (
-							<option className="text-black" value={coin}>
-								{coin}
+			<div className="border border-gray-600 p-2 rounded-md flex flex-wrap gap-4 justify-between items-center backdrop-blur-md bg-black/20">
+				<div className="flex flex-wrap gap-4">
+					<div className="flex justify-between items-center gap-2 border border-yellow-200/30 relative rounded-md p-2 bg-black">
+						<FaClipboardList className="text-green-400" />
+						Order
+						<select className="text-sm px-4 focus:outline-0">
+							<option value="CL_Jan_25" className="text-black">
+								CL Jan 25
 							</option>
-						))}
-					</select>
+						</select>
+					</div>
+
+					<div className="flex justify-between items-center gap-2 border border-yellow-200/30 relative rounded-md p-2 bg-black">
+						<MdOutlinePriceChange className="text-green-400" />
+						Price
+						<input
+							type="text"
+							className="border border-yellow-200/30 rounded-lg w-[80px] text-center focus:outline-0 ml-6"
+							defaultValue={79.89}
+						/>
+					</div>
+
+					<div className="flex justify-between items-center gap-2 border border-yellow-200/30 relative rounded-md p-2 bg-black">
+						<SlSizeActual className="text-green-400" />
+						Size
+						<select className="text-sm px-4 focus:outline-0">
+							<option value="CL_Jan_25" className="text-black">
+								2 Contracts
+							</option>
+						</select>
+					</div>
+
+					<div className="flex justify-between items-center gap-2 border border-yellow-200/30 relative rounded-md p-2 bg-black">
+						<IoMdWarning className="text-green-400" />
+						Risk
+						<div className="flex gap-2 items-center ml-6">
+							$1,596(1.5%)
+							<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 
