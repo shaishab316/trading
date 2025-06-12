@@ -1,13 +1,16 @@
-import research from "../data/research.json";
+import execution from "../data/execution.json";
 import { BiBarChartAlt2 } from "react-icons/bi";
 import Tab from "../components/ui/Tab";
 import { BsGraphUpArrow, BsPinAngle } from "react-icons/bs";
 import ToggleButton from "../components/ui/ToggleButton";
-import { IoSearchSharp } from "react-icons/io5";
+import { IoSearchSharp, IoSettingsOutline } from "react-icons/io5";
+import Switch from "../components/ui/Switch";
+import CopyButton from "../components/ui/CopyButton";
+import { FaLock } from "react-icons/fa";
 
-const { d1, d2 } = research;
+const { d1, d2 } = execution;
 
-export default function Research() {
+export default function Execution() {
 	return (
 		<div>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-4">
@@ -20,8 +23,33 @@ export default function Research() {
 							<p>{item.title}</p>
 							<p className="text-[#D4AF37]">{item.des}</p>
 						</div>
+						{item.up && (
+							<div className="flex gap-2 items-center">
+								{item.up}
+								<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
+							</div>
+						)}
 					</div>
 				))}
+			</div>
+
+			<div className="mb-8">
+				<h2 className="font-semibold text-2xl mb-4">Order Helper</h2>
+				<div className="flex items-center gap-2">
+					<img
+						src="/tem/logo2.png"
+						alt="logo"
+						className="hue-rotate-[170deg]"
+					/>
+					AUTOWEALTH
+					<Switch onToggle={console.log} />
+					<IoSettingsOutline className="text-[#00ffff] text-2xl" />
+					<div className="mx-8 relative">
+						<CopyButton onCopy={console.log} data={Math.random().toString()} />
+						<FaLock className="text text-yellow-500 absolute bottom-1 -right-6" />
+					</div>
+					<IoSettingsOutline className="text-[#00ffff] text-2xl" />
+				</div>
 			</div>
 
 			<div className="flex w-full border border-gray-600 p-2 rounded-lg backdrop-blur-md bg-black/20">

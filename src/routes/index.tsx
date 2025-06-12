@@ -4,6 +4,7 @@ import RootLayout from "../app/layouts/RootLayout";
 import Dashboard from "../app/pages/Dashboard";
 import Controls from "../app/pages/Controls";
 import Research from "../app/pages/Research";
+import Execution from "../app/pages/Execution";
 
 export const appRouter = createBrowserRouter([
 	{
@@ -25,6 +26,10 @@ export const appRouter = createBrowserRouter([
 			{
 				path: "/research",
 				element: <Research />,
+			},
+			{
+				path: "/execution",
+				element: <Execution />,
 			},
 			{
 				path: "/:path",
