@@ -7,6 +7,7 @@ import { RiVoiceAiFill } from "react-icons/ri";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setCurrentPath } from "../../../redux/features/navigation/navigationSlice";
 import { logout } from "../../../redux/features/user/userSlice";
+import Journal from "../journal/Journal";
 
 export default function Sidebar() {
 	const dispatch = useAppDispatch();
@@ -44,27 +45,31 @@ export default function Sidebar() {
 					</button>
 				</div>
 				<div className="flex flex-col">
-					{navLinks.map(([name, href, Icon]) => (
-						<NavLink
-							to={href}
-							className={({ isActive }) =>
-								`${
-									isActive
-										? "text-[#B57E10] border-r-2 lg:border-r-4"
-										: "text-white"
-								} hover:bg-white/20 hover:backdrop-blur-md ${
-									open ? "px-10" : "px-4 justify-center"
-								} py-4 min-w-full flex`
-							}
-							title={name}
-							onClick={() => dispatch(setCurrentPath({ path: name }))}
-						>
-							<button type="button" className="flex items-center gap-2">
-								<Icon />
-								{open && <span>{name}</span>}
-							</button>
-						</NavLink>
-					))}
+					{navLinks.map(([name, href, Icon]) =>
+						name === "Journal" ? (
+							<Journal name={name} open={open} Icon={Icon} />
+						) : (
+							<NavLink
+								to={href}
+								className={({ isActive }) =>
+									`${
+										isActive
+											? "text-[#B57E10] border-r-2 lg:border-r-4"
+											: "text-white"
+									} hover:bg-white/20 hover:backdrop-blur-md ${
+										open ? "px-10" : "px-4 justify-center"
+									} py-4 min-w-full flex`
+								}
+								title={name}
+								onClick={() => dispatch(setCurrentPath({ path: name }))}
+							>
+								<button type="button" className="flex items-center gap-2">
+									<Icon />
+									{open && <span>{name}</span>}
+								</button>
+							</NavLink>
+						)
+					)}
 				</div>
 			</div>
 			<div className="mx-auto lg:mx-0 lg:px-10 py-4 space-y-6 text-white">
