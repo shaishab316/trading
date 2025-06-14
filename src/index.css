@@ -1,12 +1,11 @@
 @import "tailwindcss";
 
-@layer utilities {
-	hide-range::-webkit-slider-thumb {
-		@apply hidden;
-	}
-	hide-range::-moz-range-thumb {
-		display: none;
-	}
+input.hide-range[type="range"]::-webkit-slider-thumb {
+	display: none;
+}
+
+input.hide-range[type="range"]::-moz-range-thumb {
+	display: none;
 }
 
 a,
