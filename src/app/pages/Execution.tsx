@@ -1,8 +1,7 @@
 import execution from "../data/execution.json";
 import { BiBarChartAlt2 } from "react-icons/bi";
 import Tab from "../components/ui/Tab";
-import { BsGraphUpArrow, BsPinAngle } from "react-icons/bs";
-import ToggleButton from "../components/ui/ToggleButton";
+import { BsGraphUpArrow } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
 import Switch from "../components/ui/Switch";
 import CopyButton from "../components/ui/CopyButton";
@@ -11,8 +10,9 @@ import { MdOutlinePriceChange } from "react-icons/md";
 import { SlSizeActual } from "react-icons/sl";
 import { IoMdWarning } from "react-icons/io";
 import BuySell from "../components/execution/BuySell";
+import r from "../../utils/random";
 
-const { d1, d2 } = execution;
+const { d1 } = execution;
 
 export default function Execution() {
 	return (
@@ -146,49 +146,69 @@ export default function Execution() {
 						{/* Delete this img */}
 					</div>
 				</div>
+			</div>
 
-				<div className="p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
-					<div className="flex flex-wrap gap-2 items-center justify-between">
-						<div>Correlation Matrix ({d2.correlation_matrix.coin})</div>
-						<div className="flex flex-wrap gap-3">
-							<Tab
-								data={[
-									{
-										children: <BiBarChartAlt2 />,
-										value: "graph",
-									},
-									{
-										children: <BsGraphUpArrow />,
-										value: "bar",
-									},
-								]}
-								init="bar"
-								onChange={console.log}
-							/>
-							<Tab
-								data={["15m", "1h", "4h", "all"].map((v) => ({
-									children: v,
-									value: v,
-								}))}
-								onChange={console.log}
-							/>
-							<ToggleButton onToggle={console.log}>
-								<BsPinAngle />
-							</ToggleButton>
-						</div>
-					</div>
-					<div className="my-4 flex gap-4 flex-wrap items-center">
-						<span className="text-2xl">{d2.correlation_matrix.value}</span>
-						{d2.correlation_matrix.up !== null && (
-							<div className="flex gap-2 items-center text-gray-400">
-								{d2.correlation_matrix.up}
-								<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
-							</div>
-						)}
-					</div>
-					<img src="/tem/graph.png" className="w-full" alt="graph" />
-					{/* Delete this img */}
-				</div>
+			<div className="bg-black/20 border border-yellow-400/20 rounded-md p-6">
+				<p className="text-gray-300 mb-2 px-2">Level 2 Market Depth Grid</p>
+				<table className="table-auto w-full border-separate border-spacing-2 cursor-pointer">
+					<tr className="table-row text-left">
+						<th
+							className="border-b border-gray-200 text-gray-200 p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+							style={{ width: "25%" }}
+						>
+							Bid Price
+						</th>
+						<th
+							className="border-b border-gray-200 text-gray-200 p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+							style={{ width: "25%" }}
+						>
+							Size (Buy Orders)
+						</th>
+						<th
+							className="border-b border-gray-200 text-gray-200 p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+							style={{ width: "25%" }}
+						>
+							Bid Price
+						</th>
+						<th
+							className="border-b border-gray-200 text-gray-200 p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+							style={{ width: "25%" }}
+						>
+							Size (Sell Orders)
+						</th>
+					</tr>
+					{Array(5)
+						.fill(null)
+						.map((_, i) => (
+							<tr>
+								<td
+									className="border-b text-[#2ecc71] border-[#2ecc71] p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+									style={{ width: "25%" }}
+								>
+									{r(50, 100).toFixed(2)}
+								</td>
+								<td
+									className="border-b text-[#2ecc71] border-[#2ecc71] p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+									style={{ width: "25%" }}
+								>
+									X {r(50, 200) | 0}{" "}
+									{i === 4 && <span className="text-white">← Cluster</span>}
+								</td>
+								<td
+									className="border-b border-[#f9df7b] text-[#f9df7b] p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+									style={{ width: "25%" }}
+								>
+									{r(50, 100).toFixed(2)}
+								</td>
+								<td
+									className="border-b border-[#f9df7b] text-[#f9df7b] p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+									style={{ width: "25%" }}
+								>
+									X {r(50, 200) | 0}
+								</td>
+							</tr>
+						))}
+				</table>
 			</div>
 		</div>
 	);
