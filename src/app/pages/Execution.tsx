@@ -6,12 +6,11 @@ import ToggleButton from "../components/ui/ToggleButton";
 import { IoSettingsOutline } from "react-icons/io5";
 import Switch from "../components/ui/Switch";
 import CopyButton from "../components/ui/CopyButton";
-import { FaClipboardList, FaLock, FaMinus, FaPlus } from "react-icons/fa";
+import { FaClipboardList, FaLock } from "react-icons/fa";
 import { MdOutlinePriceChange } from "react-icons/md";
 import { SlSizeActual } from "react-icons/sl";
 import { IoMdWarning } from "react-icons/io";
-import Tab2 from "../components/ui/Tab2";
-import BreakpointSlider from "../components/ui/BreakpointSlider";
+import BuySell from "../components/execution/BuySell";
 
 const { d1, d2 } = execution;
 
@@ -102,95 +101,7 @@ export default function Execution() {
 
 			<div className="py-6 flex flex-col gap-6">
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-					<div className="p-6 grow border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
-						<div className="flex flex-wrap gap-4 items-center justify-between">
-							<Tab2
-								data={["Buy", "Sell"].map((v) => ({
-									children: v,
-									value: v,
-								}))}
-								onChange={console.log}
-							/>
-
-							<Tab
-								data={["Limit", "OCO"].map((v) => ({
-									children: v,
-									value: v,
-								}))}
-								init="OCO"
-								onChange={console.log}
-							/>
-						</div>
-
-						<div className="mt-4 flex flex-col gap-4">
-							<div className="bg-black/20 backdrop-blur-md rounded-lg relative">
-								<button className="absolute top-1/2 -translate-y-1/2 left-3">
-									<FaPlus />
-								</button>
-								<input
-									type="text"
-									placeholder="TP Limit (USDT)"
-									className="w-full px-10 py-2 border border-yellow-200/30 rounded-lg focus: outline-0 focus:border-yellow-200/60"
-								/>
-								<button className="absolute top-1/2 -translate-y-1/2 right-3">
-									<FaMinus />
-								</button>
-							</div>
-
-							<div className="bg-black/20 backdrop-blur-md rounded-lg relative">
-								<button className="absolute top-1/2 -translate-y-1/2 left-3">
-									<FaPlus />
-								</button>
-								<input
-									type="text"
-									placeholder="SL Trigger (USTD)"
-									className="w-full px-10 py-2 border border-yellow-200/30 rounded-lg focus: outline-0 focus:border-yellow-200/60"
-								/>
-								<button className="absolute top-1/2 -translate-y-1/2 right-3">
-									<FaMinus />
-								</button>
-							</div>
-
-							<div className="flex gap-4">
-								<div className="bg-black/20 backdrop-blur-md rounded-lg relative grow">
-									<button className="absolute top-1/2 -translate-y-1/2 left-3">
-										<FaPlus />
-									</button>
-									<input
-										type="text"
-										placeholder="SL Limit"
-										className="w-full px-10 py-2 border border-yellow-200/30 rounded-lg focus: outline-0 focus:border-yellow-200/60"
-									/>
-									<button className="absolute top-1/2 -translate-y-1/2 right-3">
-										<FaMinus />
-									</button>
-								</div>
-								<input
-									type="text"
-									placeholder="Limit"
-									className="px-4 py-2 border border-yellow-200/30 rounded-lg focus: outline-0 focus:border-yellow-200/60 bg-black/20 backdrop-blur-md"
-								/>
-							</div>
-
-							<div className="bg-black/20 backdrop-blur-md rounded-lg relative">
-								<button className="absolute top-1/2 -translate-y-1/2 left-3">
-									<FaPlus />
-								</button>
-								<input
-									type="text"
-									placeholder="Amount"
-									className="w-full px-10 py-2 border border-yellow-200/30 rounded-lg focus: outline-0 focus:border-yellow-200/60"
-								/>
-								<button className="absolute top-1/2 -translate-y-1/2 right-3">
-									<FaMinus />
-								</button>
-							</div>
-							<span className="self-end">
-								Max <span className="text-[#2ecc71]">12.12</span>
-							</span>
-							<BreakpointSlider step={7} onChange={console.log} />
-						</div>
-					</div>
+					<BuySell />
 
 					<div className="p-6 grow border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
 						<div className="flex flex-wrap gap-2 items-center justify-between">

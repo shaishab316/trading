@@ -18,6 +18,7 @@ export default function Tab({
 		<div className="border border-[#176F79] bg-[radial-gradient(circle,_transparent,_#176F7999)] py-1 px-3 rounded-lg flex flex-wrap">
 			{data.map((d, i) => (
 				<button
+					type="button"
 					key={i}
 					onClick={() => {
 						onChange(d.value);

@@ -23,14 +23,14 @@ export default function Navbar() {
 						Login
 					</Button>
 				)}
-				<button title="Notifications">
+				<button type="button" title="Notifications">
 					<IoNotificationsOutline />
 				</button>
-				<button title="Customer Support">
+				<button type="button" title="Customer Support">
 					<TfiHeadphoneAlt />
 				</button>
 				{user && (
-					<button title={user.name}>
+					<button type="button" title={user.name}>
 						<img
 							src="/tem/profile-pic.png"
 							alt="profile"

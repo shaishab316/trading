@@ -29,7 +29,7 @@ export default function Sidebar() {
 						open ? "px-10" : "px-4 justify-center"
 					} py-4 sticky top-0 z-10 text-white flex`}
 				>
-					<button className="hidden lg:inline-block">
+					<button type="button" className="hidden lg:inline-block">
 						{open ? (
 							<GoSidebarExpand
 								onClick={() => setOpen(false)}
@@ -49,7 +49,9 @@ export default function Sidebar() {
 							to={href}
 							className={({ isActive }) =>
 								`${
-									isActive ? "text-[#B57E10] border-r-2 lg:border-r-4" : "text-white"
+									isActive
+										? "text-[#B57E10] border-r-2 lg:border-r-4"
+										: "text-white"
 								} hover:bg-white/20 hover:backdrop-blur-md ${
 									open ? "px-10" : "px-4 justify-center"
 								} py-4 min-w-full flex`
@@ -57,7 +59,7 @@ export default function Sidebar() {
 							title={name}
 							onClick={() => dispatch(setCurrentPath({ path: name }))}
 						>
-							<button className="flex items-center gap-2">
+							<button type="button" className="flex items-center gap-2">
 								<Icon />
 								{open && <span>{name}</span>}
 							</button>
@@ -67,7 +69,11 @@ export default function Sidebar() {
 			</div>
 			<div className="mx-auto lg:mx-0 lg:px-10 py-4 space-y-6 text-white">
 				{user && (
-					<button onClick={() => dispatch(logout())} title="Logout">
+					<button
+						type="button"
+						onClick={() => dispatch(logout())}
+						title="Logout"
+					>
 						<TbLogout2 />
 					</button>
 				)}

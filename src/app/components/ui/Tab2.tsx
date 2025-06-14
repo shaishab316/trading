@@ -18,6 +18,7 @@ export default function Tab2({
 		<div className="bg-black/20 backdrop-blur-md rounded-lg flex flex-wrap">
 			{data.map((d, i) => (
 				<button
+					type="button"
 					key={i}
 					onClick={() => {
 						onChange(d.value);
