@@ -40,6 +40,7 @@ function BreakpointSlider({
 				.fill(null)
 				.map((_, i) => (
 					<button
+						type="button"
 						key={i}
 						className={`inline-block absolute w-4 h-4 top-2 rotate-45 rounded-sm ${
 							i <= index ? "bg-[#2ecc71]" : "bg-gray-400"
