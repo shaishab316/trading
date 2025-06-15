@@ -45,9 +45,9 @@ export default function Journal({
 				{open && <span>{name}</span>}
 			</button>
 			<Modal open={modelOpen} setOpen={setModelOpen}>
-				<div className="bg-black/50 backdrop-blur-md rounded-md border border-[#e9c862] text-base">
-					<div className="flex gap-4 items-center border-b border-[#808080] p-4">
-						<IoBookOutline />
+				<div className="bg-black rounded-md border border-[#e9c862] text-base">
+					<div className="flex gap-[24px] items-center border-b border-[#808080] p-4 text-2xl">
+						<IoBookOutline className="text-[#808080]" />
 						Journal
 					</div>
 					<div className="p-4">
