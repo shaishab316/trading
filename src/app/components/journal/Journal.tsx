@@ -16,7 +16,7 @@ export default function Journal({
 	open: boolean;
 	Icon: IconType;
 }) {
-	const [modelOpen, setModelOpen] = useState(true);
+	const [modelOpen, setModelOpen] = useState(false);
 	const fileRef = useRef<HTMLInputElement>(null);
 
 	const handleSave = async () => {
