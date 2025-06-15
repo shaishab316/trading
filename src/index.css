@@ -1,4 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
+
+body {
+	@apply text-white;
+	font-family: "Inter", sans-serif;
+}
 
 input.hide-range[type="range"]::-webkit-slider-thumb {
 	display: none;
@@ -21,8 +27,4 @@ button {
 button:enabled:active {
 	transform: scale(0.85) translateY(2px); /* Slightly shrink the card on click and move it down a bit */
 	transition: transform 0.2s ease-in-out; /* Smooth transition */
-}
-
-body {
-	@apply text-white;
 }
