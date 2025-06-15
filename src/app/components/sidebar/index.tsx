@@ -8,12 +8,26 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setCurrentPath } from "../../../redux/features/navigation/navigationSlice";
 import { logout } from "../../../redux/features/user/userSlice";
 import Journal from "../journal/Journal";
+import toast from "react-hot-toast";
+import sleep from "../../../utils/sleep";
 
 export default function Sidebar() {
 	const dispatch = useAppDispatch();
 
 	const [open, setOpen] = useState(false);
 	const user = useAppSelector((state) => state.user.user);
+
+	const handleLogout = async () => {
+		const toastId = toast.loading("Logging out...");
+
+		try {
+			await sleep(1000); // Todo : Replace with actual logic
+			toast.success("Logged out successfully", { id: toastId });
+			dispatch(logout());
+		} catch {
+			toast.error("Failed to logout", { id: toastId });
+		}
+	};
 
 	return (
 		<div className="w-fit min-w-[70px] flex flex-col relative h-screen overflow-y-auto pb-4 bg-[#0A0A0A33] text-2xl">
@@ -74,11 +88,7 @@ export default function Sidebar() {
 			</div>
 			<div className="mx-auto lg:mx-0 lg:px-10 py-4 space-y-6 text-white">
 				{user && (
-					<button
-						type="button"
-						onClick={() => dispatch(logout())}
-						title="Logout"
-					>
+					<button type="button" onClick={handleLogout} title="Logout">
 						<TbLogout2 />
 					</button>
 				)}
