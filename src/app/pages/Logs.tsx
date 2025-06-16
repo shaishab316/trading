@@ -6,17 +6,36 @@ import { IoCalendarNumberOutline, IoSearchSharp } from "react-icons/io5";
 import { GrStatusGood } from "react-icons/gr";
 import random from "../../utils/random";
 import moment from "moment";
+import { useEffect, useState } from "react";
 
 const { d1 } = logsXData;
 
 export default function Execution() {
-	const logs = Array.from({ length: 9 }, () => ({
-		date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
-		up: !!(random(0, 1) | 0),
-		amount: random(1_000, 10_000) | 0,
-		dollar: random(1_000, 10_000_000) | 0,
-		coin: ["UB", "ZB", "ES", "NQ", "GC", "SI", "PL"][random(0, 7) | 0],
-	}));
+	const [logs, setLogs] = useState(
+		Array.from({ length: 10 }, () => ({
+			date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
+			up: !!(random(0, 1) | 0),
+			amount: random(1_000, 10_000) | 0,
+			dollar: random(1_000, 10_000_000) | 0,
+			coin: ["UB", "ZB", "ES", "NQ", "GC", "SI", "PL"][random(0, 6) | 0],
+		}))
+	);
+
+	useEffect(() => {
+		const id = setInterval(() => {
+			setLogs((prev) => [
+				{
+					date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
+					up: !!(random(0, 1) | 0),
+					amount: random(1_000, 10_000) | 0,
+					dollar: random(1_000, 10_000_000) | 0,
+					coin: ["UB", "ZB", "ES", "NQ", "GC", "SI", "PL"][random(0, 6) | 0],
+				},
+				...prev.slice(0, 9),
+			]);
+		}, 1000);
+		return () => clearInterval(id);
+	}, []);
 
 	return (
 		<div>
@@ -78,8 +97,8 @@ export default function Execution() {
 				<div className="px-4 py-2 border-y border-gray-500">Date</div>
 
 				<div className="px-4 py-6 flex flex-col gap-6">
-					<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-fit">
-						<div className="flex flex-col gap-2">
+					<div className="flex flex-wrap-reverse gap-6 h-fit">
+						<div className="flex flex-col gap-2 grow">
 							{logs.map(({ date, amount, dollar, up, coin }) => (
 								<div className="flex gap-2 items-center justify-between p-2 border border-gray-500/30 rounded-md hover:bg-gray-600 cursor-pointer">
 									<span>{moment(date).format("YYYY-MM-DD")}</span>
