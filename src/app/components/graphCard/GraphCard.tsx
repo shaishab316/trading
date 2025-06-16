@@ -13,7 +13,7 @@ export default function GraphCard({
 		coin?: string;
 		volume?: {
 			name?: string;
-			value?: number;
+			value?: string;
 		};
 		up?: string;
 		down?: string;
@@ -78,7 +78,7 @@ export default function GraphCard({
 						<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
 					</div>
 				)}
-				Volume
+				{data?.volume?.name}
 				{data?.down && (
 					<div className="flex gap-2 items-center text-gray-400">
 						{data.down}
