@@ -11,6 +11,7 @@ import { SlSizeActual } from "react-icons/sl";
 import { IoMdWarning } from "react-icons/io";
 import BuySell from "../components/execution/BuySell";
 import r from "../../utils/random";
+import { v4 as uuidv4 } from "uuid";
 
 const { d1 } = execution;
 
@@ -49,7 +50,7 @@ export default function Execution() {
 					<Switch onToggle={console.log} />
 					<IoSettingsOutline className="text-[#00ffff] text-2xl" />
 					<div className="mx-8 relative">
-						<CopyButton onCopy={console.log} data={Math.random().toString()} />
+						<CopyButton onCopy={console.log} data={uuidv4()} />
 						<FaLock className="text text-yellow-500 absolute bottom-1 -right-6" />
 					</div>
 					<IoSettingsOutline className="text-[#00ffff] text-2xl" />
