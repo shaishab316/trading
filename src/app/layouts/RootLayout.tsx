@@ -5,11 +5,13 @@ import Button from "../components/ui/Button";
 import { IoArrowBackOutline, IoReload } from "react-icons/io5";
 import { useState } from "react";
 import Login from "../components/auth/login";
+import { useAppSelector } from "../../hooks/redux";
 
 export default function RootLayout() {
+	const user = useAppSelector((state) => state.user.user);
 	const navigate = useNavigate();
 	const [reload, setReload] = useState(Math.random());
-	const [loginOpen, setLoginOpen] = useState(true);
+	const [loginOpen, setLoginOpen] = useState(!user);
 
 	return (
 		<>
