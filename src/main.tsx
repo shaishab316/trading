@@ -4,14 +4,17 @@ import "./index.css";
 import { Provider as StoreProvider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import { appRouter } from "./routes";
-import { appStore } from "./redux/store";
+import { appStore, persistor } from "./redux/store";
 import { Toaster } from "react-hot-toast";
+import { PersistGate } from "redux-persist/integration/react";
 
 createRoot(document.getElementById("√")!).render(
 	<StrictMode>
 		<StoreProvider store={appStore}>
-			<RouterProvider router={appRouter} />
-			<Toaster />
+			<PersistGate loading="loading auth" persistor={persistor}>
+				<RouterProvider router={appRouter} />
+				<Toaster />
+			</PersistGate>
 		</StoreProvider>
 	</StrictMode>
 );
