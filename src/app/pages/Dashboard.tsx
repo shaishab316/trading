@@ -1,4 +1,4 @@
-import dashboard from "../../app/data/dashboard.json";
+import dashboard from "../data/dashboard";
 import { RiBarChart2Fill } from "react-icons/ri";
 import { ImPower } from "react-icons/im";
 import { DiBitbucket } from "react-icons/di";

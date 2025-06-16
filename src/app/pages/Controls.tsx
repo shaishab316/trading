@@ -1,4 +1,4 @@
-import controls from "../../app/data/controls.json";
+import controls from "../data/controls";
 import ToggleButton from "../components/ui/ToggleButton";
 import { MdElectricBolt } from "react-icons/md";
 import GraphCard from "../components/graphCard/GraphCard";
