@@ -8,6 +8,7 @@ import { BiBarChartAlt2 } from "react-icons/bi";
 import Tab from "../components/ui/Tab";
 import Switch from "../components/ui/Switch";
 import { useEffect } from "react";
+import CandleChart from "../components/ui/CandleChart";
 
 const { d1, d2, d3 } = dashboard;
 
@@ -105,7 +106,7 @@ export default function Dashboard() {
 									/>
 								</div>
 							</div>
-							<div className="my-4 flex gap-4 flex-wrap items-center">
+							<div className="mt-4 flex gap-4 flex-wrap items-center">
 								<span className="text-2xl">{d3.volume.value}</span>
 								{d3.volume.up && (
 									<div className="flex gap-2 items-center text-gray-400">
@@ -121,8 +122,7 @@ export default function Dashboard() {
 									</div>
 								)}
 							</div>
-							<img src="/tem/bar.png" className="w-full" alt="bar" />
-							{/* Delete this img */}
+							<CandleChart />
 						</div>
 					</div>
 

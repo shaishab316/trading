@@ -61,9 +61,10 @@ export default function Sidebar() {
 				<div className="flex flex-col">
 					{navLinks.map(([name, href, Icon]) =>
 						name === "Journal" ? (
-							<Journal name={name} open={open} Icon={Icon} />
+							<Journal key={name} name={name} open={open} Icon={Icon} />
 						) : (
 							<NavLink
+								key={name}
 								to={href}
 								className={({ isActive }) =>
 									`${
