@@ -17,7 +17,7 @@ const demoUser: TUser = {
 const userSlice = createSlice({
 	name: "user",
 	initialState: {
-		user: demoUser as TUser | null,
+		user: null as TUser | null,
 	},
 	reducers: {
 		login: (state) => {
