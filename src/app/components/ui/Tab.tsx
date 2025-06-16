@@ -29,6 +29,7 @@ export default function Tab({
 							? "bg-gradient-to-b from-[#CDDB8E] via-[#dab24a] to-[#CDDB8E] rounded-full text-black"
 							: ""
 					} text-sm px-4 py-1`}
+					title={d.value}
 				>
 					{d.children}
 				</button>

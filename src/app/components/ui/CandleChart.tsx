@@ -1,32 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const CandleChart: React.FC = () => {
-	const candlestickData = Array.from({ length: 20 }).map((_, i) => {
-		const date = new Date(2025, 5, 16, i + 1);
-		const high = (200 + Math.random() * 20) | 0;
-		const low = (180 + Math.random() * 20) | 0;
-		const open = (low + Math.random() * (high - low)) | 0;
-		const close = (low + Math.random() * (high - low)) | 0;
-		return [date.getTime(), open, high, low, close];
-	});
-
+const CandleChart = ({ data }: { data: number[][] }) => {
 	const series = [
 		{
 			name: "Candlestick",
 			type: "candlestick" as const,
-			data: candlestickData,
+			data: data,
 		},
 		{
 			name: "Midline",
 			type: "line" as const,
-			data: candlestickData.map(([x, open, , , close]) => [
-				x,
-				(open + close) / 2,
-			]),
+			data: data.map(([x, open, , , close]) => [x, (open + close) / 2]),
 		},
-		...candlestickData.map(([x, _open, high, low, _close], index) => ({
+		...data.map(([x, _open, high, low, _close], index) => ({
 			name: `High-Low Bar ${index + 1}`,
 			type: "line" as const,
 			data: [
@@ -77,11 +64,11 @@ const CandleChart: React.FC = () => {
 			},
 		},
 		stroke: {
-			width: [0, 2, ...candlestickData.map(() => 2)], // Width for candlestick, midline, and each high-low bar
+			width: [0, 2, ...data.map(() => 2)], // Width for candlestick, midline, and each high-low bar
 			colors: [
 				undefined, // Candlestick uses plotOptions colors
 				"#f9df7b", // Midline in yellow
-				...candlestickData.map(
+				...data.map(
 					([, open, , , close]) => (close >= open ? "#46c769" : "#dc143c") // Green for up, red for down
 				),
 			],

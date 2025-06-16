@@ -3,12 +3,9 @@ import { RiBarChart2Fill } from "react-icons/ri";
 import { ImPower } from "react-icons/im";
 import { DiBitbucket } from "react-icons/di";
 import { CiGlobe } from "react-icons/ci";
-import { BsGraphUpArrow } from "react-icons/bs";
-import { BiBarChartAlt2 } from "react-icons/bi";
-import Tab from "../components/ui/Tab";
 import Switch from "../components/ui/Switch";
 import { useEffect } from "react";
-import CandleChart from "../components/ui/CandleChart";
+import GraphCard from "../components/graphCard/GraphCard";
 
 const { d1, d2, d3 } = dashboard;
 
@@ -80,50 +77,7 @@ export default function Dashboard() {
 							VWAP GLIDE
 							<Switch onToggle={console.log} />
 						</div>
-						<div className="p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
-							<div className="flex flex-wrap gap-2 items-center justify-between">
-								<div>{d3.volume.coin}</div>
-								<div className="flex flex-wrap gap-3">
-									<Tab
-										data={[
-											{
-												children: <BiBarChartAlt2 />,
-												value: "graph",
-											},
-											{
-												children: <BsGraphUpArrow />,
-												value: "bar",
-											},
-										]}
-										onChange={console.log}
-									/>
-									<Tab
-										data={["15m", "1h", "4h", "all"].map((v) => ({
-											children: v,
-											value: v,
-										}))}
-										onChange={console.log}
-									/>
-								</div>
-							</div>
-							<div className="mt-4 flex gap-4 flex-wrap items-center">
-								<span className="text-2xl">{d3.volume.value}</span>
-								{d3.volume.up && (
-									<div className="flex gap-2 items-center text-gray-400">
-										{d3.volume.up}
-										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
-									</div>
-								)}
-								Volume
-								{d3.volume.down && (
-									<div className="flex gap-2 items-center text-gray-400">
-										{d3.volume.down}
-										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
-									</div>
-								)}
-							</div>
-							<CandleChart />
-						</div>
+						<GraphCard data={d3.volume} />
 					</div>
 
 					<div className="space-y-6">
@@ -132,36 +86,7 @@ export default function Dashboard() {
 							SESSION PROFILE
 							<Switch onToggle={console.log} />
 						</div>
-						<div className="p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
-							<div className="flex flex-wrap gap-2 items-center justify-between">
-								<div>{d3.macd.coin}</div>
-								<div className="flex flex-wrap gap-3">
-									<Tab
-										data={["15m", "1h", "4h", "all"].map((v) => ({
-											children: v,
-											value: v,
-										}))}
-										onChange={console.log}
-									/>
-								</div>
-							</div>
-							<div className="mt-4 flex gap-4 flex-wrap items-center">
-								<span className="text-2xl">{d3.macd.value}</span>
-								{d3.macd.up && (
-									<div className="flex gap-2 items-center text-gray-400">
-										{d3.macd.up}
-										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
-									</div>
-								)}
-								MACD
-								{d3.macd.down && (
-									<div className="flex gap-2 items-center text-gray-400">
-										{d3.macd.down}
-										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
-									</div>
-								)}
-							</div>
-						</div>
+						<GraphCard data={d3.macd} option={{ showFull: false }} />
 					</div>
 				</div>
 
@@ -172,36 +97,7 @@ export default function Dashboard() {
 							FLOWPRINT PRO
 							<Switch onToggle={console.log} />
 						</div>
-						<div className="p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
-							<div className="flex flex-wrap gap-2 items-center justify-between">
-								<div>{d3.rsi.coin}</div>
-								<div className="flex flex-wrap gap-3">
-									<Tab
-										data={["15m", "1h", "4h", "all"].map((v) => ({
-											children: v,
-											value: v,
-										}))}
-										onChange={console.log}
-									/>
-								</div>
-							</div>
-							<div className="mt-4 flex gap-4 flex-wrap items-center">
-								<span className="text-2xl">{d3.rsi.value}</span>
-								{d3.rsi.up && (
-									<div className="flex gap-2 items-center text-gray-400">
-										{d3.rsi.up}
-										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
-									</div>
-								)}
-								RSI
-								{d3.rsi.down && (
-									<div className="flex gap-2 items-center text-gray-400">
-										{d3.rsi.down}
-										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
-									</div>
-								)}
-							</div>
-						</div>
+						<GraphCard data={d3.rsi} option={{ showFull: false }} />
 					</div>
 
 					<div className="space-y-6">
@@ -214,51 +110,7 @@ export default function Dashboard() {
 							SMARTZONE
 							<Switch onToggle={console.log} />
 						</div>
-						<div className="p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
-							<div className="flex flex-wrap gap-2 items-center justify-between">
-								<div>{d3.atr.coin}</div>
-								<div className="flex flex-wrap gap-3">
-									<Tab
-										data={[
-											{
-												children: <BiBarChartAlt2 />,
-												value: "graph",
-											},
-											{
-												children: <BsGraphUpArrow />,
-												value: "bar",
-											},
-										]}
-										onChange={console.log}
-									/>
-									<Tab
-										data={["15m", "1h", "4h", "all"].map((v) => ({
-											children: v,
-											value: v,
-										}))}
-										onChange={console.log}
-									/>
-								</div>
-							</div>
-							<div className="my-4 flex gap-4 flex-wrap items-center">
-								<span className="text-2xl">{d3.atr.value}</span>
-								{d3.atr.up && (
-									<div className="flex gap-2 items-center text-gray-400">
-										{d3.atr.up}
-										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
-									</div>
-								)}
-								ATR
-								{d3.atr.down && (
-									<div className="flex gap-2 items-center text-gray-400">
-										{d3.atr.down}
-										<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
-									</div>
-								)}
-							</div>
-							<img src="/tem/bar.png" className="w-full" alt="bar" />
-							{/* Delete this img */}
-						</div>
+						<GraphCard data={d3.atr} />
 					</div>
 				</div>
 			</div>
