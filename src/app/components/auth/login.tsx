@@ -34,7 +34,7 @@ export default function Login({
 				onSubmit={handleLogin}
 				className="bg-[#272727] rounded-md border border-[#e9c862] text-base p-[32px] text-center"
 			>
-				<img src="/public/logo2.png" alt="logo" className="w-[200px] mx-auto" />
+				<img src="/logo2.png" alt="logo" className="w-[200px] mx-auto" />
 				<h3 className="m-[16px] font-semibold text-2xl">Login</h3>
 				<table className="table-auto border-separate border-spacing-4 min-w-[30vw]">
 					<tr className="table-row">
