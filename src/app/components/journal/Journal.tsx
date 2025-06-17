@@ -59,7 +59,7 @@ export default function Journal({
 								</button>
 							))}
 						</div>
-						<div className="flex items-center justify-between">
+						<div className="flex items-center gap-4 justify-between">
 							<button className="bg-gradient-to-b from-[#164b61] to-[#066c6c] rounded-full flex items-center justify-center">
 								<span className="bg-[#12776b] w-[32px] aspect-square text-[#2ecc71] rounded-full flex items-center justify-center text-2xl">
 									<MdDone />

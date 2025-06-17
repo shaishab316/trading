@@ -5,6 +5,7 @@ import Controls from "../app/pages/Controls";
 import Research from "../app/pages/Research";
 import Execution from "../app/pages/Execution";
 import Logs from "../app/pages/Logs";
+import Settings from "../app/pages/Settings";
 
 export const appRouter = createBrowserRouter([
 	{
@@ -34,6 +35,10 @@ export const appRouter = createBrowserRouter([
 			{
 				path: "/logs",
 				element: <Logs />,
+			},
+			{
+				path: "/settings",
+				element: <Settings />,
 			},
 			{
 				path: "/:path",
