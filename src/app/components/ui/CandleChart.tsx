@@ -26,7 +26,7 @@ const CandleChart = ({ data }: { data: number[][] }) => {
 	const options: ApexCharts.ApexOptions = {
 		chart: {
 			height: 300,
-			background: "transparent", // Set background to transparent
+			background: "transparent",
 			toolbar: { show: false },
 		},
 		xaxis: {
@@ -34,11 +34,11 @@ const CandleChart = ({ data }: { data: number[][] }) => {
 			labels: { style: { colors: "#d1d5db" } },
 			axisBorder: {
 				show: true,
-				color: "#ba8517", // Bottom line color
+				color: "#ba8517",
 			},
 		},
 		yaxis: {
-			opposite: true, // Move y-axis to the right side
+			opposite: true,
 			tooltip: { enabled: true },
 			labels: {
 				style: { colors: "#d1d5db" },
@@ -50,17 +50,17 @@ const CandleChart = ({ data }: { data: number[][] }) => {
 			},
 			axisBorder: {
 				show: true,
-				color: "#ba8517", // Left line color (though y-axis is on right, this affects the grid)
+				color: "#ba8517",
 			},
 		},
 		grid: {
-			borderColor: "#ba851733", // Ensure grid lines match the axis color
+			borderColor: "#ba851733",
 		},
 		plotOptions: {
 			candlestick: {
 				colors: {
-					upward: "#46c769", // Green for up candles
-					downward: "#dc143c", // Red for down candles
+					upward: "#46c769",
+					downward: "#dc143c",
 				},
 				wick: {
 					useFillColor: true,
@@ -68,17 +68,17 @@ const CandleChart = ({ data }: { data: number[][] }) => {
 			},
 		},
 		stroke: {
-			width: [0, 2, ...data.map(() => 2)], // Width for candlestick, midline, and each high-low bar
+			width: [0, 2, ...data.map(() => 2)],
 			colors: [
-				undefined, // Candlestick uses plotOptions colors
-				"#f9df7b", // Midline in yellow
-				...data.map(
-					([, open, , , close]) => (close >= open ? "#46c769" : "#dc143c") // Green for up, red for down
+				undefined,
+				"#f9df7b",
+				...data.map(([, open, , , close]) =>
+					close >= open ? "#46c769" : "#dc143c"
 				),
 			],
 		},
 		legend: {
-			show: false, // Hide the legend to remove bottom text headers
+			show: false, 
 		},
 		theme: {
 			mode: "dark",

@@ -5,7 +5,6 @@ import Controls from "../app/pages/Controls";
 import Research from "../app/pages/Research";
 import Execution from "../app/pages/Execution";
 import Logs from "../app/pages/Logs";
-import CandleChart from "../app/components/ui/CandleChart";
 
 export const appRouter = createBrowserRouter([
 	{
@@ -38,7 +37,7 @@ export const appRouter = createBrowserRouter([
 			},
 			{
 				path: "/:path",
-				element: <CandleChart />,
+				element: <>Not found</>,
 			},
 		],
 	},

@@ -5,6 +5,7 @@ import CandleChart from "../ui/CandleChart";
 import { useEffect, useState } from "react";
 import ToggleButton from "../ui/ToggleButton";
 import random from "../../../utils/random";
+import BarChart from "../ui/BarChart";
 
 export default function GraphCard({
 	data,
@@ -39,6 +40,9 @@ export default function GraphCard({
 			return [date.getTime(), open, high, low, close];
 		})
 	);
+	const [barData, setBarData] = useState(
+		Array.from({ length: 20 }).map(() => random(0, 500) | 0)
+	);
 
 	useEffect(() => {
 		let interval: number | null = null;
@@ -55,6 +59,8 @@ export default function GraphCard({
 						return [date.getTime(), open, high, low, close];
 					})
 				);
+
+				setBarData(Array.from({ length: 20 }).map(() => random(0, 500) | 0));
 			}, 2000);
 
 		return () => clearInterval(interval!);
@@ -125,7 +131,11 @@ export default function GraphCard({
 				onMouseLeave={() => setHover(false)}
 			>
 				{showFull &&
-					(view === "graph" ? <CandleChart data={cartData} /> : <></>)}
+					(view === "graph" ? (
+						<CandleChart data={cartData} />
+					) : (
+						<BarChart data={barData} />
+					))}
 			</div>
 		</div>
 	);
