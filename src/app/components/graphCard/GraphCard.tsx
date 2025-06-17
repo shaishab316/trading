@@ -2,8 +2,9 @@ import { BiBarChartAlt2 } from "react-icons/bi";
 import Tab from "../ui/Tab";
 import { BsGraphUpArrow, BsPinAngle } from "react-icons/bs";
 import CandleChart from "../ui/CandleChart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ToggleButton from "../ui/ToggleButton";
+import random from "../../../utils/random";
 
 export default function GraphCard({
 	data,
@@ -26,6 +27,38 @@ export default function GraphCard({
 	const [view, setView] = useState("graph");
 	const [showFull, setShowFull] = useState<boolean>(option?.showFull ?? true);
 	const [pin, setPin] = useState(false);
+	const [hover, setHover] = useState(false);
+
+	const [cartData, setCartData] = useState(
+		Array.from({ length: 20 }).map((_, i) => {
+			const date = new Date(2025, 5, 16, i + 1);
+			const high = random(10_000, 1_000_000) | 0;
+			const low = random(10_000, 1_000_000) | 0;
+			const open = random(low, high) | 0;
+			const close = random(low, high) | 0;
+			return [date.getTime(), open, high, low, close];
+		})
+	);
+
+	useEffect(() => {
+		let interval: number | null = null;
+
+		if (!hover)
+			interval = setInterval(() => {
+				setCartData(
+					Array.from({ length: 20 }).map((_, i) => {
+						const date = new Date(2025, 5, 16, i + 1);
+						const high = random(10_000, 1_000_000) | 0;
+						const low = random(10_000, 1_000_000) | 0;
+						const open = random(low, high) | 0;
+						const close = random(low, high) | 0;
+						return [date.getTime(), open, high, low, close];
+					})
+				);
+			}, 2000);
+
+		return () => clearInterval(interval!);
+	}, [hover]);
 
 	return (
 		<div
@@ -86,22 +119,13 @@ export default function GraphCard({
 					</div>
 				)}
 			</div>
-			<div onClick={(e) => e.stopPropagation()}>
+			<div
+				onClick={(e) => e.stopPropagation()}
+				onMouseEnter={() => setHover(true)}
+				onMouseLeave={() => setHover(false)}
+			>
 				{showFull &&
-					(view === "graph" ? (
-						<CandleChart
-							data={Array.from({ length: 20 }).map((_, i) => {
-								const date = new Date(2025, 5, 16, i + 1);
-								const high = (200 + Math.random() * 20) | 0;
-								const low = (180 + Math.random() * 20) | 0;
-								const open = (low + Math.random() * (high - low)) | 0;
-								const close = (low + Math.random() * (high - low)) | 0;
-								return [date.getTime(), open, high, low, close];
-							})}
-						/>
-					) : (
-						<></>
-					))}
+					(view === "graph" ? <CandleChart data={cartData} /> : <></>)}
 			</div>
 		</div>
 	);

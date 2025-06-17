@@ -42,7 +42,11 @@ const CandleChart = ({ data }: { data: number[][] }) => {
 			tooltip: { enabled: true },
 			labels: {
 				style: { colors: "#d1d5db" },
-				formatter: (value) => `$${value.toFixed(2)}`, // Format as "$89.00"
+				formatter: (value) =>
+					`$${new Intl.NumberFormat("en", {
+						notation: "compact",
+						maximumFractionDigits: 0,
+					}).format(value)}`,
 			},
 			axisBorder: {
 				show: true,
