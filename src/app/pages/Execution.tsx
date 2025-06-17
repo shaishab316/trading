@@ -1,7 +1,4 @@
 import execution from "../data/execution.json";
-import { BiBarChartAlt2 } from "react-icons/bi";
-import Tab from "../components/ui/Tab";
-import { BsGraphUpArrow } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
 import Switch from "../components/ui/Switch";
 import CopyButton from "../components/ui/CopyButton";
@@ -12,6 +9,8 @@ import { IoMdWarning } from "react-icons/io";
 import BuySell from "../components/execution/BuySell";
 import r from "../../utils/random";
 import { v4 as uuidv4 } from "uuid";
+import GraphCard from "../components/graphCard/GraphCard";
+import random from "../../utils/random";
 
 const { d1 } = execution;
 
@@ -104,48 +103,17 @@ export default function Execution() {
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 					<BuySell />
 
-					<div className="p-6 grow border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
-						<div className="flex flex-wrap gap-2 items-center justify-between">
-							<div>CL</div>
-							<div className="flex flex-wrap gap-3">
-								<Tab
-									data={[
-										{
-											children: <BiBarChartAlt2 />,
-											value: "graph",
-										},
-										{
-											children: <BsGraphUpArrow />,
-											value: "bar",
-										},
-									]}
-									init="bar"
-									onChange={console.log}
-								/>
-								<Tab
-									data={["15m", "1h", "4h", "all"].map((v) => ({
-										children: v,
-										value: v,
-									}))}
-									onChange={console.log}
-								/>
-							</div>
-						</div>
-						<div className="my-4 flex gap-4 flex-wrap items-center">
-							<span className="text-2xl">79.95</span>
-							<div className="flex gap-2 items-center text-gray-400">
-								2.3%
-								<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
-							</div>
-							Key Support
-							<div className="flex gap-2 items-center">
-								79.50%
-								<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
-							</div>
-						</div>
-						<img src="/tem/bar.png" className="w-full" alt="bar" />
-						{/* Delete this img */}
-					</div>
+					<GraphCard
+						data={{
+							coin: "CL",
+							volume: {
+								name: "Key Support",
+								value: `$${random(50, 100).toFixed(2)}`,
+							},
+							up: `${random(1, 5).toFixed(2)}%`,
+							down: `${random(1, 100).toFixed(2)}`,
+						}}
+					/>
 				</div>
 			</div>
 

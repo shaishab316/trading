@@ -1,18 +1,16 @@
 import logsXData from "../data/logs.json";
-import { BiBarChartAlt2 } from "react-icons/bi";
-import Tab from "../components/ui/Tab";
-import { BsGraphUpArrow } from "react-icons/bs";
 import { IoCalendarNumberOutline, IoSearchSharp } from "react-icons/io5";
 import { GrStatusGood } from "react-icons/gr";
 import random from "../../utils/random";
 import moment from "moment";
 import { useEffect, useState } from "react";
+import GraphCard from "../components/graphCard/GraphCard";
 
 const { d1 } = logsXData;
 
 export default function Execution() {
 	const [logs, setLogs] = useState(
-		Array.from({ length: 10 }, () => ({
+		Array.from({ length: 9 }, () => ({
 			date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
 			up: !!(random(0, 1) | 0),
 			amount: random(1_000, 10_000) | 0,
@@ -31,7 +29,7 @@ export default function Execution() {
 					dollar: random(1_000, 10_000_000) | 0,
 					coin: ["UB", "ZB", "ES", "NQ", "GC", "SI", "PL"][random(0, 6) | 0],
 				},
-				...prev.slice(0, 9),
+				...prev.slice(0, 8),
 			]);
 		}, 1000);
 		return () => clearInterval(id);
@@ -97,8 +95,8 @@ export default function Execution() {
 				<div className="px-4 py-2 border-y border-gray-500">Date</div>
 
 				<div className="px-4 py-6 flex flex-col gap-6">
-					<div className="flex flex-wrap-reverse gap-6 h-fit">
-						<div className="flex flex-col gap-2 grow">
+					<div className="flex flex-col-reverse md:flex-row gap-6 h-fit">
+						<div className="flex flex-col gap-2 md:w-1/2">
 							{logs.map(({ date, amount, dollar, up, coin }) => (
 								<div className="flex gap-2 items-center justify-between p-2 border border-gray-500/30 rounded-md hover:bg-gray-600 cursor-pointer">
 									<span>{moment(date).format("YYYY-MM-DD")}</span>
@@ -127,47 +125,18 @@ export default function Execution() {
 							))}
 						</div>
 
-						<div className="p-6 grow border border-gray-500 rounded-md backdrop-blur-md bg-black/20">
-							<div className="flex flex-wrap gap-2 items-center justify-between">
-								<div>CL</div>
-								<div className="flex flex-wrap gap-3">
-									<Tab
-										data={[
-											{
-												children: <BiBarChartAlt2 />,
-												value: "graph",
-											},
-											{
-												children: <BsGraphUpArrow />,
-												value: "bar",
-											},
-										]}
-										init="bar"
-										onChange={console.log}
-									/>
-									<Tab
-										data={["15m", "1h", "1d", "15d", "30d"].map((v) => ({
-											children: v,
-											value: v,
-										}))}
-										onChange={console.log}
-									/>
-								</div>
-							</div>
-							<div className="my-4 flex gap-4 flex-wrap items-center">
-								<span className="text-2xl">79.95</span>
-								<div className="flex gap-2 items-center text-gray-400">
-									2.3%
-									<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
-								</div>
-								Key Support
-								<div className="flex gap-2 items-center">
-									79.50%
-									<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
-								</div>
-							</div>
-							<img src="/tem/bar.png" className="w-full" alt="bar" />
-							{/* Delete this img */}
+						<div className="md:w-1/2">
+							<GraphCard
+								data={{
+									coin: "CL",
+									volume: {
+										name: "Key Support",
+										value: `$${random(50, 100).toFixed(2)}`,
+									},
+									up: `${random(1, 5).toFixed(2)}%`,
+									down: `${random(1, 100).toFixed(2)}`,
+								}}
+							/>
 						</div>
 					</div>
 				</div>

@@ -33,7 +33,7 @@ export default function GraphCard({
 			title={showFull ? "Minimize" : "Maximize"}
 			className={`p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20 hover:bg-black/30 ${
 				!pin && "cursor-pointer"
-			}`}
+			} ${!showFull && "h-fit"}`}
 		>
 			<div className="flex flex-wrap gap-2 items-center justify-between">
 				<div>{data?.coin}</div>
