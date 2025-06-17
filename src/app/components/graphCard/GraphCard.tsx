@@ -60,7 +60,9 @@ export default function GraphCard({
 					})
 				);
 
-				setBarData(Array.from({ length: 10 }).map(() => random(0, 500) | 0));
+				setBarData(
+					Array.from({ length: 10 }).map(() => random(10_000, 1_000_000) | 0)
+				);
 			}, 2000);
 
 		return () => clearInterval(interval!);
