@@ -30,7 +30,7 @@ export default function Sidebar() {
 	};
 
 	return (
-		<div className="w-fit min-w-[70px] flex flex-col relative h-screen overflow-y-auto pb-4 bg-[#0A0A0A33] text-2xl">
+		<div className="w-fit min-w-[70px] flex flex-col relative h-screen overflow-y-auto pb-4 bg-[#0A0A0A33] text-lg">
 			<img
 				src="/logo.png"
 				alt="logo"
@@ -98,7 +98,7 @@ export default function Sidebar() {
 					title="Call Wealthy"
 				>
 					<RiVoiceAiFill className="text-[#B57E10] bg-black rounded-full w-6 h-6" />
-					{open && <span className="mr-1">Call Wealthy</span>}
+					{open && <span className="mr-1 whitespace-nowrap">Call Wealthy</span>}
 				</button>
 			</div>
 		</div>
