@@ -41,7 +41,7 @@ export default function GraphCard({
 		})
 	);
 	const [barData, setBarData] = useState(
-		Array.from({ length: 20 }).map(() => random(0, 500) | 0)
+		Array.from({ length: 10 }).map(() => random(0, 500) | 0)
 	);
 
 	useEffect(() => {
@@ -60,7 +60,7 @@ export default function GraphCard({
 					})
 				);
 
-				setBarData(Array.from({ length: 20 }).map(() => random(0, 500) | 0));
+				setBarData(Array.from({ length: 10 }).map(() => random(0, 500) | 0));
 			}, 2000);
 
 		return () => clearInterval(interval!);
