@@ -78,7 +78,10 @@ export default function Sidebar() {
 								title={name}
 								onClick={() => dispatch(setCurrentPath({ path: name }))}
 							>
-								<button type="button" className="flex items-center gap-2">
+								<button
+									type="button"
+									className="flex items-center gap-2 whitespace-nowrap"
+								>
 									<Icon />
 									{open && <span>{name}</span>}
 								</button>

@@ -3,7 +3,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import Switch from "../components/ui/Switch";
 import CopyButton from "../components/ui/CopyButton";
 import { FaClipboardList, FaLock } from "react-icons/fa";
-import { MdOutlinePriceChange } from "react-icons/md";
+import { MdElectricBolt, MdOutlinePriceChange } from "react-icons/md";
 import { SlSizeActual } from "react-icons/sl";
 import { IoMdWarning } from "react-icons/io";
 import BuySell from "../components/execution/BuySell";
@@ -11,6 +11,8 @@ import r from "../../utils/random";
 import { v4 as uuidv4 } from "uuid";
 import GraphCard from "../components/graphCard/GraphCard";
 import random from "../../utils/random";
+import Button from "../components/ui/Button";
+import ToggleButton from "../components/ui/ToggleButton";
 
 const { d1 } = execution;
 
@@ -178,6 +180,55 @@ export default function Execution() {
 							</tr>
 						))}
 				</table>
+			</div>
+
+			<div className="p-6 mt-6 bg-gradient-to-b from-[#165067] to-[#078789] rounded-md relative">
+				<div className="flex gap-3">
+					<span className="text-2xl font-semibold">Wealthy AI</span>
+					<img
+						src="/tem/logo2.png"
+						alt="logo"
+						className="hue-rotate-[170deg] w-8 h-8"
+					/>
+				</div>
+				<h4 className="my-[23px]">
+					Liquidity cluster forming at 79.50 — Possible support zone
+				</h4>
+				<div className="flex flex-wrap gap-4">
+					<Button className="text-[#C0C0C0] flex gap-2 px-6">
+						<svg
+							width="16"
+							height="17"
+							viewBox="0 0 16 17"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M5.33398 7.16667V5.16667C5.33398 3.69333 6.52732 2.5 8.00065 2.5C9.47398 2.5 10.6673 3.69333 10.6673 5.16667V7.16667M8.00065 10.5C8.17746 10.5 8.34703 10.4298 8.47206 10.3047C8.59708 10.1797 8.66732 10.0101 8.66732 9.83333C8.66732 9.65652 8.59708 9.48695 8.47206 9.36193C8.34703 9.2369 8.17746 9.16667 8.00065 9.16667C7.82384 9.16667 7.65427 9.2369 7.52925 9.36193C7.40422 9.48695 7.33398 9.65652 7.33398 9.83333C7.33398 10.0101 7.40422 10.1797 7.52925 10.3047C7.65427 10.4298 7.82384 10.5 8.00065 10.5ZM8.00065 10.5V12.5M4.40065 7.16667H11.6007C12.1873 7.16667 12.6673 7.64667 12.6673 8.23333V12.9C12.6673 13.78 11.9473 14.5 11.0673 14.5H4.93398C4.05398 14.5 3.33398 13.78 3.33398 12.9V8.23333C3.33398 7.64667 3.81398 7.16667 4.40065 7.16667Z"
+								stroke="currentColor"
+								stroke-width="1.5"
+								stroke-miterlimit="10"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+						</svg>
+						L2
+					</Button>
+
+					<ToggleButton
+						className="py-[3px] px-8 border-[#dab24a]"
+						style={{ color: "#dab24a" }}
+						init={false}
+						onToggle={console.log}
+					>
+						<MdElectricBolt className="inline-block mr-2" /> Turbo Execute
+					</ToggleButton>
+				</div>
+				<img
+					src="/ads.png"
+					alt="ads"
+					className="absolute bottom-6 right-6 rounded-md w-[200px]"
+				/>
 			</div>
 		</div>
 	);
