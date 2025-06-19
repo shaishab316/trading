@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import Button from "./Button";
 import { FaRegCircleStop } from "react-icons/fa6";
 
@@ -10,21 +10,16 @@ const formatTime = (seconds: number) => {
 		.padStart(2, "0")}`;
 };
 
-const Recorder: React.FC = () => {
+const Recorder = () => {
 	const [isRecording, setIsRecording] = useState<boolean>(false);
 	const [timer, setTimer] = useState<number>(0);
-	const timerRef = useRef<NodeJS.Timeout>(null);
 
-	const startRecording = async () => {
-		setIsRecording(true);
-		timerRef.current = setInterval(() => setTimer((prev) => prev + 1), 1000);
-	};
+	useEffect(() => {
+		if (!isRecording) return setTimer((timer) => (timer ? 0 : timer));
 
-	const stopRecording = () => {
-		setIsRecording(false);
-		timerRef.current?.pipe(clearInterval);
-		setTimer(0);
-	};
+		const interval = setInterval(() => setTimer((timer) => timer + 1), 1000);
+		return () => clearInterval(interval);
+	}, [isRecording]);
 
 	return (
 		<>
@@ -32,7 +27,7 @@ const Recorder: React.FC = () => {
 				{!isRecording ? (
 					<Button
 						className="w-full justify-center gap-2"
-						onClick={startRecording}
+						onClick={() => setIsRecording(true)}
 					>
 						<svg
 							width="22"
@@ -51,7 +46,7 @@ const Recorder: React.FC = () => {
 				) : (
 					<button
 						className={`flex items-center gap-2 justify-center text-base border border-[#dc143c] bg-[#dc143c] py-1 px-4 rounded-md w-full`}
-						onClick={stopRecording}
+						onClick={() => setIsRecording(false)}
 					>
 						<FaRegCircleStop className="text-2xl" />
 						{formatTime(timer)}
