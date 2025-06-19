@@ -1,13 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Button from "./Button";
 import { FaRegCircleStop } from "react-icons/fa6";
 
 const formatTime = (seconds: number) => {
-	const mins = (seconds / 60) | 0;
-	const secs = seconds % 60;
-	return `${mins.toString().padStart(2, "0")}:${secs
-		.toString()
-		.padStart(2, "0")}`;
+	const h = (seconds / 3600) | 0;
+	const m = ((seconds % 3600) / 60) | 0;
+	const s = seconds % 60;
+
+	const hh = h < 10 ? "0" + h : h;
+	const mm = m < 10 ? "0" + m : m;
+	const ss = s < 10 ? "0" + s : s;
+
+	return `${h > 0 ? `${hh}:` : ""}${mm}:${ss}`;
 };
 
 const Recorder = () => {
@@ -21,13 +25,17 @@ const Recorder = () => {
 		return () => clearInterval(interval);
 	}, [isRecording]);
 
+	const startRecording = useCallback(() => setIsRecording(true), []);
+	const stopRecording = useCallback(() => setIsRecording(false), []);
+
 	return (
 		<>
 			<div className="flex justify-center space-x-4 mb-4 w-full">
 				{!isRecording ? (
 					<Button
 						className="w-full justify-center gap-2"
-						onClick={() => setIsRecording(true)}
+						onClick={startRecording}
+						title="Start Recording"
 					>
 						<svg
 							width="22"
@@ -41,12 +49,13 @@ const Recorder = () => {
 								fill="#DC143C"
 							/>
 						</svg>
-						<span className="">Record</span>
+						<span>Record</span>
 					</Button>
 				) : (
 					<button
 						className={`flex items-center gap-2 justify-center text-base border border-[#dc143c] bg-[#dc143c] py-1 px-4 rounded-md w-full`}
-						onClick={() => setIsRecording(false)}
+						onClick={stopRecording}
+						title="Stop Recording"
 					>
 						<FaRegCircleStop className="text-2xl" />
 						{formatTime(timer)}
