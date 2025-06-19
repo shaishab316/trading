@@ -2,8 +2,8 @@ import React, { useState, useRef } from "react";
 import Button from "./Button";
 import { FaRegCircleStop } from "react-icons/fa6";
 
-const formatTime = (seconds: number): string => {
-	const mins = Math.floor(seconds / 60);
+const formatTime = (seconds: number) => {
+	const mins = (seconds / 60) | 0;
 	const secs = seconds % 60;
 	return `${mins.toString().padStart(2, "0")}:${secs
 		.toString()
@@ -15,18 +15,14 @@ const Recorder: React.FC = () => {
 	const [timer, setTimer] = useState<number>(0);
 	const timerRef = useRef<NodeJS.Timeout>(null);
 
-	const startRecording = async (): Promise<void> => {
+	const startRecording = async () => {
 		setIsRecording(true);
-		timerRef.current = setInterval(() => {
-			setTimer((prev) => prev + 1);
-		}, 1000);
+		timerRef.current = setInterval(() => setTimer((prev) => prev + 1), 1000);
 	};
 
-	const stopRecording = (): void => {
+	const stopRecording = () => {
 		setIsRecording(false);
-		if (timerRef.current) {
-			clearInterval(timerRef.current);
-		}
+		timerRef.current?.pipe(clearInterval);
 		setTimer(0);
 	};
 
