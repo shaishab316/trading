@@ -45,7 +45,7 @@ export default function GraphCard({
 	);
 
 	useEffect(() => {
-		let interval: number | null = null;
+		let interval: NodeJS.Timeout | null = null;
 
 		if (!hover)
 			interval = setInterval(() => {

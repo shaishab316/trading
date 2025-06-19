@@ -3,13 +3,13 @@ import { navLinks } from "./navLinks";
 import { useState } from "react";
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { TbLogout2 } from "react-icons/tb";
-import { RiVoiceAiFill } from "react-icons/ri";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setCurrentPath } from "../../../redux/features/navigation/navigationSlice";
 import { logout } from "../../../redux/features/user/userSlice";
 import Journal from "../journal/Journal";
 import toast from "react-hot-toast";
 import sleep from "../../../utils/sleep";
+import CallWealthy from "../callwealthy/CallWealthy";
 
 export default function Sidebar() {
 	const dispatch = useAppDispatch();
@@ -96,13 +96,7 @@ export default function Sidebar() {
 						<TbLogout2 />
 					</button>
 				)}
-				<button
-					className={`flex gap-2 items-center bg-white/20 hover:bg-white/30 rounded-2xl p-1 text-lg`}
-					title="Call Wealthy"
-				>
-					<RiVoiceAiFill className="text-[#B57E10] bg-black rounded-full w-6 h-6" />
-					{open && <span className="mr-1 whitespace-nowrap">Call Wealthy</span>}
-				</button>
+				<CallWealthy open={open} />
 			</div>
 		</div>
 	);
