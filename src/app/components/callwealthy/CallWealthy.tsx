@@ -2,6 +2,8 @@ import { RiVoiceAiFill } from "react-icons/ri";
 import Modal from "../ui/Modal";
 import { useState } from "react";
 import Recorder from "../ui/Recorder";
+import Collapse from "../ui/Collapse";
+import Checkbox from "../ui/Checkbox";
 
 const tabs = {
 	Record: "Record",
@@ -27,7 +29,7 @@ export default function CallWealthy({ open }: { open: boolean }) {
 				{open && <span className="mr-1 whitespace-nowrap">Call Wealthy</span>}
 			</button>
 			<Modal open={openModal} setOpen={setOpenModal}>
-				<div className="bg-[#0a1213] py-[16px] rounded-md border border-[#f8de7a] max-h-[300px]">
+				<div className="bg-[#0a1213] py-[16px] rounded-md border border-[#f8de7a]">
 					<div className="flex gap-4 justify-between px-[16px]">
 						<img src="/logo3.png" alt="logo" className="h-[34px] w-[120px]" />
 						<button
@@ -66,6 +68,27 @@ export default function CallWealthy({ open }: { open: boolean }) {
 						{activeTab === tabs.Record && (
 							<>
 								<Recorder />
+								<Collapse title="Setting" init={true} className="w-fit">
+									<p className="flex items-center gap-2 mt-2">
+										<Checkbox /> Include Mic Audio
+									</p>
+									<p className="flex items-center gap-2">
+										<Checkbox /> Capture Cursor
+									</p>
+								</Collapse>
+								<div className="flex gap-3 mt-4">
+									<button className="rounded-md bg-gradient-to-b group from-[#29ABE2] to-[#00FFFF] p-[1px] grow">
+										<div className="flex gap-2 justify-between bg-[#0a1213] group-hover:bg-[#0a1213cc] rounded-md px-[8px] py-[4px]">
+											<span>Account</span> <span>250K</span>
+										</div>
+									</button>
+
+									<button className="rounded-md bg-gradient-to-b group from-[#29ABE2] to-[#00FFFF] p-[1px] grow">
+										<div className="flex gap-2 justify-between bg-[#0a1213] group-hover:bg-[#0a1213cc] rounded-md px-[8px] py-[4px]">
+											<span>PnL</span> <span>+4.2K</span>
+										</div>
+									</button>
+								</div>
 							</>
 						)}
 					</div>
