@@ -29,7 +29,7 @@ const Recorder = () => {
 	const stopRecording = useCallback(() => setIsRecording(false), []);
 
 	return (
-		<div className="flex justify-center space-x-4 mb-4 w-full">
+		<div className="flex justify-center space-x-4 w-full">
 			{!isRecording ? (
 				<Button
 					className="w-full justify-center gap-2"
