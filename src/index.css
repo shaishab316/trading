@@ -43,3 +43,11 @@ button:enabled:active {
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none; /* Firefox */
 }
+
+.resize-model {
+	@apply resize overflow-auto;
+}
+
+.resize-model > * {
+	@apply h-full min-h-fit;
+}
