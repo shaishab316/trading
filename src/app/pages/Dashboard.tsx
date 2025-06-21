@@ -4,15 +4,12 @@ import { ImPower } from "react-icons/im";
 import { DiBitbucket } from "react-icons/di";
 import { CiGlobe } from "react-icons/ci";
 import Switch from "../components/ui/Switch";
-import { useEffect } from "react";
 import GraphCard from "../components/graphCard/GraphCard";
 import Button from "../components/ui/Button";
 
 const { d1, d2, d3 } = dashboard;
 
 export default function Dashboard() {
-	useEffect(() => console.log("reloaded"), []);
-
 	return (
 		<div className="">
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-4">
@@ -66,7 +63,7 @@ export default function Dashboard() {
 				<div className="bg-[#00FFFF] border border-blue-600 py-2 px-4 text-black rounded-md flex items-center">
 					<CiGlobe className="text-2xl" />
 					<span className="ml-1 mr-3 whitespace-nowrap">Extension Mode</span>
-					<Switch onToggle={console.log} className="bg-gray-300" />
+					<Switch onToggle={() => {}} className="bg-gray-300" />
 				</div>
 			</div>
 
@@ -76,7 +73,7 @@ export default function Dashboard() {
 						<div className="flex items-center gap-2">
 							<img src="/tem/logo2.png" alt="logo" />
 							VWAP GLIDE
-							<Switch onToggle={console.log} />
+							<Switch onToggle={() => {}} />
 						</div>
 						<GraphCard data={d3.volume} />
 					</div>
@@ -85,7 +82,7 @@ export default function Dashboard() {
 						<div className="flex items-center gap-2">
 							<img src="/tem/logo2.png" alt="logo" className="saturate-0" />
 							SESSION PROFILE
-							<Switch onToggle={console.log} />
+							<Switch onToggle={() => {}} />
 						</div>
 						<GraphCard data={d3.macd} option={{ showFull: false }} />
 					</div>
@@ -96,7 +93,7 @@ export default function Dashboard() {
 						<div className="flex items-center gap-2">
 							<img src="/tem/logo2.png" alt="logo" className="hue-rotate-60" />
 							FLOWPRINT PRO
-							<Switch onToggle={console.log} />
+							<Switch onToggle={() => {}} />
 						</div>
 						<GraphCard data={d3.rsi} option={{ showFull: false }} />
 					</div>
@@ -109,7 +106,7 @@ export default function Dashboard() {
 								className="hue-rotate-[110deg]"
 							/>
 							SMARTZONE
-							<Switch onToggle={console.log} />
+							<Switch onToggle={() => {}} />
 						</div>
 						<GraphCard data={d3.atr} />
 					</div>

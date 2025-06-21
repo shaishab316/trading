@@ -33,7 +33,7 @@ export default function Controls() {
 				className="py-[3px] px-8 border-[#dab24a]"
 				style={{ color: "#dab24a" }}
 				init={false}
-				onToggle={console.log}
+				onToggle={() => {}}
 			>
 				<MdElectricBolt className="inline-block mr-2" /> Turbo Execute
 			</ToggleButton>

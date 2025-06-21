@@ -1,33 +1,38 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { MdDone } from "react-icons/md";
 
 export default function Checkbox({
-	onChecked = (_value: boolean) => {},
+	onCheckedChange = (_value: boolean) => {},
 	init = false,
+	checkedElement = <MdDone className="bg-[#6fafe7] w-full h-full" />,
+	children = null,
 }: {
-	onChecked?: (value: boolean) => void;
+	onCheckedChange?: (value: boolean) => void;
 	init?: boolean;
+	children?: ReactNode;
+	checkedElement?: ReactNode;
 }) {
 	const [checked, setChecked] = useState(init);
 
 	useEffect(() => {
-		onChecked(checked);
+		onCheckedChange(checked);
 	}, [checked]);
 
-	return checked ? (
-		<button
-			onClick={() => setChecked(false)}
-			className="w-5 h-5 rounded-lg border bg-[#6fafe7] border-[#6fafe7]"
-			type="button"
+	return (
+		<div
+			onClick={() => setChecked(!checked)}
+			className="flex items-center gap-2 group cursor-pointer select-none"
+			title={checked ? "Click to Uncheck" : "Click to Check"}
 		>
-			<MdDone />
-		</button>
-	) : (
-		<button
-			onClick={() => setChecked(true)}
-			className="w-5 h-5 rounded-lg border border-[#6fafe7]"
-			type="button"
-		></button>
+			<div
+				className={`w-5 h-5 border ${
+					checked ? "border-[#6fafe7]" : ""
+				} click-group overflow-hidden rounded-lg grid place-items-center`}
+			>
+				{checked && checkedElement}
+			</div>
+			{children}
+		</div>
 	);
 }

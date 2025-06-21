@@ -42,7 +42,7 @@ export default function BuySell() {
 						value: v,
 					}))}
 					init="OCO"
-					onChange={console.log}
+					onChange={() => {}}
 				/>
 			</div>
 
@@ -136,7 +136,7 @@ export default function BuySell() {
 				<span className="self-end">
 					Max <span className="text-[#2ecc71]">12.12</span>
 				</span>
-				<BreakpointSlider step={7} onChange={console.log} />
+				<BreakpointSlider step={7} onChange={() => {}} />
 				<button
 					className={`${
 						tab === "Buy" ? "bg-[#2ecc71]" : "bg-[#dc143c]"

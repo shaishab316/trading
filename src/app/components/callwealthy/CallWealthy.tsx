@@ -77,10 +77,22 @@ export default function CallWealthy({ open }: { open: boolean }) {
 										className="w-fit max-h-[100px] overflow-y-auto"
 									>
 										<p className="flex items-center gap-2 mt-2">
-											<Checkbox /> Include Mic Audio
+											<Checkbox
+												checkedElement={
+													<div className="w-3 h-3 bg-[#6fafe7] rounded-sm" />
+												}
+											>
+												Include Mic Audio
+											</Checkbox>
 										</p>
 										<p className="flex items-center gap-2">
-											<Checkbox /> Capture Cursor
+											<Checkbox
+												checkedElement={
+													<div className="w-3 h-3 bg-[#6fafe7] rounded-sm" />
+												}
+											>
+												Capture Cursor
+											</Checkbox>
 										</p>
 									</Collapse>
 								</div>

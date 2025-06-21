@@ -54,7 +54,10 @@ export default function Journal({
 						<span className="font-semibold">Emotion</span>
 						<div className="flex flex-wrap gap-[16px] mt-[16px] mb-[12px]">
 							{["FOMO", "Discipline", "Confidence"].map((v) => (
-								<button className="border border-[#6fafe7] rounded-xl px-[30px] py-[10px]">
+								<button
+									key={v}
+									className="border border-[#6fafe7] rounded-xl px-[30px] py-[10px]"
+								>
 									{v}
 								</button>
 							))}

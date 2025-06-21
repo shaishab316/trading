@@ -31,8 +31,11 @@ export default function Logs() {
 
 	return (
 		<div className="flex flex-col gap-2 md:w-1/2">
-			{logs.map(({ date, amount, dollar, up, coin }) => (
-				<div className="flex gap-2 items-center justify-between p-2 border border-gray-500/30 rounded-md hover:bg-gray-600 cursor-pointer">
+			{logs.map(({ date, amount, dollar, up, coin }, idx) => (
+				<div
+					key={idx}
+					className="flex gap-2 items-center justify-between p-2 border border-gray-500/30 rounded-md hover:bg-gray-600 cursor-pointer"
+				>
 					<span>{moment(date).format("YYYY-MM-DD")}</span>
 					<span>{moment(date).format("hh:mm A")}</span>
 					<span className="flex items-center gap-2">

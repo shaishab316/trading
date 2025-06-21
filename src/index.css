@@ -24,6 +24,11 @@ button {
 	transition: transform 0.2s ease-in-out; /* Smooth transition */
 }
 
+.group:active > .click-group {
+	transform: scale(0.85) translateY(2px); /* Slightly shrink the card on click and move it down a bit */
+	transition: transform 0.2s ease-in-out; /* Smooth transition */
+}
+
 button:enabled:active {
 	transform: scale(0.85) translateY(2px); /* Slightly shrink the card on click and move it down a bit */
 	transition: transform 0.2s ease-in-out; /* Smooth transition */

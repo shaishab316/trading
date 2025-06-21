@@ -102,7 +102,7 @@ export default function GraphCard({
 							children: v,
 							value: v,
 						}))}
-						onChange={console.log}
+						onChange={() => {}}
 					/>
 					{option?.pin && (
 						<ToggleButton onToggle={setPin}>

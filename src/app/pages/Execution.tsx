@@ -48,10 +48,10 @@ export default function Execution() {
 						className="hue-rotate-[170deg]"
 					/>
 					AUTOWEALTH
-					<Switch onToggle={console.log} />
+					<Switch onToggle={() => {}} />
 					<IoSettingsOutline className="text-[#00ffff] text-2xl" />
 					<div className="mx-8 relative">
-						<CopyButton onCopy={console.log} data={uuidv4()} />
+						<CopyButton onCopy={() => {}} data={uuidv4()} />
 						<FaLock className="text text-yellow-500 absolute bottom-1 -right-6" />
 					</div>
 					<IoSettingsOutline className="text-[#00ffff] text-2xl" />
@@ -122,63 +122,65 @@ export default function Execution() {
 			<div className="bg-black/20 border border-yellow-400/20 rounded-md p-6">
 				<p className="text-gray-300 mb-2 px-2">Level 2 Market Depth Grid</p>
 				<table className="table-auto w-full border-separate border-spacing-2 cursor-pointer">
-					<tr className="table-row text-left">
-						<th
-							className="border-b border-gray-200 text-gray-200 p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
-							style={{ width: "25%" }}
-						>
-							Bid Price
-						</th>
-						<th
-							className="border-b border-gray-200 text-gray-200 p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
-							style={{ width: "25%" }}
-						>
-							Size (Buy Orders)
-						</th>
-						<th
-							className="border-b border-gray-200 text-gray-200 p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
-							style={{ width: "25%" }}
-						>
-							Bid Price
-						</th>
-						<th
-							className="border-b border-gray-200 text-gray-200 p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
-							style={{ width: "25%" }}
-						>
-							Size (Sell Orders)
-						</th>
-					</tr>
-					{Array(5)
-						.fill(null)
-						.map((_, i) => (
-							<tr>
-								<td
-									className="border-b text-[#2ecc71] border-[#2ecc71] p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
-									style={{ width: "25%" }}
-								>
-									{r(50, 100).toFixed(2)}
-								</td>
-								<td
-									className="border-b text-[#2ecc71] border-[#2ecc71] p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
-									style={{ width: "25%" }}
-								>
-									X {r(50, 200) | 0}{" "}
-									{i === 4 && <span className="text-white">← Cluster</span>}
-								</td>
-								<td
-									className="border-b border-[#f9df7b] text-[#f9df7b] p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
-									style={{ width: "25%" }}
-								>
-									{r(50, 100).toFixed(2)}
-								</td>
-								<td
-									className="border-b border-[#f9df7b] text-[#f9df7b] p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
-									style={{ width: "25%" }}
-								>
-									X {r(50, 200) | 0}
-								</td>
-							</tr>
-						))}
+					<tbody>
+						<tr className="table-row text-left">
+							<th
+								className="border-b border-gray-200 text-gray-200 p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+								style={{ width: "25%" }}
+							>
+								Bid Price
+							</th>
+							<th
+								className="border-b border-gray-200 text-gray-200 p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+								style={{ width: "25%" }}
+							>
+								Size (Buy Orders)
+							</th>
+							<th
+								className="border-b border-gray-200 text-gray-200 p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+								style={{ width: "25%" }}
+							>
+								Bid Price
+							</th>
+							<th
+								className="border-b border-gray-200 text-gray-200 p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+								style={{ width: "25%" }}
+							>
+								Size (Sell Orders)
+							</th>
+						</tr>
+						{Array(5)
+							.fill(null)
+							.map((_, i) => (
+								<tr key={i}>
+									<td
+										className="border-b text-[#2ecc71] border-[#2ecc71] p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+										style={{ width: "25%" }}
+									>
+										{r(50, 100).toFixed(2)}
+									</td>
+									<td
+										className="border-b text-[#2ecc71] border-[#2ecc71] p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+										style={{ width: "25%" }}
+									>
+										X {r(50, 200) | 0}{" "}
+										{i === 4 && <span className="text-white">← Cluster</span>}
+									</td>
+									<td
+										className="border-b border-[#f9df7b] text-[#f9df7b] p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+										style={{ width: "25%" }}
+									>
+										{r(50, 100).toFixed(2)}
+									</td>
+									<td
+										className="border-b border-[#f9df7b] text-[#f9df7b] p-2 font-light hover:bg-gray-200/20 backdrop-blur-md"
+										style={{ width: "25%" }}
+									>
+										X {r(50, 200) | 0}
+									</td>
+								</tr>
+							))}
+					</tbody>
 				</table>
 			</div>
 
@@ -206,10 +208,10 @@ export default function Execution() {
 							<path
 								d="M5.33398 7.16667V5.16667C5.33398 3.69333 6.52732 2.5 8.00065 2.5C9.47398 2.5 10.6673 3.69333 10.6673 5.16667V7.16667M8.00065 10.5C8.17746 10.5 8.34703 10.4298 8.47206 10.3047C8.59708 10.1797 8.66732 10.0101 8.66732 9.83333C8.66732 9.65652 8.59708 9.48695 8.47206 9.36193C8.34703 9.2369 8.17746 9.16667 8.00065 9.16667C7.82384 9.16667 7.65427 9.2369 7.52925 9.36193C7.40422 9.48695 7.33398 9.65652 7.33398 9.83333C7.33398 10.0101 7.40422 10.1797 7.52925 10.3047C7.65427 10.4298 7.82384 10.5 8.00065 10.5ZM8.00065 10.5V12.5M4.40065 7.16667H11.6007C12.1873 7.16667 12.6673 7.64667 12.6673 8.23333V12.9C12.6673 13.78 11.9473 14.5 11.0673 14.5H4.93398C4.05398 14.5 3.33398 13.78 3.33398 12.9V8.23333C3.33398 7.64667 3.81398 7.16667 4.40065 7.16667Z"
 								stroke="currentColor"
-								stroke-width="1.5"
-								stroke-miterlimit="10"
-								stroke-linecap="round"
-								stroke-linejoin="round"
+								strokeWidth="1.5"
+								strokeMiterlimit="10"
+								strokeLinecap="round"
+								strokeLinejoin="round"
 							/>
 						</svg>
 						L2
@@ -219,7 +221,7 @@ export default function Execution() {
 						className="py-[3px] px-8 border-[#dab24a]"
 						style={{ color: "#dab24a" }}
 						init={false}
-						onToggle={console.log}
+						onToggle={() => {}}
 					>
 						<MdElectricBolt className="inline-block mr-2" /> Turbo Execute
 					</ToggleButton>
