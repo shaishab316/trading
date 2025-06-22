@@ -66,12 +66,15 @@ const ChartComponent = ({ data }: { data: number[] }) => {
 	];
 
 	return (
-		<ReactApexChart
-			options={options}
-			series={series}
-			type="area"
-			height={300}
-		/>
+		<div className="relative pt-6 -my-6">
+			<div className="absolute right-4 top-4">USD</div>
+			<ReactApexChart
+				options={options}
+				series={series}
+				type="area"
+				height={300}
+			/>
+		</div>
 	);
 };
 
