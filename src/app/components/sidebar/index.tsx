@@ -1,6 +1,7 @@
-import { NavLink } from "react-router-dom";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { NavLink, useSearchParams } from "react-router-dom";
 import { navLinks } from "./navLinks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { TbLogout2 } from "react-icons/tb";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
@@ -12,9 +13,10 @@ import sleep from "../../../utils/sleep";
 import CallWealthy from "../callwealthy/CallWealthy";
 
 export default function Sidebar() {
+	const [query, setQuery] = useSearchParams();
 	const dispatch = useAppDispatch();
 
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(query.get("sidebar") === "open");
 	const user = useAppSelector((state) => state.user.user);
 
 	const handleLogout = async () => {
@@ -28,6 +30,14 @@ export default function Sidebar() {
 			toast.error("Failed to logout", { id: toastId });
 		}
 	};
+
+	useEffect(() => {
+		setQuery((query) => {
+			if (open) query.set("sidebar", "open");
+			else query.delete("sidebar");
+			return query;
+		});
+	}, [open]);
 
 	return (
 		<div className="w-fit min-w-[70px] flex flex-col relative h-screen overflow-y-auto pb-4 bg-[#0A0A0A33] text-lg">
