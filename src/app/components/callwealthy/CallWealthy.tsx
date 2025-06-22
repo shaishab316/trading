@@ -1,11 +1,17 @@
 import { RiVoiceAiFill } from "react-icons/ri";
 import Modal from "../ui/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Recorder from "../ui/Recorder";
 import Collapse from "../ui/Collapse";
 import Checkbox from "../ui/Checkbox";
 import Button from "../ui/Button";
 import random from "../../../utils/random";
+
+const zoomConfig = {
+	step: 20,
+	min: -40,
+	max: 200,
+};
 
 const tabs = {
 	Record: "Record",
@@ -18,7 +24,12 @@ type TTabs = keyof typeof tabs;
 
 export default function CallWealthy({ open }: { open: boolean }) {
 	const [openModal, setOpenModal] = useState(true);
-	const [activeTab, setActiveTab] = useState<TTabs>(tabs.Capture);
+	const [activeTab, setActiveTab] = useState<TTabs>(tabs.Screen);
+	const [zoom, setZoom] = useState(0);
+
+	useEffect(() => {
+		document.getElementById("√√")!.style.zoom = `${100 + zoom}%`;
+	}, [zoom]);
 
 	return (
 		<>
@@ -43,7 +54,7 @@ export default function CallWealthy({ open }: { open: boolean }) {
 						</button>
 					</div>
 
-					<div className="px-[16px] flex mt-[16px] overflow-x-auto hide-scroll">
+					<div className="px-[16px] flex mt-[16px] overflow-x-auto hide-scroll justify-center">
 						{Object.values(tabs).map((tab) => {
 							const active = activeTab === tab;
 
@@ -219,6 +230,76 @@ export default function CallWealthy({ open }: { open: boolean }) {
 									</Collapse>
 								</div>
 							</>
+						)}
+
+						{activeTab === tabs.Screen && (
+							<div>
+								<h3 className="text-base font-semibold mb-2">Zoom Screen</h3>
+								<div className="h-2 bg-[#c0c0c0] rounded-md">
+									<div
+										className="h-full bg-gradient-to-b from-[#f8de7a] to-[#b67f11] rounded-md"
+										style={{
+											width: `${
+												((zoom - zoomConfig.min) /
+													(zoomConfig.max - zoomConfig.min)) *
+												100
+											}%`,
+										}}
+									></div>
+								</div>
+								<div className="flex gap-4 justify-between text-[#c0c0c0] mt-2">
+									<button
+										title="Zoom Out"
+										onClick={() =>
+											setZoom((prevZoom) =>
+												Math.max(prevZoom - zoomConfig.step, zoomConfig.min)
+											)
+										}
+									>
+										<svg
+											width="1.5em"
+											height="1.5em"
+											viewBox="0 0 25 24"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M17.0417 17L21.0417 21M8.04175 11H14.0417M3.04175 11C3.04175 13.1217 3.8846 15.1566 5.38489 16.6569C6.88518 18.1571 8.92002 19 11.0417 19C13.1635 19 15.1983 18.1571 16.6986 16.6569C18.1989 15.1566 19.0417 13.1217 19.0417 11C19.0417 8.87827 18.1989 6.84344 16.6986 5.34315C15.1983 3.84285 13.1635 3 11.0417 3C8.92002 3 6.88518 3.84285 5.38489 5.34315C3.8846 6.84344 3.04175 8.87827 3.04175 11Z"
+												stroke="currentColor"
+												strokeWidth="1.5"
+												strokeLinecap="round"
+												strokeLinejoin="round"
+											/>
+										</svg>
+									</button>
+									<span>{zoom}%</span>
+									<button
+										title="Zoom In"
+										onClick={() =>
+											setZoom((prevZoom) =>
+												Math.min(prevZoom + zoomConfig.step, zoomConfig.max)
+											)
+										}
+									>
+										<svg
+											width="1.5em"
+											height="1.5em"
+											viewBox="0 0 25 24"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M21.0417 21L17.0417 17M8.04175 11H14.0417M11.0417 14V8M19.0417 11C19.0417 13.1217 18.1989 15.1566 16.6986 16.6569C15.1983 18.1571 13.1635 19 11.0417 19C8.92002 19 6.88518 18.1571 5.38489 16.6569C3.8846 15.1566 3.04175 13.1217 3.04175 11C3.04175 8.87827 3.8846 6.84344 5.38489 5.34315C6.88518 3.84285 8.92002 3 11.0417 3C13.1635 3 15.1983 3.84285 16.6986 5.34315C18.1989 6.84344 19.0417 8.87827 19.0417 11Z"
+												stroke="currentColor"
+												strokeWidth="1.5"
+												strokeMiterlimit="10"
+												strokeLinecap="round"
+												strokeLinejoin="round"
+											/>
+										</svg>
+									</button>
+								</div>
+							</div>
 						)}
 					</div>
 

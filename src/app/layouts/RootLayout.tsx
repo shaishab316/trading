@@ -17,7 +17,7 @@ export default function RootLayout() {
 		<>
 			<div className="flex w-screen h-screen overflow-hidden bg-gradient-to-br from-[#001c1f] via-[#002933] to-[#00161a]">
 				<Sidebar />
-				<div className="grow flex flex-col overflow-y-scroll relative">
+				<div id="√√" className="grow flex flex-col overflow-y-scroll relative">
 					<Navbar setLoginOpen={setLoginOpen} />
 					<div className="flex flex-wrap gap-4 items-center px-[10px] pt-[10px] md:px-[20px] md:pt-[20px] lg:px-[40px] lg:pt-[40px]">
 						<Button
