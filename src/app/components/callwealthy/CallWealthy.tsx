@@ -29,8 +29,8 @@ const tabs = {
 type TTabs = keyof typeof tabs;
 
 export default function CallWealthy({ open }: { open: boolean }) {
-	const [openModal, setOpenModal] = useState(true);
-	const [activeTab, setActiveTab] = useState<TTabs>(tabs.Screen);
+	const [openModal, setOpenModal] = useState(false);
+	const [activeTab, setActiveTab] = useState<TTabs>(tabs.Record);
 	const [zoom, setZoom] = useState(0);
 	const [brightness, setBrightness] = useState(0);
 
@@ -260,13 +260,14 @@ export default function CallWealthy({ open }: { open: boolean }) {
 									<h3 className="text-base font-semibold mb-2">Zoom Screen</h3>
 									<div className="h-2 bg-[#c0c0c0] rounded-md">
 										<div
-											className="h-full bg-gradient-to-b from-[#f8de7a] to-[#b67f11] rounded-md"
+											className="h-full bg-gradient-to-b from-[#f8de7a] to-[#b67f11] rounded-md transition-all duration-500"
 											style={{
 												width: `${
 													((zoom - zoomConfig.min) /
 														(zoomConfig.max - zoomConfig.min)) *
 													100
 												}%`,
+												transitionProperty: "width",
 											}}
 										></div>
 									</div>
@@ -328,13 +329,14 @@ export default function CallWealthy({ open }: { open: boolean }) {
 									<h3 className="text-base font-semibold mb-2">Brightness</h3>
 									<div className="h-2 bg-[#c0c0c0] rounded-md">
 										<div
-											className="h-full bg-gradient-to-b from-[#f8de7a] to-[#b67f11] rounded-md"
+											className="h-full bg-gradient-to-b from-[#f8de7a] to-[#b67f11] rounded-md transition-all duration-500"
 											style={{
 												width: `${
 													((brightness - brightnessConfig.min) /
 														(brightnessConfig.max - brightnessConfig.min)) *
 													100
 												}%`,
+												transitionProperty: "width",
 											}}
 										></div>
 									</div>
