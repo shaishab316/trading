@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { RiVoiceAiFill } from "react-icons/ri";
 import Modal from "../ui/Modal";
 import { useEffect, useState } from "react";
@@ -6,6 +7,7 @@ import Collapse from "../ui/Collapse";
 import Checkbox from "../ui/Checkbox";
 import Button from "../ui/Button";
 import random from "../../../utils/random";
+import { useSearchParams } from "react-router-dom";
 
 const zoomConfig = {
 	step: 20,
@@ -29,8 +31,14 @@ const tabs = {
 type TTabs = keyof typeof tabs;
 
 export default function CallWealthy({ open }: { open: boolean }) {
-	const [openModal, setOpenModal] = useState(false);
-	const [activeTab, setActiveTab] = useState<TTabs>(tabs.Record);
+	const [query, setQuery] = useSearchParams();
+
+	const [openModal, setOpenModal] = useState(
+		query.get("callWealthy") === "open"
+	);
+	const [activeTab, setActiveTab] = useState<TTabs>(
+		(query.get("callWealthyTab") as TTabs) || tabs.Record
+	);
 	const [zoom, setZoom] = useState(0);
 	const [brightness, setBrightness] = useState(0);
 
@@ -47,6 +55,19 @@ export default function CallWealthy({ open }: { open: boolean }) {
 			100 + brightness
 		}%)`;
 	}, [brightness]);
+
+	useEffect(() => {
+		setQuery((query) => {
+			query.set("callWealthyTab", activeTab);
+			if (openModal) query.set("callWealthy", "open");
+			else {
+				query.delete("callWealthy");
+				query.delete("callWealthyTab");
+			}
+
+			return query;
+		});
+	}, [openModal, activeTab]);
 
 	return (
 		<>

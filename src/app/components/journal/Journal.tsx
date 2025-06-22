@@ -1,11 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import type { IconType } from "react-icons";
 import Modal from "../ui/Modal";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoBookOutline } from "react-icons/io5";
 import { MdDone } from "react-icons/md";
 import { TbReload, TbXboxX } from "react-icons/tb";
 import toast from "react-hot-toast";
 import sleep from "../../../utils/sleep";
+import { useSearchParams } from "react-router-dom";
 
 export default function Journal({
 	name,
@@ -16,7 +18,8 @@ export default function Journal({
 	open: boolean;
 	Icon: IconType;
 }) {
-	const [modelOpen, setModelOpen] = useState(false);
+	const [query, setQuery] = useSearchParams();
+	const [modelOpen, setModelOpen] = useState(query.get("journal") === "open");
 	const fileRef = useRef<HTMLInputElement>(null);
 
 	const handleSave = async () => {
@@ -30,6 +33,14 @@ export default function Journal({
 			toast.error("Failed to save", { id: toastId });
 		}
 	};
+
+	useEffect(() => {
+		setQuery((query) => {
+			if (modelOpen) query.set("journal", "open");
+			else query.delete("journal");
+			return query;
+		});
+	}, [modelOpen]);
 
 	return (
 		<>

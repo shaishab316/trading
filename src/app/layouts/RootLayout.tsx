@@ -1,17 +1,25 @@
-import { Outlet, useNavigate } from "react-router-dom";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import Navbar from "../components/navbar";
 import Button from "../components/ui/Button";
 import { IoArrowBackOutline, IoReload } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "../components/auth/login";
-import { useAppSelector } from "../../hooks/redux";
 
 export default function RootLayout() {
-	const user = useAppSelector((state) => state.user.user);
+	const [query, setQuery] = useSearchParams();
 	const navigate = useNavigate();
 	const [reload, setReload] = useState(Math.random());
-	const [loginOpen, setLoginOpen] = useState(!user);
+	const [loginOpen, setLoginOpen] = useState(query.get("login") === "open");
+
+	useEffect(() => {
+		setQuery((query) => {
+			if (loginOpen) query.set("login", "open");
+			else query.delete("login");
+			return query;
+		});
+	}, [loginOpen]);
 
 	return (
 		<>
