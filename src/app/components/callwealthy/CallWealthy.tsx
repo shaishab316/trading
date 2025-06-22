@@ -13,6 +13,12 @@ const zoomConfig = {
 	max: 200,
 };
 
+const brightnessConfig = {
+	step: 20,
+	min: -40,
+	max: 200,
+};
+
 const tabs = {
 	Record: "Record",
 	Capture: "Capture",
@@ -26,10 +32,21 @@ export default function CallWealthy({ open }: { open: boolean }) {
 	const [openModal, setOpenModal] = useState(true);
 	const [activeTab, setActiveTab] = useState<TTabs>(tabs.Screen);
 	const [zoom, setZoom] = useState(0);
+	const [brightness, setBrightness] = useState(0);
 
 	useEffect(() => {
 		document.getElementById("√√")!.style.zoom = `${100 + zoom}%`;
 	}, [zoom]);
+
+	useEffect(() => {
+		document.getElementById("√√")!.style.filter = `brightness(${
+			100 + brightness
+		}%)`;
+
+		document.getElementById("√√")!.style.filter = `saturate(${
+			100 + brightness
+		}%)`;
+	}, [brightness]);
 
 	return (
 		<>
@@ -42,7 +59,12 @@ export default function CallWealthy({ open }: { open: boolean }) {
 				{open && <span className="mr-1 whitespace-nowrap">Call Wealthy</span>}
 			</button>
 			<Modal open={openModal} setOpen={setOpenModal}>
-				<div className="bg-[#0a1213] py-[16px] rounded-md border border-[#f8de7a] overflow-x-hidden relative pb-[120px]">
+				<div
+					className="bg-[#0a1213] py-[16px] rounded-md border border-[#f8de7a] overflow-x-hidden relative"
+					style={{
+						paddingBottom: activeTab === tabs.Record ? "125px" : "80px",
+					}}
+				>
 					<div className="flex gap-4 justify-between px-[16px]">
 						<img src="/logo3.png" alt="logo" className="h-[34px] w-[120px]" />
 						<button
@@ -234,70 +256,220 @@ export default function CallWealthy({ open }: { open: boolean }) {
 
 						{activeTab === tabs.Screen && (
 							<div>
-								<h3 className="text-base font-semibold mb-2">Zoom Screen</h3>
-								<div className="h-2 bg-[#c0c0c0] rounded-md">
-									<div
-										className="h-full bg-gradient-to-b from-[#f8de7a] to-[#b67f11] rounded-md"
-										style={{
-											width: `${
-												((zoom - zoomConfig.min) /
-													(zoomConfig.max - zoomConfig.min)) *
-												100
-											}%`,
-										}}
-									></div>
+								<div>
+									<h3 className="text-base font-semibold mb-2">Zoom Screen</h3>
+									<div className="h-2 bg-[#c0c0c0] rounded-md">
+										<div
+											className="h-full bg-gradient-to-b from-[#f8de7a] to-[#b67f11] rounded-md"
+											style={{
+												width: `${
+													((zoom - zoomConfig.min) /
+														(zoomConfig.max - zoomConfig.min)) *
+													100
+												}%`,
+											}}
+										></div>
+									</div>
+									<div className="flex gap-4 justify-between text-[#c0c0c0] mt-2">
+										<button
+											title="Zoom Out"
+											onClick={() =>
+												setZoom((prevZoom) =>
+													Math.max(prevZoom - zoomConfig.step, zoomConfig.min)
+												)
+											}
+										>
+											<svg
+												width="1.5em"
+												height="1.5em"
+												viewBox="0 0 25 24"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M17.0417 17L21.0417 21M8.04175 11H14.0417M3.04175 11C3.04175 13.1217 3.8846 15.1566 5.38489 16.6569C6.88518 18.1571 8.92002 19 11.0417 19C13.1635 19 15.1983 18.1571 16.6986 16.6569C18.1989 15.1566 19.0417 13.1217 19.0417 11C19.0417 8.87827 18.1989 6.84344 16.6986 5.34315C15.1983 3.84285 13.1635 3 11.0417 3C8.92002 3 6.88518 3.84285 5.38489 5.34315C3.8846 6.84344 3.04175 8.87827 3.04175 11Z"
+													stroke="currentColor"
+													strokeWidth="1.5"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+												/>
+											</svg>
+										</button>
+										<span>{zoom}%</span>
+										<button
+											title="Zoom In"
+											onClick={() =>
+												setZoom((prevZoom) =>
+													Math.min(prevZoom + zoomConfig.step, zoomConfig.max)
+												)
+											}
+										>
+											<svg
+												width="1.5em"
+												height="1.5em"
+												viewBox="0 0 25 24"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M21.0417 21L17.0417 17M8.04175 11H14.0417M11.0417 14V8M19.0417 11C19.0417 13.1217 18.1989 15.1566 16.6986 16.6569C15.1983 18.1571 13.1635 19 11.0417 19C8.92002 19 6.88518 18.1571 5.38489 16.6569C3.8846 15.1566 3.04175 13.1217 3.04175 11C3.04175 8.87827 3.8846 6.84344 5.38489 5.34315C6.88518 3.84285 8.92002 3 11.0417 3C13.1635 3 15.1983 3.84285 16.6986 5.34315C18.1989 6.84344 19.0417 8.87827 19.0417 11Z"
+													stroke="currentColor"
+													strokeWidth="1.5"
+													strokeMiterlimit="10"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+												/>
+											</svg>
+										</button>
+									</div>
 								</div>
-								<div className="flex gap-4 justify-between text-[#c0c0c0] mt-2">
-									<button
-										title="Zoom Out"
-										onClick={() =>
-											setZoom((prevZoom) =>
-												Math.max(prevZoom - zoomConfig.step, zoomConfig.min)
-											)
-										}
-									>
-										<svg
-											width="1.5em"
-											height="1.5em"
-											viewBox="0 0 25 24"
-											fill="none"
-											xmlns="http://www.w3.org/2000/svg"
+
+								<div className="mt-4">
+									<h3 className="text-base font-semibold mb-2">Brightness</h3>
+									<div className="h-2 bg-[#c0c0c0] rounded-md">
+										<div
+											className="h-full bg-gradient-to-b from-[#f8de7a] to-[#b67f11] rounded-md"
+											style={{
+												width: `${
+													((brightness - brightnessConfig.min) /
+														(brightnessConfig.max - brightnessConfig.min)) *
+													100
+												}%`,
+											}}
+										></div>
+									</div>
+									<div className="flex gap-4 justify-between text-[#c0c0c0] mt-2">
+										<button
+											title="Brightness Out"
+											onClick={() =>
+												setBrightness((prevBrightness) =>
+													Math.max(
+														prevBrightness - brightnessConfig.step,
+														brightnessConfig.min
+													)
+												)
+											}
 										>
-											<path
-												d="M17.0417 17L21.0417 21M8.04175 11H14.0417M3.04175 11C3.04175 13.1217 3.8846 15.1566 5.38489 16.6569C6.88518 18.1571 8.92002 19 11.0417 19C13.1635 19 15.1983 18.1571 16.6986 16.6569C18.1989 15.1566 19.0417 13.1217 19.0417 11C19.0417 8.87827 18.1989 6.84344 16.6986 5.34315C15.1983 3.84285 13.1635 3 11.0417 3C8.92002 3 6.88518 3.84285 5.38489 5.34315C3.8846 6.84344 3.04175 8.87827 3.04175 11Z"
-												stroke="currentColor"
-												strokeWidth="1.5"
-												strokeLinecap="round"
-												strokeLinejoin="round"
-											/>
-										</svg>
-									</button>
-									<span>{zoom}%</span>
-									<button
-										title="Zoom In"
-										onClick={() =>
-											setZoom((prevZoom) =>
-												Math.min(prevZoom + zoomConfig.step, zoomConfig.max)
-											)
-										}
-									>
-										<svg
-											width="1.5em"
-											height="1.5em"
-											viewBox="0 0 25 24"
-											fill="none"
-											xmlns="http://www.w3.org/2000/svg"
+											<svg
+												width="1.5em"
+												height="1.5em"
+												viewBox="0 0 25 24"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M17.0417 17L21.0417 21M8.04175 11H14.0417M3.04175 11C3.04175 13.1217 3.8846 15.1566 5.38489 16.6569C6.88518 18.1571 8.92002 19 11.0417 19C13.1635 19 15.1983 18.1571 16.6986 16.6569C18.1989 15.1566 19.0417 13.1217 19.0417 11C19.0417 8.87827 18.1989 6.84344 16.6986 5.34315C15.1983 3.84285 13.1635 3 11.0417 3C8.92002 3 6.88518 3.84285 5.38489 5.34315C3.8846 6.84344 3.04175 8.87827 3.04175 11Z"
+													stroke="currentColor"
+													strokeWidth="1.5"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+												/>
+											</svg>
+										</button>
+										<span>{brightness}%</span>
+										<button
+											title="Brightness In"
+											onClick={() =>
+												setBrightness((prevBrightness) =>
+													Math.min(
+														prevBrightness + brightnessConfig.step,
+														brightnessConfig.max
+													)
+												)
+											}
 										>
-											<path
-												d="M21.0417 21L17.0417 17M8.04175 11H14.0417M11.0417 14V8M19.0417 11C19.0417 13.1217 18.1989 15.1566 16.6986 16.6569C15.1983 18.1571 13.1635 19 11.0417 19C8.92002 19 6.88518 18.1571 5.38489 16.6569C3.8846 15.1566 3.04175 13.1217 3.04175 11C3.04175 8.87827 3.8846 6.84344 5.38489 5.34315C6.88518 3.84285 8.92002 3 11.0417 3C13.1635 3 15.1983 3.84285 16.6986 5.34315C18.1989 6.84344 19.0417 8.87827 19.0417 11Z"
-												stroke="currentColor"
-												strokeWidth="1.5"
-												strokeMiterlimit="10"
-												strokeLinecap="round"
-												strokeLinejoin="round"
-											/>
-										</svg>
-									</button>
+											<svg
+												width="1.5em"
+												height="1.5em"
+												viewBox="0 0 25 24"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M21.0417 21L17.0417 17M8.04175 11H14.0417M11.0417 14V8M19.0417 11C19.0417 13.1217 18.1989 15.1566 16.6986 16.6569C15.1983 18.1571 13.1635 19 11.0417 19C8.92002 19 6.88518 18.1571 5.38489 16.6569C3.8846 15.1566 3.04175 13.1217 3.04175 11C3.04175 8.87827 3.8846 6.84344 5.38489 5.34315C6.88518 3.84285 8.92002 3 11.0417 3C13.1635 3 15.1983 3.84285 16.6986 5.34315C18.1989 6.84344 19.0417 8.87827 19.0417 11Z"
+													stroke="currentColor"
+													strokeWidth="1.5"
+													strokeMiterlimit="10"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+												/>
+											</svg>
+										</button>
+									</div>
+								</div>
+
+								<div className="overflow-y-auto hide-scroll py-4">
+									<Collapse title="Annotations" init={false} className="w-fit">
+										<div className="flex flex-wrap gap-3 mt-2">
+											<Button className="text-[#C0C0C0]">
+												<svg
+													width="1.5em"
+													height="1.5em"
+													viewBox="0 0 17 16"
+													fill="none"
+													xmlns="http://www.w3.org/2000/svg"
+												>
+													<path
+														d="M3.58325 5.33335H4.91659V4.00002H7.08458L5.36992 12H3.58325V13.3334H8.91658V12H7.41525L9.12992 4.00002H11.5833V5.33335H12.9166V2.66669H3.58325V5.33335Z"
+														fill="currentColor"
+													/>
+												</svg>
+												Text
+											</Button>
+
+											<Button className="text-[#C0C0C0]">
+												<svg
+													width="1.5em"
+													height="1.5em"
+													viewBox="0 0 17 16"
+													fill="none"
+													xmlns="http://www.w3.org/2000/svg"
+												>
+													<path
+														d="M4.93677 6.64669H7.60343V12.5934L8.94343 12.6134V6.64669H11.6034L8.2701 3.31335L4.93677 6.64669Z"
+														fill="currentColor"
+													/>
+												</svg>
+												Arrow
+											</Button>
+
+											<Button className="text-[#C0C0C0]">
+												<svg
+													width="1.5em"
+													height="1.5em"
+													viewBox="0 0 17 16"
+													fill="none"
+													xmlns="http://www.w3.org/2000/svg"
+												>
+													<g clip-path="url(#clip0_239_85)">
+														<path
+															d="M9.58341 10H11.5834V10.6667H9.58341V10ZM7.58341 10H8.91675V10.6667H7.58341V10ZM4.91675 10H6.91675V10.6667H4.91675V10Z"
+															fill="currentColor"
+														/>
+														<path
+															d="M12.9167 4.66667H12.2501V4H8.91675V2H7.58342V4H4.25008V4.66667H3.58341V5.33333H2.91675V12H3.58341V12.6667H4.25008V13.3333H12.2501V12.6667H12.9167V12H13.5834V5.33333H12.9167V4.66667ZM11.5834 11.3333V12H4.91675V11.3333H4.25008V6H4.91675V5.33333H11.5834V6H12.2501V11.3333H11.5834ZM15.5834 7.33333V10.6667H14.9167V11.3333H14.2501V6.66667H14.9167V7.33333H15.5834ZM1.58341 6.66667H2.25008V11.3333H1.58341V10.6667H0.916748V7.33333H1.58341V6.66667Z"
+															fill="currentColor"
+														/>
+														<path
+															d="M9.58341 6.66669H11.5834V8.66669H9.58341V6.66669ZM4.91675 6.66669H6.91675V8.66669H4.91675V6.66669Z"
+															fill="currentColor"
+														/>
+													</g>
+													<defs>
+														<clipPath id="clip0_239_85">
+															<rect
+																width="16"
+																height="16"
+																fill="white"
+																transform="translate(0.25)"
+															/>
+														</clipPath>
+													</defs>
+												</svg>
+												OCR
+											</Button>
+										</div>
+									</Collapse>
 								</div>
 							</div>
 						)}
@@ -309,8 +481,8 @@ export default function CallWealthy({ open }: { open: boolean }) {
 								<span className="text-2xl font-semibold flex gap-[8px] items-center justify-center">
 									Wealthy AI
 									<svg
-										width="1em"
-										height="1em"
+										width="1.5em"
+										height="1.5em"
 										viewBox="0 0 17 17"
 										fill="none"
 										xmlns="http://www.w3.org/2000/svg"
@@ -331,8 +503,8 @@ export default function CallWealthy({ open }: { open: boolean }) {
 							<div className="flex items-center gap-3">
 								<Button className="text-[#C0C0C0] gap-2 grow justify-center">
 									<svg
-										width="1em"
-										height="1em"
+										width="1.5em"
+										height="1.5em"
 										viewBox="0 0 17 17"
 										fill="none"
 										xmlns="http://www.w3.org/2000/svg"
@@ -347,8 +519,8 @@ export default function CallWealthy({ open }: { open: boolean }) {
 
 								<Button className="text-[#C0C0C0] gap-2 grow justify-center">
 									<svg
-										width="1em"
-										height="1em"
+										width="1.5em"
+										height="1.5em"
 										viewBox="0 0 17 17"
 										fill="none"
 										xmlns="http://www.w3.org/2000/svg"
@@ -367,8 +539,8 @@ export default function CallWealthy({ open }: { open: boolean }) {
 							<div className="flex items-center gap-3">
 								<Button className="text-[#C0C0C0] gap-2 grow justify-center">
 									<svg
-										width="1em"
-										height="1em"
+										width="1.5em"
+										height="1.5em"
 										viewBox="0 0 17 17"
 										fill="none"
 										xmlns="http://www.w3.org/2000/svg"
@@ -383,8 +555,8 @@ export default function CallWealthy({ open }: { open: boolean }) {
 
 								<Button className="text-[#C0C0C0] gap-2 grow justify-center">
 									<svg
-										width="1em"
-										height="1em"
+										width="1.5em"
+										height="1.5em"
 										viewBox="0 0 17 17"
 										fill="none"
 										xmlns="http://www.w3.org/2000/svg"
@@ -395,6 +567,62 @@ export default function CallWealthy({ open }: { open: boolean }) {
 										/>
 									</svg>
 									Bookmark
+								</Button>
+							</div>
+						)}
+
+						{activeTab === tabs.Screen && (
+							<div className="flex items-center gap-3">
+								<Button className="text-[#C0C0C0] gap-2 grow justify-center">
+									<svg
+										width="1.5em"
+										height="1.5em"
+										viewBox="0 0 17 17"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											d="M10.7918 6.49991L8.12512 5.49991L10.7918 4.49891L11.7918 1.83325L12.7927 4.49891L15.4584 5.49991L12.7927 6.49991L11.7918 9.16656L10.7918 6.49991ZM5.45843 11.8333L2.12512 10.4999L5.45843 9.16656L6.79178 5.83325L8.12512 9.16656L11.4584 10.4999L8.12512 11.8333L6.79178 15.1666L5.45843 11.8333Z"
+											fill="currentColor"
+										/>
+									</svg>
+									Auto Label
+								</Button>
+
+								<Button className="text-[#C0C0C0] gap-2 grow justify-center">
+									<svg
+										width="1.5em"
+										height="1.5em"
+										viewBox="0 0 17 17"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<g clipPath="url(#clip0_3_413)">
+											<path
+												d="M10.125 10.5H12.125V11.1667H10.125V10.5ZM8.12504 10.5H9.45837V11.1667H8.12504V10.5ZM5.45837 10.5H7.45837V11.1667H5.45837V10.5Z"
+												fill="currentColor"
+											/>
+											<path
+												d="M13.4584 5.16667L12.7917 5.16667V4.5L9.45837 4.5V2.5H8.12504V4.5H4.79171V5.16667H4.12504V5.83333H3.45837L3.45837 12.5H4.12504V13.1667H4.79171V13.8333H12.7917V13.1667H13.4584V12.5H14.125V5.83333H13.4584V5.16667ZM12.125 11.8333V12.5H5.45837V11.8333H4.79171V6.5H5.45837V5.83333H12.125V6.5H12.7917V11.8333H12.125ZM16.125 7.83333V11.1667H15.4584V11.8333H14.7917V7.16667H15.4584V7.83333H16.125ZM2.12504 7.16667H2.79171L2.79171 11.8333H2.12504V11.1667H1.45837L1.45837 7.83333H2.12504L2.12504 7.16667Z"
+												fill="currentColor"
+											/>
+											<path
+												d="M10.125 7.16675H12.125V9.16675H10.125V7.16675ZM5.45837 7.16675H7.45837V9.16675H5.45837V7.16675Z"
+												fill="currentColor"
+											/>
+										</g>
+										<defs>
+											<clipPath id="clip0_3_413">
+												<rect
+													width="16"
+													height="16"
+													fill="white"
+													transform="translate(0.791748 0.5)"
+												/>
+											</clipPath>
+										</defs>
+									</svg>
+									OCR
 								</Button>
 							</div>
 						)}
