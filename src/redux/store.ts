@@ -2,9 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import navigationReducer from "./features/navigation/navigationSlice";
 import userReducer from "./features/user/userSlice";
 import modalReducer from "./features/modal/modalSlice";
+import configReducer from "./features/config/configSlice";
 
 import {
-	persistReducer,
 	persistStore,
 	FLUSH,
 	REHYDRATE,
@@ -13,20 +13,13 @@ import {
 	PURGE,
 	REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-
-const persistConfig = {
-	key: "user",
-	storage,
-};
-
-const persistUserReducer = persistReducer(persistConfig, userReducer);
 
 export const appStore = configureStore({
 	reducer: {
 		navigation: navigationReducer,
-		user: persistUserReducer,
+		user: userReducer,
 		modal: modalReducer,
+		config: configReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({

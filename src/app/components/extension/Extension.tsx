@@ -1,10 +1,15 @@
 import { RiVoiceAiFill } from "react-icons/ri";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Recorder from "../ui/Recorder";
 import Collapse from "../ui/Collapse";
 import Checkbox from "../ui/Checkbox";
 import Button from "../ui/Button";
 import random from "../../../utils/random";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import {
+	setBrightness,
+	setZoom,
+} from "../../../redux/features/config/configSlice";
 
 const zoomConfig = {
 	step: 20,
@@ -29,22 +34,8 @@ type TTabs = keyof typeof tabs;
 
 export default function Extension() {
 	const [activeTab, setActiveTab] = useState<TTabs>(tabs.Record);
-	const [zoom, setZoom] = useState(0);
-	const [brightness, setBrightness] = useState(0);
-
-	useEffect(() => {
-		document.getElementById("√√")!.style.zoom = `${100 + zoom}%`;
-	}, [zoom]);
-
-	useEffect(() => {
-		document.getElementById("√√")!.style.filter = `brightness(${
-			100 + brightness
-		}%)`;
-
-		document.getElementById("√√")!.style.filter = `saturate(${
-			100 + brightness
-		}%)`;
-	}, [brightness]);
+	const dispatch = useAppDispatch();
+	const { brightness, zoom } = useAppSelector((state) => state.config);
 
 	return (
 		<div
@@ -257,8 +248,8 @@ export default function Extension() {
 								<button
 									title="Zoom Out"
 									onClick={() =>
-										setZoom((prevZoom) =>
-											Math.max(prevZoom - zoomConfig.step, zoomConfig.min)
+										dispatch(
+											setZoom(Math.max(zoom - zoomConfig.step, zoomConfig.min))
 										)
 									}
 								>
@@ -282,8 +273,8 @@ export default function Extension() {
 								<button
 									title="Zoom In"
 									onClick={() =>
-										setZoom((prevZoom) =>
-											Math.min(prevZoom + zoomConfig.step, zoomConfig.max)
+										dispatch(
+											setZoom(Math.min(zoom + zoomConfig.step, zoomConfig.max))
 										)
 									}
 								>
@@ -326,10 +317,12 @@ export default function Extension() {
 								<button
 									title="Brightness Out"
 									onClick={() =>
-										setBrightness((prevBrightness) =>
-											Math.max(
-												prevBrightness - brightnessConfig.step,
-												brightnessConfig.min
+										dispatch(
+											setBrightness(
+												Math.max(
+													brightness - brightnessConfig.step,
+													brightnessConfig.min
+												)
 											)
 										)
 									}
@@ -354,10 +347,12 @@ export default function Extension() {
 								<button
 									title="Brightness In"
 									onClick={() =>
-										setBrightness((prevBrightness) =>
-											Math.min(
-												prevBrightness + brightnessConfig.step,
-												brightnessConfig.max
+										dispatch(
+											setBrightness(
+												Math.min(
+													brightness + brightnessConfig.step,
+													brightnessConfig.max
+												)
 											)
 										)
 									}

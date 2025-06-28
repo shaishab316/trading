@@ -3,12 +3,21 @@ import Sidebar from "../components/sidebar";
 import Navbar from "../components/navbar";
 import Button from "../components/ui/Button";
 import { IoArrowBackOutline, IoReload } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalProvider from "../components/modalProvider/ModalProvider";
+import { useAppSelector } from "../../hooks/redux";
 
 export default function RootLayout() {
 	const navigate = useNavigate();
 	const [reload, setReload] = useState(Math.random());
+	const { brightness, zoom } = useAppSelector((state) => state.config);
+
+	useEffect(() => {
+		document.getElementById("√√")!.style.zoom = `${100 + zoom}%`;
+		document.getElementById("√√")!.style.filter = `brightness(${
+			100 + brightness / 80
+		}%) saturate(${100 + brightness}%)`;
+	}, [zoom, brightness]);
 
 	return (
 		<>

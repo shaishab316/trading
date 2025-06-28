@@ -1,11 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-export type TUser = {
-	id: number;
-	name: string;
-	email: string;
-	avatar: string;
-};
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import type { TUser } from "../../../types/user";
 
 const demoUser: TUser = {
 	id: 1,
@@ -31,4 +27,11 @@ const userSlice = createSlice({
 });
 
 export const { login, logout } = userSlice.actions;
-export default userSlice.reducer;
+
+export default persistReducer(
+	{
+		key: "user",
+		storage,
+	},
+	userSlice.reducer
+);
