@@ -1,32 +1,21 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import Navbar from "../components/navbar";
 import Button from "../components/ui/Button";
 import { IoArrowBackOutline, IoReload } from "react-icons/io5";
-import { useEffect, useState } from "react";
-import Login from "../components/auth/login";
+import { useState } from "react";
+import ModalProvider from "../components/modalProvider/ModalProvider";
 
 export default function RootLayout() {
-	const [query, setQuery] = useSearchParams();
 	const navigate = useNavigate();
 	const [reload, setReload] = useState(Math.random());
-	const [loginOpen, setLoginOpen] = useState(query.get("login") === "open");
-
-	useEffect(() => {
-		setQuery((query) => {
-			if (loginOpen) query.set("login", "open");
-			else query.delete("login");
-			return query;
-		});
-	}, [loginOpen]);
 
 	return (
 		<>
 			<div className="flex w-screen h-screen overflow-hidden bg-gradient-to-br from-[#001c1f] via-[#002933] to-[#00161a]">
 				<Sidebar />
 				<div id="√√" className="grow flex flex-col overflow-y-scroll relative">
-					<Navbar setLoginOpen={setLoginOpen} />
+					<Navbar />
 					<div className="flex flex-wrap gap-4 items-center px-[10px] pt-[10px] md:px-[20px] md:pt-[20px] lg:px-[40px] lg:pt-[40px]">
 						<Button
 							title="Back"
@@ -52,8 +41,7 @@ export default function RootLayout() {
 					</div>
 				</div>
 			</div>
-			{/* Modals */}
-			<Login open={loginOpen} setOpen={setLoginOpen} />
+			<ModalProvider />
 		</>
 	);
 }

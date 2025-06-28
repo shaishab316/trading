@@ -7,10 +7,10 @@ import { TbLogout2 } from "react-icons/tb";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setCurrentPath } from "../../../redux/features/navigation/navigationSlice";
 import { logout } from "../../../redux/features/user/userSlice";
-import Journal from "../journal/Journal";
 import toast from "react-hot-toast";
 import sleep from "../../../utils/sleep";
-import CallWealthy from "../callwealthy/CallWealthy";
+import { RiVoiceAiFill } from "react-icons/ri";
+import { openModal } from "../../../redux/features/modal/modalSlice";
 
 export default function Sidebar() {
 	const [query, setQuery] = useSearchParams();
@@ -71,7 +71,17 @@ export default function Sidebar() {
 				<div className="flex flex-col">
 					{navLinks.map(([name, href, Icon]) =>
 						name === "Journal" ? (
-							<Journal key={name} name={name} open={open} Icon={Icon} />
+							<button
+								type="button"
+								className={`text-white hover:bg-white/20 hover:backdrop-blur-md ${
+									open ? "px-10" : "px-4 justify-center"
+								} py-4 min-w-full flex items-center gap-2`}
+								title={name}
+								onClick={() => dispatch(openModal("Journal"))}
+							>
+								<Icon />
+								{open && <span>{name}</span>}
+							</button>
 						) : (
 							<NavLink
 								key={name}
@@ -106,7 +116,13 @@ export default function Sidebar() {
 						<TbLogout2 />
 					</button>
 				)}
-				<CallWealthy open={open} />
+				<button
+					className={`flex gap-2 items-center bg-white/20 hover:bg-white/30 rounded-2xl p-1 text-lg`}
+					title="Call Wealthy"
+				>
+					<RiVoiceAiFill className="text-[#B57E10] bg-black rounded-full w-6 h-6" />
+					{open && <span className="mr-1 whitespace-nowrap">Call Wealthy</span>}
+				</button>
 			</div>
 		</div>
 	);

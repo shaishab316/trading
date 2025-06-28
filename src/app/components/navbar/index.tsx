@@ -1,15 +1,13 @@
 import { IoNotificationsOutline } from "react-icons/io5";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
-import { useAppSelector } from "../../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import Button from "../ui/Button";
+import { openModal } from "../../../redux/features/modal/modalSlice";
 
-export default function Navbar({
-	setLoginOpen,
-}: {
-	setLoginOpen: (open: boolean) => void;
-}) {
+export default function Navbar() {
 	const path = useAppSelector((state) => state.navigation.currentPath);
 	const user = useAppSelector((state) => state.user.user);
+	const dispatch = useAppDispatch();
 
 	return (
 		<div className="sticky top-0 z-10 flex items-center justify-between gap-4 py-4 px-[40px] text-white bg-[#021c1f]">
@@ -17,7 +15,7 @@ export default function Navbar({
 			<div className="text-2xl flex items-center gap-4">
 				{!user && (
 					<Button
-						onClick={() => setLoginOpen(true)}
+						onClick={() => dispatch(openModal("Login"))}
 						className="px-10"
 						title="Login"
 					>

@@ -2,14 +2,21 @@ import dashboard from "../data/dashboard";
 import { RiBarChart2Fill } from "react-icons/ri";
 import { ImPower } from "react-icons/im";
 import { DiBitbucket } from "react-icons/di";
-import { CiGlobe } from "react-icons/ci";
 import Switch from "../components/ui/Switch";
 import GraphCard from "../components/graphCard/GraphCard";
 import Button from "../components/ui/Button";
+import { CiGlobe } from "react-icons/ci";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { openModal } from "../../redux/features/modal/modalSlice";
+import Switch2 from "../components/ui/Switch2";
 
 const { d1, d2, d3 } = dashboard;
 
 export default function Dashboard() {
+	const dispatch = useAppDispatch();
+	const extensionMode =
+		useAppSelector((state) => state.modal.openedModal) === "Extension";
+
 	return (
 		<div className="">
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-4">
@@ -63,7 +70,13 @@ export default function Dashboard() {
 				<div className="bg-[#00FFFF] border border-blue-600 py-2 px-4 text-black rounded-md flex items-center">
 					<CiGlobe className="text-2xl" />
 					<span className="ml-1 mr-3 whitespace-nowrap">Extension Mode</span>
-					<Switch onToggle={() => {}} className="bg-gray-300" />
+					<Switch2
+						open={extensionMode}
+						setOpen={() =>
+							dispatch(openModal(extensionMode ? null : "Extension"))
+						}
+						className="bg-gray-300"
+					/>
 				</div>
 			</div>
 
