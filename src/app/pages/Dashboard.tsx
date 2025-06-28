@@ -8,7 +8,7 @@ import Button from "../components/ui/Button";
 import { CiGlobe } from "react-icons/ci";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { openModal } from "../../redux/features/modal/modalSlice";
-import Switch2 from "../components/ui/Switch2";
+import { setExtensionMode } from "../../redux/features/config/configSlice";
 
 const { d1, d2, d3 } = dashboard;
 
@@ -67,17 +67,20 @@ export default function Dashboard() {
 						</div>
 					))}
 				</div>
-				<div className="bg-[#00FFFF] border border-blue-600 py-2 px-4 text-black rounded-md flex items-center">
+				<button
+					type="button"
+					onClick={() => dispatch(openModal("Extension"))}
+					// disabled={!extensionMode}
+					className="bg-[#00FFFF] border border-blue-600 py-2 px-4 text-black rounded-md flex items-center"
+				>
 					<CiGlobe className="text-2xl" />
 					<span className="ml-1 mr-3 whitespace-nowrap">Extension Mode</span>
-					<Switch2
-						open={extensionMode}
-						setOpen={() =>
-							dispatch(openModal(extensionMode ? null : "Extension"))
-						}
+					<Switch
+						onToggle={(value) => dispatch(setExtensionMode(value))}
+						init={false}
 						className="bg-gray-300"
 					/>
-				</div>
+				</button>
 			</div>
 
 			<div className="py-6 grid grid-cols-1 lg:grid-cols-2 gap-6">

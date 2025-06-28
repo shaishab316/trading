@@ -8,6 +8,7 @@ const configSlice = createSlice({
 		theme: "dark" as "dark" | "light",
 		zoom: 0,
 		brightness: 0,
+		extensionMode: false,
 	},
 	reducers: {
 		setTheme: (state, action: PayloadAction<"dark" | "light">) => {
@@ -19,10 +20,14 @@ const configSlice = createSlice({
 		setBrightness: (state, action: PayloadAction<number>) => {
 			state.brightness = action.payload;
 		},
+		setExtensionMode: (state, action: PayloadAction<boolean>) => {
+			state.extensionMode = action.payload;
+		},
 	},
 });
 
-export const { setTheme, setZoom, setBrightness } = configSlice.actions;
+export const { setTheme, setZoom, setBrightness, setExtensionMode } =
+	configSlice.actions;
 export default persistReducer(
 	{
 		key: "config",
