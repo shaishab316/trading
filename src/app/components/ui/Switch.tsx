@@ -17,7 +17,8 @@ export default function Switch({
 	return (
 		<button
 			className={`bg-[#0f616d] rounded-full w-10 h-5 relative ${className}`}
-			onClick={() => {
+			onClick={(e) => {
+				e.stopPropagation();
 				setOpen(!open);
 			}}
 		>

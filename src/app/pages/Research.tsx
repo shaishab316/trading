@@ -3,7 +3,7 @@ import { IoSearchSharp } from "react-icons/io5";
 import GraphCard from "../components/graphCard/GraphCard";
 import Button from "../components/ui/Button";
 
-const { d1, d2 } = research;
+const { d1 } = research;
 
 export default function Research() {
 	return (
@@ -47,12 +47,12 @@ export default function Research() {
 
 			<div className="py-6 flex flex-col gap-6">
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-					<GraphCard data={d2.volume_surge} option={{ pin: true }} />
+					<GraphCard />
 
-					<GraphCard data={d2.bullish_bias} option={{ pin: true }} />
+					<GraphCard />
 				</div>
 
-				<GraphCard data={d2.correlation_matrix} option={{ pin: true }} />
+				<GraphCard />
 			</div>
 
 			<div className="p-6 bg-gradient-to-b from-[#165067] to-[#078789] rounded-md relative">
@@ -126,7 +126,7 @@ export default function Research() {
 				<img
 					src="/ads.png"
 					alt="ads"
-					className="absolute bottom-6 right-6 rounded-md w-[200px]"
+					className="absolute bottom-6 right-6 rounded-md w-[200px] bg-white/90 py-1 px-2 select-none"
 				/>
 			</div>
 		</div>

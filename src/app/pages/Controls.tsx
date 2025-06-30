@@ -4,7 +4,7 @@ import { MdElectricBolt } from "react-icons/md";
 import GraphCard from "../components/graphCard/GraphCard";
 import Button from "../components/ui/Button";
 
-const { d1, d2 } = controls;
+const { d1 } = controls;
 
 export default function Controls() {
 	return (
@@ -40,21 +40,15 @@ export default function Controls() {
 
 			<div className="py-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
 				<div className="flex flex-col gap-6">
-					<GraphCard data={d2.bid_ask_heat} option={{ pin: true }} />
+					<GraphCard />
 
-					<GraphCard
-						data={d2.yield_curve}
-						option={{ pin: true, showFull: false }}
-					/>
+					<GraphCard />
 				</div>
 
 				<div className="flex flex-col gap-6">
-					<GraphCard
-						data={d2.liquidity}
-						option={{ pin: true, showFull: false }}
-					/>
+					<GraphCard />
 
-					<GraphCard data={d2.vwap} option={{ pin: true }} />
+					<GraphCard />
 				</div>
 			</div>
 
@@ -116,7 +110,7 @@ export default function Controls() {
 				<img
 					src="/ads.png"
 					alt="ads"
-					className="absolute bottom-6 right-6 rounded-md w-[200px]"
+					className="absolute bottom-6 right-6 rounded-md w-[200px] bg-white/90 py-1 px-2 select-none"
 				/>
 			</div>
 		</div>

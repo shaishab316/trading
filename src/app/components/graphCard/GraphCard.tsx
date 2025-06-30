@@ -1,144 +1,86 @@
-import { BiBarChartAlt2 } from "react-icons/bi";
-import Tab from "../ui/Tab";
-import { BsGraphUpArrow, BsPinAngle } from "react-icons/bs";
-import CandleChart from "../ui/CandleChart";
-import { useEffect, useState } from "react";
-import ToggleButton from "../ui/ToggleButton";
-import random from "../../../utils/random";
-import BarChart from "../ui/BarChart";
+import { useEffect, useRef, memo } from "react";
 
-export default function GraphCard({
-	data,
-	option,
-}: {
-	data: {
-		coin?: string;
-		volume?: {
-			name?: string;
-			value?: string;
-		};
-		up?: string;
-		down?: string;
-	};
-	option?: {
-		pin?: boolean;
-		showFull?: boolean;
-	};
-}) {
-	const [view, setView] = useState("graph");
-	const [showFull, setShowFull] = useState<boolean>(option?.showFull ?? true);
-	const [pin, setPin] = useState(false);
-	const [hover, setHover] = useState(false);
-
-	const [cartData, setCartData] = useState(
-		Array.from({ length: 20 }).map((_, i) => {
-			const date = new Date(2025, 5, 16, i + 1);
-			const high = random(10_000, 1_000_000) | 0;
-			const low = random(10_000, 1_000_000) | 0;
-			const open = random(low, high) | 0;
-			const close = random(low, high) | 0;
-			return [date.getTime(), open, high, low, close];
-		})
-	);
-	const [barData, setBarData] = useState(
-		Array.from({ length: 10 }).map(() => random(0, 500) | 0)
-	);
+function TradingViewWidget() {
+	const container = useRef(null);
+	const scriptAppended = useRef(false);
 
 	useEffect(() => {
-		let interval: NodeJS.Timeout | null = null;
+		if (container.current && !scriptAppended.current) {
+			console.log("Appending TradingView script"); // Debug log
+			const script = document.createElement("script");
+			script.src =
+				"https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+			script.type = "text/javascript";
+			script.async = true;
+			script.innerHTML = JSON.stringify({
+				container_id: "tradingview_widget",
+				symbol: "BINANCE:BTCUSDT", // Crypto pair for 24/7 real-time updates
+				interval: "1", // 1-minute interval (smallest standard interval)
+				allow_symbol_change: true, // Allow changing symbols in toolbar
+				calendar: false,
+				details: false,
+				hide_side_toolbar: false, // Show side toolbar for drawing tools
+				hide_top_toolbar: false, // Show top toolbar with chart type menu
+				hide_legend: false,
+				hide_volume: true,
+				hotlist: false,
+				locale: "en",
+				save_image: false,
+				style: "1", // Candlesticks (users can change via toolbar)
+				theme: "dark", // Dark theme
+				timezone: "Etc/UTC",
+				backgroundColor: "rgba(0, 0, 0, 0.9)", // Dark background
+				gridColor: "rgba(255, 255, 255, 0.1)", // Light grid for contrast
+				watchlist: [],
+				withdateranges: true, // Show date ranges in toolbar
+				compareSymbols: [],
+				studies: ["MA@tv-basicstudies"], // Moving average
+				autosize: false,
+				width: "100%",
+				height: "490",
+				upColor: "#22ab94", // Green for up candles
+				downColor: "#f7525f", // Red for down candles
+				borderUpColor: "#22ab94",
+				borderDownColor: "#f7525f",
+				wickUpColor: "#22ab94",
+				wickDownColor: "#f7525f",
+			});
 
-		if (!hover)
-			interval = setInterval(() => {
-				setCartData(
-					Array.from({ length: 20 }).map((_, i) => {
-						const date = new Date(2025, 5, 16, i + 1);
-						const high = random(10_000, 1_000_000) | 0;
-						const low = random(10_000, 1_000_000) | 0;
-						const open = random(low, high) | 0;
-						const close = random(low, high) | 0;
-						return [date.getTime(), open, high, low, close];
-					})
-				);
+			container.current.appendChild(script);
+			scriptAppended.current = true;
 
-				setBarData(
-					Array.from({ length: 10 }).map(() => random(10_000, 1_000_000) | 0)
-				);
-			}, 2000);
+			// Add CSS for smoother transitions
+			const style = document.createElement("style");
+			style.innerHTML = `
+        .tradingview-widget-container iframe {
+          transition: all 0.3s ease-in-out;
+        }
+        .tradingview-widget-container canvas {
+          transition: transform 0.3s ease-in-out;
+        }
+      `;
+			document.head.appendChild(style);
 
-		return () => clearInterval(interval!);
-	}, [hover]);
+			return () => {
+				console.log("Cleaning up TradingView script"); // Debug log
+				if (container.current && script.parentNode) {
+					container.current.removeChild(script);
+					scriptAppended.current = false;
+				}
+				document.head.removeChild(style);
+			};
+		}
+	}, []);
 
 	return (
 		<div
-			onClick={() => pin || setShowFull(!showFull)}
-			title={showFull ? "Minimize" : "Maximize"}
-			className={`p-6 border border-gray-500 rounded-md backdrop-blur-md bg-black/20 hover:bg-black/30 ${
-				!pin && "cursor-pointer"
-			} ${!showFull && "h-fit"}`}
+			className="tradingview-widget-container w-full"
+			id="tradingview_widget"
+			ref={container}
 		>
-			<div className="flex flex-wrap gap-2 items-center justify-between">
-				<div>{data?.coin}</div>
-				<div
-					className="flex flex-wrap gap-3"
-					onClick={(e) => e.stopPropagation()}
-				>
-					{showFull && (
-						<Tab
-							data={[
-								{
-									children: <BiBarChartAlt2 />,
-									value: "graph",
-								},
-								{
-									children: <BsGraphUpArrow />,
-									value: "bar",
-								},
-							]}
-							onChange={setView}
-						/>
-					)}
-					<Tab
-						data={["15m", "1h", "4h", "all"].map((v) => ({
-							children: v,
-							value: v,
-						}))}
-						onChange={() => {}}
-					/>
-					{option?.pin && (
-						<ToggleButton onToggle={setPin}>
-							<BsPinAngle />
-						</ToggleButton>
-					)}
-				</div>
-			</div>
-			<div className="mt-4 flex gap-4 flex-wrap items-center">
-				<span className="text-2xl">{data?.volume?.value}</span>
-				{data?.up && (
-					<div className="flex gap-2 items-center text-gray-400">
-						{data?.up}
-						<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500"></div>
-					</div>
-				)}
-				{data?.volume?.name}
-				{data?.down && (
-					<div className="flex gap-2 items-center text-gray-400">
-						{data.down}
-						<div className="w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500"></div>
-					</div>
-				)}
-			</div>
-			<div
-				onClick={(e) => e.stopPropagation()}
-				onMouseEnter={() => setHover(true)}
-				onMouseLeave={() => setHover(false)}
-			>
-				{showFull &&
-					(view === "graph" ? (
-						<CandleChart data={cartData} />
-					) : (
-						<BarChart data={barData} />
-					))}
-			</div>
+			<div className="tradingview-widget-container__widget rounded-md"></div>
 		</div>
 	);
 }
+
+export default memo(TradingViewWidget);

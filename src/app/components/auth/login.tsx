@@ -27,7 +27,7 @@ export default function Login() {
 			onSubmit={handleLogin}
 			className="bg-[#272727] rounded-md border border-[#e9c862] text-base p-[32px] text-center"
 		>
-			<img src="/logo2.png" alt="logo" className="w-[200px] mx-auto" />
+			<img src="/logo.png" alt="logo" className="w-[200px] mx-auto" />
 			<h3 className="m-[16px] font-semibold text-2xl">Login</h3>
 			<table className="table-auto border-separate border-spacing-4 min-w-[30vw]">
 				<tbody>
@@ -67,11 +67,28 @@ export default function Login() {
 									required
 								>
 									<option hidden>Select System</option>
-									<option value="forex">Forex</option>
-									<option value="commodities">Commodities</option>
-									<option value="indices">Indices</option>
-									<option value="cryptocurrencies">Cryptocurrencies</option>
-									<option value="stocks">Stocks</option>
+									<option value="Rithmic 01">Rithmic 01</option>
+									<option value="Rithmic Paper Trading">
+										Rithmic Paper Trading
+									</option>
+									<option value="Rithmic 04 Colo">Rithmic 04 Colo</option>
+									<option value="Rithmic Test">Rithmic Test</option>
+									<option value="TopstepTrader">TopstepTrader</option>
+									<option value="MES Capital">MES Capital</option>
+									<option value="SpeedUp">SpeedUp</option>
+									<option value="UProfitTrader">UProfitTrader</option>
+									<option value="TradeFundrr">TradeFundrr</option>
+									<option value="Apex">Apex</option>
+									<option value="TheTradingPit">TheTradingPit</option>
+									<option value="FundedFuturesNetwork">
+										FundedFuturesNetwork
+									</option>
+									<option value="Bulenox">Bulenox</option>
+									<option value="PropShopTrader">PropShopTrader</option>
+									<option value="4PropTrader">4PropTrader</option>
+									<option value="FastTrackTrading">FastTrackTrading</option>
+									<option value="DayTraders.com">DayTraders.com</option>
+									<option value="10XFutures">10XFutures</option>
 								</select>
 							</div>
 						</td>
@@ -86,11 +103,22 @@ export default function Login() {
 									name="gateway"
 								>
 									<option hidden>Select Gateway</option>
-									<option value="mt5">MT5</option>
-									<option value="mt4">MT4</option>
-									<option value="cTrader">cTrader</option>
-									<option value="InteractiveBrokers">InteractiveBrokers</option>
-									<option value="Binance">Binance</option>
+									<option value="Chicago Area">Chicago Area</option>
+									<option value="Chicago Area Summary">
+										Chicago Area Summary
+									</option>
+									<option value="Colo 75">Colo 75</option>
+									<option value="Colo 75 Summary">Colo 75 Summary</option>
+									<option value="Mumbai">Mumbai</option>
+									<option value="Seoul">Seoul</option>
+									<option value="Hong Kong">Hong Kong</option>
+									<option value="Sao Paolo">Sao Paolo</option>
+									<option value="Singapore">Singapore</option>
+									<option value="Tokyo">Tokyo</option>
+									<option value="Sydney">Sydney</option>
+									<option value="Frankfurt">Frankfurt</option>
+									<option value="Europe">Europe</option>
+									<option value="Cape Town">Cape Town</option>
 								</select>
 							</div>
 						</td>

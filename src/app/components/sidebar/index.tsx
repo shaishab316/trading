@@ -72,6 +72,7 @@ export default function Sidebar() {
 					{navLinks.map(([name, href, Icon]) =>
 						name === "Journal" ? (
 							<button
+								key={name}
 								type="button"
 								className={`text-white hover:bg-white/20 hover:backdrop-blur-md ${
 									open ? "px-10" : "px-4 justify-center"

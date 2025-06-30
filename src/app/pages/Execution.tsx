@@ -10,7 +10,6 @@ import BuySell from "../components/execution/BuySell";
 import r from "../../utils/random";
 import { v4 as uuidv4 } from "uuid";
 import GraphCard from "../components/graphCard/GraphCard";
-import random from "../../utils/random";
 import Button from "../components/ui/Button";
 import ToggleButton from "../components/ui/ToggleButton";
 
@@ -105,17 +104,7 @@ export default function Execution() {
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 					<BuySell />
 
-					<GraphCard
-						data={{
-							coin: "CL",
-							volume: {
-								name: "Key Support",
-								value: `$${random(50, 100).toFixed(2)}`,
-							},
-							up: `${random(1, 5).toFixed(2)}%`,
-							down: `${random(1, 100).toFixed(2)}`,
-						}}
-					/>
+					<GraphCard />
 				</div>
 			</div>
 
@@ -229,7 +218,7 @@ export default function Execution() {
 				<img
 					src="/ads.png"
 					alt="ads"
-					className="absolute bottom-6 right-6 rounded-md w-[200px]"
+					className="absolute bottom-6 right-6 rounded-md w-[200px] bg-white/90 py-1 px-2 select-none"
 				/>
 			</div>
 		</div>

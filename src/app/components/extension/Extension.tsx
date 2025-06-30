@@ -86,7 +86,7 @@ export default function Extension() {
 								init={true}
 								className="w-fit max-h-[100px] overflow-y-auto"
 							>
-								<p className="flex items-center gap-2 mt-2">
+								<div className="flex items-center gap-2 mt-2">
 									<Checkbox
 										checkedElement={
 											<div className="w-3 h-3 bg-[#6fafe7] rounded-sm" />
@@ -94,8 +94,8 @@ export default function Extension() {
 									>
 										Include Mic Audio
 									</Checkbox>
-								</p>
-								<p className="flex items-center gap-2">
+								</div>
+								<div className="flex items-center gap-2">
 									<Checkbox
 										checkedElement={
 											<div className="w-3 h-3 bg-[#6fafe7] rounded-sm" />
@@ -103,7 +103,7 @@ export default function Extension() {
 									>
 										Capture Cursor
 									</Checkbox>
-								</p>
+								</div>
 							</Collapse>
 						</div>
 

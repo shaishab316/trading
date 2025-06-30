@@ -9,13 +9,13 @@ import { CiGlobe } from "react-icons/ci";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { openModal } from "../../redux/features/modal/modalSlice";
 import { setExtensionMode } from "../../redux/features/config/configSlice";
+import toast from "react-hot-toast";
 
-const { d1, d2, d3 } = dashboard;
+const { d1, d2 } = dashboard;
 
 export default function Dashboard() {
 	const dispatch = useAppDispatch();
-	const extensionMode =
-		useAppSelector((state) => state.modal.openedModal) === "Extension";
+	const extensionMode = useAppSelector((state) => state.config.extensionMode);
 
 	return (
 		<div className="">
@@ -67,20 +67,25 @@ export default function Dashboard() {
 						</div>
 					))}
 				</div>
-				<button
-					type="button"
-					onClick={() => dispatch(openModal("Extension"))}
-					// disabled={!extensionMode}
-					className="bg-[#00FFFF] border border-blue-600 py-2 px-4 text-black rounded-md flex items-center"
+				<div
+					onClick={() =>
+						extensionMode
+							? dispatch(openModal("Extension"))
+							: toast("Extension mode is disabled")
+					}
+					className="bg-[#00FFFF] border border-blue-600 py-2 px-4 text-black rounded-md flex items-center cursor-pointer"
 				>
 					<CiGlobe className="text-2xl" />
 					<span className="ml-1 mr-3 whitespace-nowrap">Extension Mode</span>
 					<Switch
-						onToggle={(value) => dispatch(setExtensionMode(value))}
+						onToggle={(value) => {
+							dispatch(setExtensionMode(value));
+							if (value) dispatch(openModal("Extension"));
+						}}
 						init={false}
 						className="bg-gray-300"
 					/>
-				</button>
+				</div>
 			</div>
 
 			<div className="py-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -91,7 +96,7 @@ export default function Dashboard() {
 							VWAP GLIDE
 							<Switch onToggle={() => {}} />
 						</div>
-						<GraphCard data={d3.volume} />
+						<GraphCard />
 					</div>
 
 					<div className="space-y-6">
@@ -100,7 +105,7 @@ export default function Dashboard() {
 							SESSION PROFILE
 							<Switch onToggle={() => {}} />
 						</div>
-						<GraphCard data={d3.macd} option={{ showFull: false }} />
+						<GraphCard />
 					</div>
 				</div>
 
@@ -111,7 +116,7 @@ export default function Dashboard() {
 							FLOWPRINT PRO
 							<Switch onToggle={() => {}} />
 						</div>
-						<GraphCard data={d3.rsi} option={{ showFull: false }} />
+						<GraphCard />
 					</div>
 
 					<div className="space-y-6">
@@ -124,7 +129,7 @@ export default function Dashboard() {
 							SMARTZONE
 							<Switch onToggle={() => {}} />
 						</div>
-						<GraphCard data={d3.atr} />
+						<GraphCard />
 					</div>
 				</div>
 			</div>
@@ -185,7 +190,7 @@ export default function Dashboard() {
 				<img
 					src="/ads.png"
 					alt="ads"
-					className="absolute bottom-6 right-6 rounded-md w-[200px]"
+					className="absolute bottom-6 right-6 rounded-md w-[200px] bg-white/90 py-1 px-2 select-none"
 				/>
 			</div>
 		</div>
