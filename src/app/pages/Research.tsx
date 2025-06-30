@@ -59,9 +59,9 @@ export default function Research() {
 				<div className="flex gap-3">
 					<span className="text-2xl font-semibold">Wealthy AI</span>
 					<img
-						src="/tem/logo2.png"
+						src="/logos/blue.svg"
 						alt="logo"
-						className="hue-rotate-[170deg] w-8 h-8"
+						className="w-[1.5em] h-[1.5em] scale-200"
 					/>
 				</div>
 				<h4 className="my-[23px]">High correlation breaks likely</h4>
@@ -123,11 +123,18 @@ export default function Research() {
 						Export
 					</Button>
 				</div>
-				<img
-					src="/ads.png"
-					alt="ads"
-					className="absolute bottom-6 right-6 rounded-md w-[200px] bg-white/90 py-1 px-2 select-none"
-				/>
+				<div className="flex flex-col absolute bottom-6 right-6 gap-4">
+					<img
+						src="/ads.png"
+						alt="ads"
+						className="rounded-md w-[200px] bg-white select-none py-1 px-2"
+					/>
+					<img
+						src="/ads2.png"
+						alt="ads"
+						className="rounded-md w-[200px] bg-white py-1 px-2 select-none"
+					/>
+				</div>
 			</div>
 		</div>
 	);

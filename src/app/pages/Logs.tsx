@@ -1,7 +1,6 @@
 import logsXData from "../data/logs.json";
 import { IoCalendarNumberOutline, IoSearchSharp } from "react-icons/io5";
 import { GrStatusGood } from "react-icons/gr";
-import random from "../../utils/random";
 import GraphCard from "../components/graphCard/GraphCard";
 import Logs from "../components/logs/Logs";
 import Button from "../components/ui/Button";
@@ -73,17 +72,7 @@ export default function Execution() {
 						<Logs />
 
 						<div className="md:w-1/2">
-							<GraphCard
-								data={{
-									coin: "CL",
-									volume: {
-										name: "Key Support",
-										value: `$${random(50, 100).toFixed(2)}`,
-									},
-									up: `${random(1, 5).toFixed(2)}%`,
-									down: `${random(1, 100).toFixed(2)}`,
-								}}
-							/>
+							<GraphCard />
 						</div>
 					</div>
 				</div>

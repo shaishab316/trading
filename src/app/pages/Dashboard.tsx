@@ -92,7 +92,11 @@ export default function Dashboard() {
 				<div className="flex flex-col gap-6">
 					<div className="space-y-6">
 						<div className="flex items-center gap-2">
-							<img src="/tem/logo2.png" alt="logo" />
+							<img
+								src="/logos/gold.svg"
+								alt="logo"
+								className="w-[1.5em] h-[1.5em] scale-200"
+							/>
 							VWAP GLIDE
 							<Switch onToggle={() => {}} />
 						</div>
@@ -101,7 +105,11 @@ export default function Dashboard() {
 
 					<div className="space-y-6">
 						<div className="flex items-center gap-2">
-							<img src="/tem/logo2.png" alt="logo" className="saturate-0" />
+							<img
+								src="/logos/gray.svg"
+								alt="logo"
+								className="w-[1.5em] h-[1.5em] scale-200"
+							/>
 							SESSION PROFILE
 							<Switch onToggle={() => {}} />
 						</div>
@@ -112,7 +120,11 @@ export default function Dashboard() {
 				<div className="flex flex-col gap-6">
 					<div className="space-y-6">
 						<div className="flex items-center gap-2">
-							<img src="/tem/logo2.png" alt="logo" className="hue-rotate-60" />
+							<img
+								src="/logos/green.svg"
+								alt="logo"
+								className="w-[1.5em] h-[1.5em] scale-200"
+							/>
 							FLOWPRINT PRO
 							<Switch onToggle={() => {}} />
 						</div>
@@ -122,9 +134,9 @@ export default function Dashboard() {
 					<div className="space-y-6">
 						<div className="flex items-center gap-2">
 							<img
-								src="/tem/logo2.png"
+								src="/logos/parrot.svg"
 								alt="logo"
-								className="hue-rotate-[110deg]"
+								className="w-[1.5em] h-[1.5em] scale-200"
 							/>
 							SMARTZONE
 							<Switch onToggle={() => {}} />
@@ -138,9 +150,9 @@ export default function Dashboard() {
 				<div className="flex gap-3">
 					<span className="text-2xl font-semibold">Wealthy AI</span>
 					<img
-						src="/tem/logo2.png"
+						src="/logos/blue.svg"
 						alt="logo"
-						className="hue-rotate-[170deg] w-8 h-8"
+						className="w-[1.5em] h-[1.5em] scale-200"
 					/>
 				</div>
 				<h4 className="my-[23px]">Tech sector driving portfolio gains 📈</h4>
@@ -187,11 +199,18 @@ export default function Dashboard() {
 
 					<Button className="text-[#C0C0C0] flex gap-2 px-6">Alerts</Button>
 				</div>
-				<img
-					src="/ads.png"
-					alt="ads"
-					className="absolute bottom-6 right-6 rounded-md w-[200px] bg-white/90 py-1 px-2 select-none"
-				/>
+				<div className="flex flex-col absolute bottom-6 right-6 gap-4">
+					<img
+						src="/ads.png"
+						alt="ads"
+						className="rounded-md w-[200px] bg-white select-none py-1 px-2"
+					/>
+					<img
+						src="/ads2.png"
+						alt="ads"
+						className="rounded-md w-[200px] bg-white py-1 px-2 select-none"
+					/>
+				</div>
 			</div>
 		</div>
 	);
