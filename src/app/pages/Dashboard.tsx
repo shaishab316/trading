@@ -11,6 +11,7 @@ import { openModal } from '../../redux/features/modal/modalSlice';
 import { setExtensionMode } from '../../redux/features/config/configSlice';
 import toast from 'react-hot-toast';
 import random from '../../utils/random';
+import TrendArrow from '../components/ui/TrendArrow';
 
 const { d1, d2 } = dashboard;
 
@@ -33,7 +34,7 @@ export default function Dashboard() {
 						{item.up && (
 							<div className='flex gap-2 items-center'>
 								{item.up}
-								<div className='w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500'></div>
+								<TrendArrow signal='up' />
 							</div>
 						)}
 					</div>
@@ -55,13 +56,13 @@ export default function Dashboard() {
 								{item.up && (
 									<div className='flex gap-2 items-center'>
 										{item.up}
-										<div className='w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-green-500'></div>
+										<TrendArrow signal='up' />
 									</div>
 								)}
 								{item.down && (
 									<div className='flex gap-2 items-center'>
 										{item.down}
-										<div className='w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-red-500'></div>
+										<TrendArrow signal='down' />
 									</div>
 								)}
 							</div>

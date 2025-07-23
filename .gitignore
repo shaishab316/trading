@@ -25,3 +25,4 @@ CNAME
 *.njsproj
 *.sln
 *.sw?
+temp*
