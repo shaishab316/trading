@@ -20,7 +20,7 @@ export default function Dashboard() {
 	const extensionMode = useAppSelector((state) => state.config.extensionMode);
 
 	return (
-		<div className=''>
+		<div>
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-4'>
 				{d1.map((item, idx) => (
 					<div
@@ -158,15 +158,26 @@ export default function Dashboard() {
 			</div>
 
 			<div className='p-6 bg-gradient-to-b from-[#165067] to-[#078789] rounded-md relative'>
-				<div className='flex gap-3'>
-					<span className='text-2xl font-semibold'>Wealthy AI</span>
-					<img
-						src='/logos/blue.svg'
-						alt='logo'
-						className='w-[1.5em] h-[1.5em] scale-200'
-					/>
+				<div className='flex flex-wrap w-full items-end gap-4 mb-[23px]'>
+					<div className='bg-black/10 border border-[#f9df7baa] backdrop-blur-2xl grow p-4 rounded-xl'>
+						<img src='/footer-logo.svg' alt='logo' className='h-[80px]' />
+						<h4 className='mt-[14px] font-[Inter]'>
+							Tech sector driving portfolio gains 📈
+						</h4>
+					</div>
+					<div className='flex grow md:grow-0 md:flex-col flex-wrap gap-4'>
+						<img
+							src='/ads.png'
+							alt='ads'
+							className='rounded-md grow md:w-[200px] bg-white select-none py-1 box-border h-[36px] object-contain'
+						/>
+						<img
+							src='/ads2.png'
+							alt='ads'
+							className='rounded-md grow md:w-[200px] bg-white py-2 px-4 select-none box-border h-[36px] object-contain'
+						/>
+					</div>
 				</div>
-				<h4 className='my-[23px]'>Tech sector driving portfolio gains 📈</h4>
 				<div className='flex flex-wrap gap-4'>
 					<Button className='text-[#C0C0C0] flex gap-2 px-6'>
 						<svg
@@ -209,18 +220,6 @@ export default function Dashboard() {
 					</Button>
 
 					<Button className='text-[#C0C0C0] flex gap-2 px-6'>Alerts</Button>
-				</div>
-				<div className='flex flex-col absolute bottom-6 right-6 gap-4'>
-					<img
-						src='/ads.png'
-						alt='ads'
-						className='rounded-md w-[200px] bg-white select-none py-1 px-2'
-					/>
-					<img
-						src='/ads2.png'
-						alt='ads'
-						className='rounded-md w-[200px] bg-white py-1 px-2 select-none'
-					/>
 				</div>
 			</div>
 		</div>
