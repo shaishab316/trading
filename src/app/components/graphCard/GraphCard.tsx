@@ -15,6 +15,7 @@ import {
 } from 'lightweight-charts';
 import TrendArrow from '../ui/TrendArrow';
 import { getData } from './GraphData';
+import WinRate from '../winrate/Winrate';
 
 const views = ['candles', 'areas'] as const;
 type TView = (typeof views)[number];
@@ -30,7 +31,7 @@ export default function GraphCard({ options }: { options?: THeaderOption }) {
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
-			setProgress(random(0, 100));
+			setProgress(random(0, 100) | 0);
 		}, 3000);
 		return () => clearTimeout(timeout);
 	}, [progress]);
@@ -188,29 +189,7 @@ export default function GraphCard({ options }: { options?: THeaderOption }) {
 						))}
 					</select>
 
-					{options?.name && <h4>{options.name} :</h4>}
-
-					{progress && (
-						<div className='bg-[#c0c0c0] w-[80px] h-5 rounded-full overflow-hidden relative select-none'>
-							<div
-								className='h-5 transition-all duration-1000 absolute top-0 left-0'
-								style={{
-									width: progress * 0.8,
-									backgroundColor: interpolateColor(progress),
-								}}
-							></div>
-							<div className='h-full flex justify-center items-center mix-blend-soft-light relative text-xs text-shadow'>
-								{progress | 0}%
-							</div>
-						</div>
-					)}
-
-					{options?.down && (
-						<div className='text-[#c0c0c0] flex items-center gap-1'>
-							{options.down}
-							<TrendArrow signal='down' />
-						</div>
-					)}
+					<WinRate progress={progress | 0} level={options?.name ?? ''} />
 				</div>
 			</div>
 			<div ref={chartViewRef} className='mt-8 relative cursor-pointer'>
@@ -232,32 +211,6 @@ type THeaderOption = {
 	down?: string;
 	progress?: number;
 };
-
-const lerp = (a: number, b: number, t: number) => Math.round(a + (b - a) * t);
-const clamp = (n: number, min: number, max: number) =>
-	Math.max(min, Math.min(n, max));
-
-// Strong, vivid colors for trading/progress
-const red = [220, 38, 38]; // Tailwind red-600 (#dc2626)
-const orange = [251, 146, 60]; // Tailwind orange-400 (#fb923c)
-const green = [34, 197, 94]; // Tailwind green-500 (#22c55e)
-
-function interpolateColor(p: number) {
-	let c;
-	if (p <= 50) {
-		// 0-50% red → orange
-		const t = clamp(p / 50, 0, 1);
-		c = red.map((v, i) => lerp(v, orange[i], t));
-	} else if (p <= 100) {
-		// 50-100% orange → green
-		const t = clamp((p - 50) / 50, 0, 1);
-		c = orange.map((v, i) => lerp(v, green[i], t));
-	} else {
-		c = green;
-	}
-
-	return `rgb(${c[0]},${c[1]},${c[2]})`;
-}
 
 const withChart = (ref: RefObject<HTMLDivElement | null>) => {
 	const chart = createChart(ref.current!, {
