@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState, type RefObject } from 'react';
 import Button from '../ui/Button';
 import random from '../../../utils/random';
@@ -6,8 +7,11 @@ import {
 	CandlestickSeries,
 	ColorType,
 	createChart,
+	createSeriesMarkers,
 	LineSeries,
 	type IChartApi,
+	type ISeriesApi,
+	type SeriesOptionsMap,
 } from 'lightweight-charts';
 import TrendArrow from '../ui/TrendArrow';
 import { getData } from './GraphData';
@@ -20,6 +24,7 @@ const data = getData();
 export default function GraphCard({ options }: { options?: THeaderOption }) {
 	const chartViewRef = useRef<HTMLDivElement>(null);
 	const chartRef = useRef<IChartApi | null>(null);
+	const toolTipRef = useRef<HTMLDivElement>(null);
 	const [progress, setProgress] = useState(options?.progress ?? 0);
 	const [view, setView] = useState<TView>('candles');
 
@@ -32,6 +37,7 @@ export default function GraphCard({ options }: { options?: THeaderOption }) {
 
 	useEffect(() => {
 		chartRef.current = withChart(chartViewRef);
+		let series: ISeriesApi<keyof SeriesOptionsMap>;
 
 		if (view === 'areas') {
 			const areaSeries = chartRef.current.addSeries(AreaSeries, {
@@ -41,6 +47,7 @@ export default function GraphCard({ options }: { options?: THeaderOption }) {
 			});
 
 			areaSeries.setData(data);
+			series = areaSeries;
 		} else {
 			const candlestickSeries = chartRef.current.addSeries(CandlestickSeries, {
 				upColor: '#2ecc71',
@@ -52,14 +59,30 @@ export default function GraphCard({ options }: { options?: THeaderOption }) {
 
 			candlestickSeries.setData(data);
 
+			createSeriesMarkers(candlestickSeries, [
+				{
+					time: data[0].time,
+					position: 'aboveBar',
+					color: '#f68410',
+					shape: 'arrowDown',
+					text: 'D',
+				},
+			]);
+
 			const lineSeries = chartRef.current.addSeries(LineSeries, {
 				color: '#f9df7b',
 			});
 
 			lineSeries.setData(data);
+			series = lineSeries;
 		}
 
 		chartRef.current.timeScale().fitContent();
+		chartRef.current.applyOptions({
+			localization: {
+				priceFormatter: formatter,
+			},
+		});
 
 		function resize() {
 			chartRef.current!.applyOptions({
@@ -70,6 +93,46 @@ export default function GraphCard({ options }: { options?: THeaderOption }) {
 		}
 		window.addEventListener('resize', resize);
 
+		chartRef.current.subscribeCrosshairMove((param) => {
+			if (
+				!param.point ||
+				!param.time ||
+				param.point.x < 0 ||
+				param.point.x > chartViewRef.current!.clientWidth ||
+				param.point.y < 0 ||
+				param.point.y > chartViewRef.current!.clientHeight
+			) {
+				toolTipRef.current!.style.display = 'none';
+			} else {
+				toolTipRef.current!.style.display = 'block';
+				const data: any = param.seriesData.get(series);
+				toolTipRef.current!.innerHTML = /*html*/ `
+					<div style="font-size: 18px; font-weight: semibold">${options?.coin}</div>
+					<div>${formatter(data?.value?.toFixed(2))}</div>
+					<div>${new Date(+param.time * 1000).toLocaleDateString()}</div>
+				`;
+
+				const y = param.point.y;
+				let left = param.point.x + 15;
+				if (
+					left >
+					chartViewRef.current!.clientWidth - toolTipRef.current!.clientWidth
+				) {
+					left = param.point.x - 15 - toolTipRef.current!.clientWidth;
+				}
+
+				let top = y + 15;
+				if (
+					top >
+					chartViewRef.current!.clientHeight - toolTipRef.current!.clientHeight
+				) {
+					top = y - toolTipRef.current!.clientHeight - 15;
+				}
+				toolTipRef.current!.style.left = left + 'px';
+				toolTipRef.current!.style.top = top + 'px';
+			}
+		});
+
 		return () => {
 			chartRef.current!.remove();
 			window.removeEventListener('resize', resize);
@@ -77,7 +140,7 @@ export default function GraphCard({ options }: { options?: THeaderOption }) {
 	}, [view]);
 
 	return (
-		<div className='backdrop-blur-2xl bg-[#00000028] p-[30px] rounded-2xl border border-[#3b3b3b]'>
+		<div className='bg-[#00000028] p-[30px] rounded-2xl border border-[#3b3b3b]'>
 			<div className='flex flex-wrap items-center justify-between w-full gap-4 pb-2'>
 				<div>
 					{options?.coin && (
@@ -150,7 +213,13 @@ export default function GraphCard({ options }: { options?: THeaderOption }) {
 					)}
 				</div>
 			</div>
-			<div ref={chartViewRef}></div>
+			<div ref={chartViewRef} className='mt-8 relative cursor-pointer'>
+				<span className='absolute -top-8 right-3'>USD</span>
+				<div
+					ref={toolTipRef}
+					className='hidden bg-white/80 absolute p-2 box-border text-xs text-left z-[1000] top-[12px] left-[12px] pointer-events-none border font-sans text-black rounded-md'
+				></div>
+			</div>
 		</div>
 	);
 }
@@ -203,17 +272,24 @@ const withChart = (ref: RefObject<HTMLDivElement | null>) => {
 		height: ref.current!.clientWidth / 2,
 		grid: {
 			vertLines: { color: 'transparent' },
-			horzLines: { color: '#565026' },
+			horzLines: { color: '#56502699' },
 		},
 	});
 
 	chart.priceScale('right').applyOptions({
-		borderColor: '#b57e10',
+		borderColor: '#b57e10aa',
 	});
 
 	chart.timeScale().applyOptions({
-		borderColor: '#b57e10',
+		borderColor: '#b57e10aa',
 	});
 
 	return chart;
 };
+
+const formatter = Intl.NumberFormat(navigator.language, {
+	style: 'currency',
+	currency: 'USD',
+	minimumFractionDigits: 2,
+	maximumFractionDigits: 2,
+}).format;
