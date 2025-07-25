@@ -1,11 +1,21 @@
-import { useAppSelector } from '../../hooks/redux';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import random from '../../utils/random';
 import GraphCard from '../components/graphCard/GraphCard';
 import Button from '../components/ui/Button';
 import Switch from '../components/ui/Switch';
+import { openModal } from '../../redux/features/modal/modalSlice';
 
 export default function Settings() {
+	const dispatch = useAppDispatch();
 	const user = useAppSelector((state) => state.user.user);
+
+	useEffect(() => {
+		if (!user) {
+			dispatch(openModal('Login'));
+		}
+	}, [user]);
 
 	return (
 		<div>
@@ -56,7 +66,7 @@ export default function Settings() {
 				/>
 			</div>
 
-			<div className='p-6 bg-gradient-to-b from-[#165067] to-[#078789] rounded-md relative'>
+			<div className='p-6 bg-gradient-to-b from-[#165067] to-[#078789] rounded-md relative mt-10'>
 				<div className='flex flex-wrap w-full items-end gap-4 mb-[23px]'>
 					<div className='bg-black/10 border border-[#f9df7baa] backdrop-blur-2xl grow p-4 rounded-xl'>
 						<img src='/footer-logo.svg' alt='logo' className='h-[80px]' />

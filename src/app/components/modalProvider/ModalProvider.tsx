@@ -1,10 +1,10 @@
-import type { ReactNode } from "react";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import Login from "../auth/login";
-import Extension from "../extension/Extension";
-import Modal from "../ui/Modal";
-import Journal from "../journal/Journal";
-import { closeModal } from "../../../redux/features/modal/modalSlice";
+import type { ReactNode } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import Login from '../auth/login';
+import Extension from '../extension/Extension';
+import Modal from '../ui/Modal';
+import Journal from '../journal/Journal';
+import { closeModal } from '../../../redux/features/modal/modalSlice';
 
 const modals: Record<string, ReactNode> = {
 	Extension: <Extension />,
@@ -17,7 +17,11 @@ export default function ModalProvider() {
 	const dispatch = useAppDispatch();
 
 	return (
-		<Modal open={!!openedModal} setOpen={() => dispatch(closeModal())}>
+		<Modal
+			open={!!openedModal}
+			canClose={openedModal !== 'Login'}
+			setOpen={() => dispatch(closeModal())}
+		>
 			{modals[openedModal as string]}
 		</Modal>
 	);
