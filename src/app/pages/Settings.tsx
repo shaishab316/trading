@@ -1,4 +1,5 @@
 import { useAppSelector } from '../../hooks/redux';
+import random from '../../utils/random';
 import GraphCard from '../components/graphCard/GraphCard';
 import Button from '../components/ui/Button';
 import Switch from '../components/ui/Switch';
@@ -38,7 +39,21 @@ export default function Settings() {
 
 			<div>
 				<h2 className='text-2xl font-semibold my-[26px]'>Account summary</h2>
-				<GraphCard />
+				<GraphCard
+					options={{
+						coin: 'UB',
+						value: random(-0xffff, 0xffff) | 0,
+						...(random(0, 1) | 0
+							? { up: `${random(1, 100) | 0}%` }
+							: { down: `${random(1, 100) | 0}%` }),
+						predict: {
+							'Risk Exposure': random(1, 100) | 0,
+						},
+					}}
+					layout={{
+						heightFaction: 4,
+					}}
+				/>
 			</div>
 
 			<div className='p-6 bg-gradient-to-b from-[#165067] to-[#078789] rounded-md relative'>

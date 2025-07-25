@@ -3,6 +3,7 @@ import ToggleButton from '../components/ui/ToggleButton';
 import { MdElectricBolt } from 'react-icons/md';
 import GraphCard from '../components/graphCard/GraphCard';
 import Button from '../components/ui/Button';
+import random from '../../utils/random';
 
 const { d1 } = controls;
 
@@ -40,15 +41,59 @@ export default function Controls() {
 
 			<div className='py-6 grid grid-cols-1 lg:grid-cols-2 gap-6'>
 				<div className='flex flex-col gap-6'>
-					<GraphCard />
+					<GraphCard
+						options={{
+							coin: 'UB',
+							value: random(-0xffff, 0xffff) | 0,
+							...(random(0, 1) | 0
+								? { up: `${random(1, 100) | 0}%` }
+								: { down: `${random(1, 100) | 0}%` }),
+							predict: {
+								'Bid ask heat': random(1, 100) | 0,
+							},
+						}}
+					/>
 
-					<GraphCard />
+					<GraphCard
+						options={{
+							coin: 'ZB',
+							value: random(-0xffff, 0xffff) | 0,
+							...(random(0, 1) | 0
+								? { up: `${random(1, 100) | 0}%` }
+								: { down: `${random(1, 100) | 0}%` }),
+							predict: {
+								'Yield Curve ': random(1, 100) | 0,
+							},
+						}}
+					/>
 				</div>
 
 				<div className='flex flex-col gap-6'>
-					<GraphCard />
+					<GraphCard
+						options={{
+							coin: 'ES',
+							value: random(-0xffff, 0xffff) | 0,
+							...(random(0, 1) | 0
+								? { up: `${random(1, 100) | 0}%` }
+								: { down: `${random(1, 100) | 0}%` }),
+							predict: {
+								Liquidity: random(1, 100) | 0,
+							},
+						}}
+					/>
 
-					<GraphCard />
+					<GraphCard
+						options={{
+							coin: 'NQ',
+							value: random(-0xffff, 0xffff) | 0,
+							...(random(0, 1) | 0
+								? { up: `${random(1, 100) | 0}%` }
+								: { down: `${random(1, 100) | 0}%` }),
+							predict: {
+								VWAP : random(1, 100) | 0,
+							},
+						}}
+					/>
 				</div>
 			</div>
 

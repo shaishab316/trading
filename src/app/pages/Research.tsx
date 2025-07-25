@@ -2,6 +2,7 @@ import research from '../data/research';
 import { IoSearchSharp } from 'react-icons/io5';
 import GraphCard from '../components/graphCard/GraphCard';
 import Button from '../components/ui/Button';
+import random from '../../utils/random';
 
 const { d1 } = research;
 
@@ -47,12 +48,48 @@ export default function Research() {
 
 			<div className='py-6 flex flex-col gap-6'>
 				<div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-					<GraphCard />
+					<GraphCard
+						options={{
+							coin: 'UB',
+							value: random(-0xffff, 0xffff) | 0,
+							...(random(0, 1) | 0
+								? { up: `${random(1, 100) | 0}%` }
+								: { down: `${random(1, 100) | 0}%` }),
+							predict: {
+								'Volume Serge': random(1, 100) | 0,
+								Sentiment: random(1, 100) | 0,
+							},
+						}}
+					/>
 
-					<GraphCard />
+					<GraphCard
+						options={{
+							coin: 'ES',
+							value: random(-0xffff, 0xffff) | 0,
+							...(random(0, 1) | 0
+								? { up: `${random(1, 100) | 0}%` }
+								: { down: `${random(1, 100) | 0}%` }),
+							predict: {
+								'Volume Serge': random(1, 100) | 0,
+								Sentiment: random(1, 100) | 0,
+							},
+						}}
+					/>
 				</div>
 
-				<GraphCard />
+				<GraphCard
+					options={{
+						coin: 'NQ/ES',
+						value: random(-0xffff, 0xffff) | 0,
+						...(random(0, 1) | 0
+							? { up: `${random(1, 100) | 0}%` }
+							: { down: `${random(1, 100) | 0}%` }),
+						predict: {
+							'Sync Strength': random(1, 100) | 0,
+						},
+					}}
+					layout={{ heightFaction: 4 }}
+				/>
 			</div>
 
 			<div className='p-6 bg-gradient-to-b from-[#165067] to-[#078789] rounded-md relative'>

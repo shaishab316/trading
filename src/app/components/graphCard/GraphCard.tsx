@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState, type RefObject } from 'react';
 import Button from '../ui/Button';
-import random from '../../../utils/random';
 import {
 	AreaSeries,
 	CandlestickSeries,
@@ -15,29 +14,29 @@ import {
 } from 'lightweight-charts';
 import TrendArrow from '../ui/TrendArrow';
 import { getData } from './GraphData';
-import WinRate from '../winrate/Winrate';
+import WinRate from '../winrate/WinRate';
 
 const views = ['candles', 'areas'] as const;
 type TView = (typeof views)[number];
 
 const data = getData();
 
-export default function GraphCard({ options }: { options?: THeaderOption }) {
+export default function GraphCard({
+	options,
+	layout,
+}: {
+	options?: THeaderOption;
+	layout?: { heightFaction?: number };
+}) {
 	const chartViewRef = useRef<HTMLDivElement>(null);
 	const chartRef = useRef<IChartApi | null>(null);
 	const toolTipRef = useRef<HTMLDivElement>(null);
-	const [progress, setProgress] = useState(options?.progress ?? 0);
 	const [view, setView] = useState<TView>('candles');
 
 	useEffect(() => {
-		const timeout = setTimeout(() => {
-			setProgress(random(0, 100) | 0);
-		}, 3000);
-		return () => clearTimeout(timeout);
-	}, [progress]);
-
-	useEffect(() => {
-		chartRef.current = withChart(chartViewRef);
+		chartRef.current = withChart(chartViewRef, {
+			heightFaction: layout?.heightFaction ?? 2,
+		});
 		let series: ISeriesApi<keyof SeriesOptionsMap>;
 
 		if (view === 'areas') {
@@ -140,21 +139,32 @@ export default function GraphCard({ options }: { options?: THeaderOption }) {
 		};
 	}, [view]);
 
+	const winRates = Object.entries(options?.predict ?? {}).map(
+		([level, progress]) => (
+			<WinRate progress={(progress ?? 0) | 0} level={level ?? ''} />
+		)
+	);
+
 	return (
 		<div className='bg-[#00000028] p-[30px] rounded-2xl border border-[#3b3b3b]'>
-			<div className='flex flex-wrap items-center justify-between w-full gap-4 pb-2'>
+			<div className='flex flex-wrap items-center justify-between w-full gap-4'>
 				<div>
 					{options?.coin && (
 						<h3 className='text-lg font-bold'>
-							{options.coin}: {options?.value}
+							{options.coin}:{' '}
+							{Intl.NumberFormat('en', {
+								notation: 'compact',
+								currency: 'USD',
+								style: 'currency',
+							}).format(options?.value ?? 0)}
 						</h3>
 					)}
 				</div>
 				<div className='flex flex-wrap items-center gap-4 pb-2'>
-					{options?.up && (
+					{(options?.up || options?.down) && (
 						<div className='text-[#c0c0c0] flex items-center gap-1'>
-							{options.up}
-							<TrendArrow signal='up' />
+							{options.up ?? options.down}
+							<TrendArrow signal={options.up ? 'up' : 'down'} />
 						</div>
 					)}
 					<select className='outline-0 border-b border-[#067475] pb-1'>
@@ -188,11 +198,13 @@ export default function GraphCard({ options }: { options?: THeaderOption }) {
 							</option>
 						))}
 					</select>
-
-					<WinRate progress={progress | 0} level={options?.name ?? ''} />
+					{winRates?.[0]}
 				</div>
 			</div>
-			<div ref={chartViewRef} className='mt-8 relative cursor-pointer'>
+			<div className='flex flex-wrap gap-4 justify-end'>
+				{winRates?.slice(1)}
+			</div>
+			<div ref={chartViewRef} className='mt-10 relative cursor-pointer'>
 				<span className='absolute -top-8 right-3'>USD</span>
 				<div
 					ref={toolTipRef}
@@ -204,15 +216,23 @@ export default function GraphCard({ options }: { options?: THeaderOption }) {
 }
 
 type THeaderOption = {
-	name?: string;
 	coin?: string;
-	value?: string;
+	value?: number;
 	up?: string;
 	down?: string;
-	progress?: number;
+	predict: {
+		[key: string]: number;
+	};
 };
 
-const withChart = (ref: RefObject<HTMLDivElement | null>) => {
+const withChart = (
+	ref: RefObject<HTMLDivElement | null>,
+	{
+		heightFaction,
+	}: {
+		heightFaction: number;
+	}
+) => {
 	const chart = createChart(ref.current!, {
 		layout: {
 			background: {
@@ -222,7 +242,7 @@ const withChart = (ref: RefObject<HTMLDivElement | null>) => {
 			textColor: 'white',
 		},
 		width: ref.current!.clientWidth,
-		height: ref.current!.clientWidth / 2,
+		height: ref.current!.clientWidth / heightFaction,
 		grid: {
 			vertLines: { color: 'transparent' },
 			horzLines: { color: '#56502699' },

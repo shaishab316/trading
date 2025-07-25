@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import GraphCard from '../components/graphCard/GraphCard';
 import Button from '../components/ui/Button';
 import ToggleButton from '../components/ui/ToggleButton';
+import random from '../../utils/random';
 
 const { d1 } = execution;
 
@@ -104,7 +105,18 @@ export default function Execution() {
 				<div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
 					<BuySell />
 
-					<GraphCard />
+					<GraphCard
+						options={{
+							coin: 'CL',
+							value: random(-0xffff, 0xffff) | 0,
+							...(random(0, 1) | 0
+								? { up: `${random(1, 100) | 0}%` }
+								: { down: `${random(1, 100) | 0}%` }),
+							predict: {
+								'Key Sup': random(1, 100) | 0,
+							},
+						}}
+					/>
 				</div>
 			</div>
 

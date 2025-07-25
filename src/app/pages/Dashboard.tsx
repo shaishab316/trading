@@ -104,12 +104,14 @@ export default function Dashboard() {
 						</div>
 						<GraphCard
 							options={{
-								name: 'Vol',
 								coin: 'UB',
-								value: '+22',
-								up: '2.3%',
-								down: '1.3%',
-								progress: random(0, 100),
+								value: random(-0xffff, 0xffff) | 0,
+								...(random(0, 1) | 0
+									? { up: `${random(1, 100) | 0}%` }
+									: { down: `${random(1, 100) | 0}%` }),
+								predict: {
+									Vol: random(1, 100) | 0,
+								},
 							}}
 						/>
 					</div>
@@ -124,7 +126,18 @@ export default function Dashboard() {
 							SESSION PROFILE
 							<Switch onToggle={() => {}} />
 						</div>
-						<GraphCard />
+						<GraphCard
+							options={{
+								coin: 'CL',
+								value: random(-0xffff, 0xffff) | 0,
+								...(random(0, 1) | 0
+									? { up: `${random(1, 100) | 0}%` }
+									: { down: `${random(1, 100) | 0}%` }),
+								predict: {
+									MACD: random(1, 100) | 0,
+								},
+							}}
+						/>
 					</div>
 				</div>
 
@@ -139,7 +152,18 @@ export default function Dashboard() {
 							FLOWPRINT PRO
 							<Switch onToggle={() => {}} />
 						</div>
-						<GraphCard />
+						<GraphCard
+							options={{
+								coin: 'ES',
+								value: random(-0xffff, 0xffff) | 0,
+								...(random(0, 1) | 0
+									? { up: `${random(1, 100) | 0}%` }
+									: { down: `${random(1, 100) | 0}%` }),
+								predict: {
+									RSI: random(1, 100) | 0,
+								},
+							}}
+						/>
 					</div>
 
 					<div className='space-y-6'>
@@ -152,7 +176,18 @@ export default function Dashboard() {
 							SMARTZONE
 							<Switch onToggle={() => {}} />
 						</div>
-						<GraphCard />
+						<GraphCard
+							options={{
+								coin: 'NQ ',
+								value: random(-0xffff, 0xffff) | 0,
+								...(random(0, 1) | 0
+									? { up: `${random(1, 100) | 0}%` }
+									: { down: `${random(1, 100) | 0}%` }),
+								predict: {
+									ATR: random(1, 100) | 0,
+								},
+							}}
+						/>
 					</div>
 				</div>
 			</div>
