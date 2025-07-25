@@ -13,13 +13,10 @@ import {
 	type SeriesOptionsMap,
 } from 'lightweight-charts';
 import TrendArrow from '../ui/TrendArrow';
-import { getData } from './GraphData';
 import WinRate from '../winrate/WinRate';
 
 const views = ['candles', 'areas'] as const;
 type TView = (typeof views)[number];
-
-const data = getData();
 
 export default function GraphCard({
 	options,
@@ -38,6 +35,13 @@ export default function GraphCard({
 			heightFaction: layout?.heightFaction ?? 2,
 		});
 		let series: ISeriesApi<keyof SeriesOptionsMap>;
+		let candleSeries: ISeriesApi<keyof SeriesOptionsMap>;
+
+		const { initialData: data, realtimeUpdates } = generateData(
+			2500,
+			20,
+			1000
+		) as any;
 
 		if (view === 'areas') {
 			const areaSeries = chartRef.current.addSeries(AreaSeries, {
@@ -65,7 +69,7 @@ export default function GraphCard({
 					position: 'aboveBar',
 					color: '#f68410',
 					shape: 'arrowDown',
-					text: 'D',
+					text: 'Start of Day',
 				},
 			]);
 
@@ -75,9 +79,11 @@ export default function GraphCard({
 
 			lineSeries.setData(data);
 			series = lineSeries;
+			candleSeries = candlestickSeries;
 		}
 
 		chartRef.current.timeScale().fitContent();
+		chartRef.current.timeScale().scrollToPosition(5, true);
 		chartRef.current.applyOptions({
 			localization: {
 				priceFormatter: formatter,
@@ -133,9 +139,29 @@ export default function GraphCard({
 			}
 		});
 
+		function* getNextRealtimeUpdate(realtimeData: any[]) {
+			for (const dataPoint of realtimeData) {
+				yield dataPoint;
+			}
+			return null;
+		}
+
+		const streamingDataProvider = getNextRealtimeUpdate(realtimeUpdates);
+
+		const intervalID = setInterval(() => {
+			const update = streamingDataProvider.next();
+			if (update.done) {
+				clearInterval(intervalID);
+				return;
+			}
+			series.update(update.value);
+			candleSeries.update(update.value);
+		}, 100);
+
 		return () => {
 			chartRef.current!.remove();
 			window.removeEventListener('resize', resize);
+			clearInterval(intervalID);
 		};
 	}, [view]);
 
@@ -266,3 +292,86 @@ const formatter = Intl.NumberFormat(navigator.language, {
 	minimumFractionDigits: 2,
 	maximumFractionDigits: 2,
 }).format;
+
+let randomFactor = 25 + Math.random() * 25;
+function samplePoint(i: number) {
+	return (
+		i *
+			(0.5 +
+				Math.sin(i / 1) * 0.2 +
+				Math.sin(i / 2) * 0.4 +
+				Math.sin(i / randomFactor) * 0.8 +
+				Math.sin(i / 50) * 0.5) +
+		200 +
+		i * 2
+	);
+}
+
+type TCandle = {
+	time: number;
+	open: number;
+	high: number;
+	low: number;
+	close: number;
+};
+
+function generateData(
+	numberOfCandles = 500,
+	updatesPerCandle = 5,
+	startAt = 100
+) {
+	const createCandle = (val: number, time: number) => ({
+		time,
+		open: val,
+		high: val,
+		low: val,
+		close: val,
+	});
+
+	const updateCandle = (candle: TCandle, val: number) => ({
+		time: candle.time,
+		close: val,
+		open: candle.open,
+		value: (candle.open + val) / 2,
+		low: Math.min(candle.low, val),
+		high: Math.max(candle.high, val),
+	});
+
+	randomFactor = 25 + Math.random() * 25;
+	const date = new Date(Date.UTC(2018, 0, 1, 12, 0, 0, 0));
+	const numberOfPoints = numberOfCandles * updatesPerCandle;
+	const initialData = [];
+	const realtimeUpdates = [];
+	let lastCandle: TCandle | null = null;
+	let previousValue = samplePoint(-1);
+	for (let i = 0; i < numberOfPoints; ++i) {
+		if (i % updatesPerCandle === 0) {
+			date.setUTCDate(date.getUTCDate() + 1);
+		}
+		const time = date.getTime() / 1000;
+		let value = samplePoint(i);
+		const diff = (value - previousValue) * Math.random();
+		value = previousValue + diff;
+		previousValue = value;
+		if (i % updatesPerCandle === 0) {
+			const candle = createCandle(value, time);
+			lastCandle = candle;
+			if (i >= startAt) {
+				realtimeUpdates.push(candle);
+			}
+		} else {
+			const newCandle = updateCandle(lastCandle!, value);
+			lastCandle = newCandle;
+			if (i >= startAt) {
+				realtimeUpdates.push(newCandle);
+			} else if ((i + 1) % updatesPerCandle === 0) {
+				initialData.push(newCandle);
+			}
+		}
+	}
+
+	return {
+		initialData,
+		realtimeUpdates,
+	};
+}
