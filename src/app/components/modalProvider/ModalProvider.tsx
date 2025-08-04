@@ -17,11 +17,7 @@ export default function ModalProvider() {
 	const dispatch = useAppDispatch();
 
 	return (
-		<Modal
-			open={!!openedModal}
-			canClose={openedModal !== 'Login'}
-			setOpen={() => dispatch(closeModal())}
-		>
+		<Modal open={!!openedModal} setOpen={() => dispatch(closeModal())}>
 			{modals[openedModal as string]}
 		</Modal>
 	);
