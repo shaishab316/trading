@@ -86,7 +86,7 @@ export default function GraphCard({
 		chartRef.current.timeScale().scrollToPosition(5, true);
 		chartRef.current.applyOptions({
 			localization: {
-				priceFormatter: formatter,
+				priceFormatter: (value: number) => '$' + value.toFixed(2),
 			},
 		});
 
